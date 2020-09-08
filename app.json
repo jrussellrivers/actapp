@@ -1,0 +1,12 @@
+{
+  "name": "actappCapstoneReactNative",
+  "displayName": "actappCapstoneReactNative",
+  "expo": {
+    "name": "actappCapstoneReactNative",
+    "slug": "actappCapstoneReactNative",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
