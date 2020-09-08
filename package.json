@@ -8,6 +8,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.4.0",
     "expo": "~38.0.9",
     "expo-splash-screen": "^0.5.0",
     "expo-status-bar": "^1.0.0",
@@ -19,7 +20,9 @@
     "react-native-reanimated": "~1.9.0",
     "react-native-screens": "~2.9.0",
     "react-native-unimodules": "~0.10.1",
-    "react-native-web": "~0.11.7"
+    "react-native-web": "~0.11.7",
+    "react-redux": "^7.2.1",
+    "redux": "^4.0.5"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",
@@ -30,5 +33,6 @@
   "jest": {
     "preset": "react-native"
   },
-  "private": true
+  "private": true,
+  "proxy": "http://localhost:3333"
 }
