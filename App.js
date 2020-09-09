@@ -1,25 +1,32 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import {Feed} from "./features/feed/Feed"
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Linking } from 'react-native';
 import store from './app/store'
 import {Provider, useSelector} from 'react-redux'
 import Login from './features/login/Login'
-// import { useSelector } from 'react-redux'
+import {useRoutes} from 'hookrouter';
 
+const routes = {
+  "/feed": () => <Feed />,
+  "/login": () => <Login />,
+  // "/contact": () => <Contact />
+};
 
 export default function App() {
-  // const store = useSelector(state => state)
-
+  const routeResult = useRoutes(routes);
   return (
-    <Provider store={store}>
-      <View style={styles.container}>
-        <Login />
-        <Text>This is very, very dope.</Text>
-        <Feed />
-        <StatusBar style="auto" />
-      </View>
-    </Provider>
+    <div className="App">
+      <Provider store={store}>
+        <View style={styles.container}>
+          {routeResult}
+          <View style={styles.nav}>
+            <Text onPress={() => Linking.openURL('/feed')}>Feed</Text>
+            <Text onPress={() => Linking.openURL('/login')}>Login</Text>
+          </View>
+        </View>
+     </Provider>
+    </div>
   );
 }
 
@@ -30,4 +37,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  nav: {
+    position:"sticky",
+    bottom:0,
+    align:"stretch",
+    flex:1,
+    justifyContent:"space-around",
+    backgroundColor:"white",
+    zIndex:2,
+    borderTopWidth:1
+  }
 });
