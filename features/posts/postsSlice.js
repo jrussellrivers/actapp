@@ -1,6 +1,4 @@
-import React, { useEffect } from 'react';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import useFetch from '../../hooks/useFetch'
 
 // const initialFetch = async () =>{
 //     console.log('in the fetch')
