@@ -1,7 +1,5 @@
 import React, {useState, useEffect} from "react"
-import { Stylesheet, View, Text, TextInput } from "react-native"
-import { useSelector, useDispatch } from 'react-redux'
-import {fetchComments} from './commentsSlice'
+import { StyleSheet, View, Text, TextInput } from "react-native"
 
 export const Comments = ({postComments}) => {
     if (postComments.length === 0){
