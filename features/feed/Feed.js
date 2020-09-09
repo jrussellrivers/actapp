@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react"
 import { StyleSheet, View, Text, TextInput } from "react-native"
 import { useSelector, useDispatch } from 'react-redux'
 import {fetchPosts} from '../posts/postsSlice'
-import {fetchComments} from '../comments/commentsSlice'
+import {fetchComments, addComment, addCommentDB} from '../comments/commentsSlice'
 import {Comments} from '../comments/Comments'
 import {fetchLikes} from '../likes/likesSlice'
 import {Likes} from '../likes/Likes'
@@ -86,6 +86,15 @@ export const Feed = () => {
                 </View>
                 <View>
                     <Comments postComments={postComments} />
+                    <TextInput onSubmitEditing={(evt)=>{
+                            dispatch(addComment({
+                                comment: evt.target.value, 
+                                created_at: new Date().toUTCString(), 
+                                post_id: post.id, 
+                                username: 'dstonem'
+                            }))
+                            addCommentDB(evt.target.value, post.id)
+                        }} placeholder='Add a Comment' />
                 </View>
             </View>
             )
@@ -136,7 +145,7 @@ export const Feed = () => {
 
 const styles = StyleSheet.create({
     bold: {
-        fontWeight:700
+        fontWeight:'700'
     },
     postContainer: {
         margin:10

@@ -7,6 +7,14 @@ export const fetchComments = createAsyncThunk('comments/fetchComments', async ()
     return response
 })
 
+// export const addCommentDB = createAsyncThunk('comments/addCommentDB', async (comment, postId) => {
+export const addCommentDB = async (comment, postId) => {
+  console.log('doin the fetch')
+  const response = await fetch(`http://localhost:3333/addComment/${comment}/${postId}`, {method:'post'})
+  console.log('finished the fetch')
+  return response
+}
+
 const initialState = {
     comments: [],
     status: 'idle',
@@ -16,7 +24,13 @@ const initialState = {
 const commentsSlice = createSlice({
 name: 'comments',
 initialState,
-reducers: {},
+reducers: {
+  addComment(state, action) {
+    state.comments.push(action.payload)
+    // console.log(action.payload)
+    // console.log(state)
+  }
+},
 extraReducers: {
     [fetchComments.pending]: (state, action) => {
         state.status = 'loading'
@@ -32,5 +46,7 @@ extraReducers: {
     }
 }
 })
+
+export const { addComment } = commentsSlice.actions
 
 export default commentsSlice.reducer

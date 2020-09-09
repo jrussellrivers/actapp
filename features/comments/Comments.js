@@ -1,7 +1,5 @@
 import React, {useState, useEffect} from "react"
-import { Stylesheet, View, Text, TextInput } from "react-native"
-import { useSelector, useDispatch } from 'react-redux'
-import {fetchComments} from './commentsSlice'
+import { StyleSheet, View, Text, TextInput } from "react-native"
 
 export const Comments = ({postComments}) => {
     if (postComments.length === 0){
@@ -19,10 +17,10 @@ export const Comments = ({postComments}) => {
         .slice()
         .sort((a, b) => a.created_at.localeCompare(b.created_at))
 
-        let content = orderedComments.map(comment => {
+        let content = orderedComments.map((comment, idx) => {
             let readableDate = new Date(`${comment.created_at}`).toDateString()
             return (
-                <View key={comment.id}>
+                <View key={idx}>
                     <Text>{comment.username} {comment.comment} {readableDate}</Text>
                 </View>
             )

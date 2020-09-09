@@ -33,7 +33,11 @@ const initialState = {
 const postsSlice = createSlice({
 name: 'posts',
 initialState,
-reducers: {},
+reducers: {
+  addPost(state, action) {
+    state.push(action.payload)
+  }
+},
 extraReducers: {
     [fetchPosts.pending]: (state, action) => {
         state.status = 'loading'
@@ -51,6 +55,7 @@ extraReducers: {
 })
 
 // console.log(postsSlice.reducer)
+export const { postAdded } = postsSlice.actions
 
 export default postsSlice.reducer
 
