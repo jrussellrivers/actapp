@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from "react"
 import { Stylesheet, View, Text, TextInput } from "react-native"
 import { useSelector, useDispatch } from 'react-redux'
-import {fetchPosts} from './postsSlice'
+import {fetchPosts} from '../posts/postsSlice'
 import {fetchComments} from '../comments/commentsSlice'
 import {Comments} from '../comments/Comments'
 
-export const Posts = () => {
+export const Feed = () => {
     const dispatch = useDispatch()
     const posts = useSelector(state => state.posts)
     const comments = useSelector(state => state.comments)
@@ -37,6 +37,7 @@ export const Posts = () => {
     } else if (postStatus === 'succeeded' && commentsStatus === 'succeeded') {
         // Sort posts in reverse chronological order by datetime string
         console.log(posts.posts)
+        console.log(comments.comments)
         const orderedPosts = posts.posts
         .slice()
         .sort((a, b) => b.date_posted.localeCompare(a.date_posted))
@@ -67,8 +68,9 @@ export const Posts = () => {
             </View>
             )
         })
-    } else if (postStatus === 'failed' && commentsStatus === 'failed') {
+    } else if (postStatus === 'failed' || commentsStatus === 'failed') {
         content = <Text>{postsError}</Text>
+        content = <Text>{commentsError}</Text>
     }
 
     console.log(posts)
