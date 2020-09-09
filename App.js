@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import {Posts} from "./features/posts/Posts"
+import {Feed} from "./features/feed/Feed"
 import { StyleSheet, Text, View } from 'react-native';
 import store from './app/store'
 import {Provider, useSelector} from 'react-redux'
@@ -14,7 +14,7 @@ export default function App() {
     <Provider store={store}>
       <View style={styles.container}>
         <Text>This is very, very dope.</Text>
-        <Posts />
+        <Feed />
         <StatusBar style="auto" />
       </View>
     </Provider>
