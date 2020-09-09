@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
-export const fetchComments = createAsyncThunk('comments/fetchComments', async (postId) => {
+export const fetchComments = createAsyncThunk('comments/fetchComments', async () => {
     const response = await fetch('http://localhost:3333/comments')
     .then(response=>response.json())
     .then(data=>data)

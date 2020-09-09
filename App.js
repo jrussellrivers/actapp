@@ -4,6 +4,7 @@ import {Feed} from "./features/feed/Feed"
 import { StyleSheet, Text, View } from 'react-native';
 import store from './app/store'
 import {Provider, useSelector} from 'react-redux'
+import Login from './features/login/Login'
 // import { useSelector } from 'react-redux'
 
 
@@ -13,6 +14,7 @@ export default function App() {
   return (
     <Provider store={store}>
       <View style={styles.container}>
+        <Login />
         <Text>This is very, very dope.</Text>
         <Feed />
         <StatusBar style="auto" />
