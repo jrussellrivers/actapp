@@ -4,8 +4,12 @@ import {
 } from 'react-native';
 
 import FormBuilder from './FormBuilder';
+import { useDispatch } from 'react-redux'
+
+import {changeUser} from './userSlice'
 
 export default class SignUp extends Component {
+
     getFormFields = () => {
         const formFields = [
             [
@@ -34,17 +38,18 @@ export default class SignUp extends Component {
     /**
      * Grab user's input data.
      */
-    handleSubmit = (thisState) => {
+    goToFeed = ()=>Linking.openURL('/feed')
+
+    handleSubmit = async (thisState) => {
         const {
           username,password
         } = thisState;
-
         console.log(thisState.username,thisState.password)
 
-        fetch('http://localhost:3333/login',{method:'post',body:JSON.stringify({username,password}),headers:{'Content-Type': 'application/json'}})
+        await fetch('http://localhost:3333/login',{method:'post',body:JSON.stringify({username,password}),headers:{'Content-Type': 'application/json'}})
         .then(data=>data.json())
         .then(json=>console.log(json))
-        // Linking.openURL('/feed')
+        // this.goToFeed()
     };
 
     render() {
