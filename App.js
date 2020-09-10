@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import {Feed} from "./features/feed/Feed"
 import { StyleSheet, Text, View, Linking } from 'react-native';
@@ -6,11 +5,12 @@ import store from './app/store'
 import {Provider, useSelector} from 'react-redux'
 import Login from './features/login/Login'
 import {useRoutes} from 'hookrouter';
+import Register from './features/register/Register'
 
 const routes = {
   "/feed": () => <Feed />,
   "/login": () => <Login />,
-  // "/contact": () => <Contact />
+  "/register": () => <Register />
 };
 
 export default function App() {
