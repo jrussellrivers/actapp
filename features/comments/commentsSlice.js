@@ -27,8 +27,6 @@ initialState,
 reducers: {
   addComment(state, action) {
     state.comments.push(action.payload)
-    // console.log(action.payload)
-    // console.log(state)
   }
 },
 extraReducers: {
