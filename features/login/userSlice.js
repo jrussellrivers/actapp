@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk} from '@reduxjs/toolkit'
 
 export const fetchUser = createAsyncThunk('user/fetchUser', async () => {
-    const response = await fetch('http://localhost:3333/user')
+    const response = await fetch('http://localhost:3333/users/user', {headers:{'Authorization':'jwt'}})
     .then(response=>response.json())
     .then(data=>console.log(data))
     return response
