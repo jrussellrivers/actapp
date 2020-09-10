@@ -57,20 +57,10 @@ export const Feed = () => {
         .sort((a, b) => b.date_posted.localeCompare(a.date_posted))
 
         content = orderedPosts.map(post => {
-            let postComments = []
-            comments.comments.forEach(comment=>{
-                if (comment.post_id === post.id){
-                    postComments.push(comment)
-                }
-            })
-            let postLikes = []
-            likes.likes.forEach(like=>{
-                if (like.post_id === post.id){
-                    postLikes.push(like)
-                }
-            })
-
+            let postComments = comments.comments.filter(comment=>comment.post_id === post.id ? true : false)
+            let postLikes = likes.likes.filter(like=>like.post_id === post.id ? true : false)
             let readableDate = new Date(`${post.date_posted}`).toDateString()
+
             return (
             <View key={post.id} style={styles.postContainer}>
                 <View>
@@ -94,6 +84,7 @@ export const Feed = () => {
                                 username: 'dstonem'
                             }))
                             addCommentDB(evt.target.value, post.id)
+                            evt.target.value = ''
                         }} placeholder='Add a Comment' />
                 </View>
             </View>

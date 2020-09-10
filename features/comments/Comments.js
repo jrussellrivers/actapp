@@ -8,7 +8,7 @@ export const Comments = ({postComments}) => {
         let readableDate = new Date(`${postComments[0].created_at}`).toDateString()
         return (
             <View key={postComments[0].id}>
-                <Text>Single Comment:</Text>
+                <Text>Comments:</Text>
                 <Text>{postComments[0].username} {postComments[0].comment} {readableDate}</Text>
             </View>
         )
