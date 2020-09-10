@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-    StyleSheet, KeyboardAvoidingView, SafeAreaView, Text, Alert,
+    StyleSheet, KeyboardAvoidingView, SafeAreaView, Text, Linking,
 } from 'react-native';
 
 import FormBuilder from './FormBuilder';
@@ -160,6 +160,7 @@ export default class SignUp extends Component {
                         handleSubmit={this.handleSubmit}
                         submitBtnTitle="Sign Up"
                     />
+                    <Text onPress={() => Linking.openURL('/login')}>Already Have an Account? Login Here</Text>
                 </KeyboardAvoidingView>
             </SafeAreaView>
         );

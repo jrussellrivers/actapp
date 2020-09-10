@@ -44,7 +44,7 @@ export default class SignUp extends Component {
         fetch('http://localhost:3333/login',{method:'post',body:JSON.stringify({username,password}),headers:{'Content-Type': 'application/json'}})
         .then(data=>data.json())
         .then(json=>console.log(json))
-        Linking.openURL('/feed')
+        // Linking.openURL('/feed')
     };
 
     render() {
@@ -57,6 +57,7 @@ export default class SignUp extends Component {
                         handleSubmit={this.handleSubmit}
                         submitBtnTitle="Log In"
                     />
+                    <Text onPress={() => Linking.openURL('/register')}>New? Register Here</Text>
                 </KeyboardAvoidingView>
             </SafeAreaView>
         );
