@@ -1,7 +1,9 @@
+
 // import React, { Component } from 'react';
 // import {
 //     StyleSheet, KeyboardAvoidingView, SafeAreaView, Text, Alert,
 // } from 'react-native';
+
 
 import FormBuilder from './FormBuilder';
 
@@ -130,6 +132,7 @@ import FormBuilder from './FormBuilder';
 //               },
 //             ],
             
+
 //         ];
 
 //         return formFields;
@@ -165,6 +168,7 @@ import FormBuilder from './FormBuilder';
 //         );
 //     }
 // }
+
 
 // const styles = StyleSheet.create({
 //     safeArea: {
