@@ -8,9 +8,9 @@ export const fetchComments = createAsyncThunk('comments/fetchComments', async ()
 })
 
 // export const addCommentDB = createAsyncThunk('comments/addCommentDB', async (comment, postId) => {
-export const addCommentDB = async (comment, postId) => {
+export const addCommentDB = async (comment, postId, userId, username) => {
   console.log('doin the fetch')
-  const response = await fetch(`http://localhost:3333/addComment/${comment}/${postId}`, {method:'post'})
+  const response = await fetch(`http://localhost:3333/addComment/${comment}/${postId}/${userId}/${username}`, {method:'post'})
   console.log('finished the fetch')
   return response
 }

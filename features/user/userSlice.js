@@ -1,9 +1,13 @@
 import { createSlice, createAsyncThunk} from '@reduxjs/toolkit'
+import {useSelector} from 'react-redux'
 
-export const fetchUser = createAsyncThunk('user/fetchUser', async () => {
-    const response = await fetch('http://localhost:3333/users/user', {headers:{'Authorization':'jwt'}})
+export const fetchUser = createAsyncThunk('user/fetchUser', async (token) => {
+    // const token = useSelector(state => state.token.token)
+    console.log(token.token)
+    console.log('sending user fetch')
+    const response = await fetch('http://localhost:3333/user', {headers:{'Authorization':token.token}})
     .then(response=>response.json())
-    .then(data=>console.log(data))
+    .then(data=>data)
     return response
 })
 

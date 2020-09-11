@@ -95,7 +95,7 @@ import React from 'react'
 import { Text, View, TextInput, TouchableOpacity, Linking } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { changeToken }  from './tokenSlice'
-
+import { changePage } from '../pageSlice'
 
 export default function Login() {
     const dispatch = useDispatch()
@@ -117,6 +117,7 @@ export default function Login() {
             if (json.success === true){
                 console.log(json)
                 dispatch(changeToken(json))
+                dispatch(changePage('feed'))
             } 
         })
     }
@@ -126,7 +127,7 @@ export default function Login() {
             <TextInput name="username" placeholder="Username" onChangeText={text => handleChange("username",text)}/>
             <TextInput name="password" secureTextEntry={true} placeholder="Password" onChangeText={text => handleChange("password",text)}/>
             <TouchableOpacity onPress={handleSubmit}><Text>Submit</Text></TouchableOpacity>
-            <Text onPress={() => Linking.openURL('/register')}>New? Register Here</Text>
+            <Text onPress={() => dispatch(changePage('register'))}>New? Register Here</Text>
         </View>
     )
 }
