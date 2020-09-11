@@ -40,6 +40,19 @@ const routes = {
 };
 
 export default function App() {
+  // if (local storage has token){
+  //   return <Login >
+  // } else {
+  //   return <Feed >
+  // }
+
+  // let content = useSelector(state => state.page.page)
+  // page == {
+  //   name:'login'
+  // }
+
+  // if page.name === 'login' return <Login />
+
   const routeResult = useRoutes(routes);
   return (
     <div className="App">
