@@ -46,7 +46,7 @@ export default class SignUp extends Component {
         } = thisState;
         console.log(thisState.username,thisState.password)
 
-        await fetch('http://localhost:3333/login',{method:'post',body:JSON.stringify({username,password}),headers:{'Content-Type': 'application/json'}})
+        await fetch('http://localhost:3333/users/login',{method:'post',body:JSON.stringify({username,password}),headers:{'Content-Type': 'application/json'}})
         .then(data=>data.json())
         .then(json=>console.log(json))
         // this.goToFeed()

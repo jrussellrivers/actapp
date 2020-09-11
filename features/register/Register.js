@@ -145,7 +145,7 @@ export default class SignUp extends Component {
 
         console.log(thisState.firstName)
 
-        fetch('http://localhost:3333/login/register',{method:'post',body:JSON.stringify({firstName,lastName,email,streetaddress,city,state,zipcode,race,gender,birthdate,username,password}),headers:{'Content-Type': 'application/json'}})
+        fetch('http://localhost:3333/users/register',{method:'post',body:JSON.stringify({firstName,lastName,email,streetaddress,city,state,zipcode,race,gender,birthdate,username,password}),headers:{'Content-Type': 'application/json'}})
 
         console.log(this.state)
     };
