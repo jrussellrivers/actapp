@@ -5,6 +5,7 @@ import commentsReducer from '../features/comments/commentsSlice'
 import likesReducer from '../features/likes/likesSlice'
 import userReducer from '../features/user/userSlice'
 import tokenReducer from '../features/login/tokenSlice'
+import pageReducer from '../features/pageSlice'
 
 export default configureStore({
   reducer: {
@@ -12,7 +13,8 @@ export default configureStore({
     comments: commentsReducer,
     likes: likesReducer,
     user: userReducer,
-    token: tokenReducer
+    token: tokenReducer,
+    page: pageReducer
   }
 })
 
