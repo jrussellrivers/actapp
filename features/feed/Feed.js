@@ -84,7 +84,7 @@ export const Feed = () => {
                 </View>
                 <View><Text>Image Here</Text></View>
                 {/* <Icon name="heart" /> */}
-                <Likes postLikes={postLikes} postId={post.id}/>
+                <Likes postLikes={postLikes} postId={post.id} user={user}/>
                 <View>
                     <Text>{post.body}</Text>
                 </View>
@@ -95,9 +95,9 @@ export const Feed = () => {
                                 comment: evt.target.value, 
                                 created_at: new Date().toUTCString(), 
                                 post_id: post.id, 
-                                username: 'dstonem'
+                                username: user.username
                             }))
-                            addCommentDB(evt.target.value, post.id)
+                            addCommentDB(evt.target.value, post.id, user.id, user.username)
                             evt.target.value = ''
                         }} placeholder='Add a Comment' />
                 </View>
