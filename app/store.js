@@ -3,14 +3,16 @@ import { configureStore } from '@reduxjs/toolkit'
 import postsReducer from '../features/posts/postsSlice'
 import commentsReducer from '../features/comments/commentsSlice'
 import likesReducer from '../features/likes/likesSlice'
-import userReducer from '../features/login/userSlice'
+import userReducer from '../features/user/userSlice'
+import tokenReducer from '../features/login/tokenSlice'
 
 export default configureStore({
   reducer: {
     posts: postsReducer,
     comments: commentsReducer,
     likes: likesReducer,
-    user: userReducer
+    user: userReducer,
+    token: tokenReducer
   }
 })
 
