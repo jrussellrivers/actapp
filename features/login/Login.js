@@ -4,9 +4,7 @@ import {
 } from 'react-native';
 
 import FormBuilder from './FormBuilder';
-import { useDispatch } from 'react-redux'
-
-import {changeUser} from './userSlice'
+// import * as SecureStore from 'expo-secure-store';
 
 export default class SignUp extends Component {
 
@@ -44,12 +42,17 @@ export default class SignUp extends Component {
         const {
           username,password
         } = thisState;
-        console.log(thisState.username,thisState.password)
 
         await fetch('http://localhost:3333/users/login',{method:'post',body:JSON.stringify({username,password}),headers:{'Content-Type': 'application/json'}})
         .then(data=>data.json())
-        .then(json=>console.log(json))
-        // this.goToFeed()
+        .then(json=>{
+            console.log(json)
+            if (json.success === true){
+                // console.log(json.token)
+                // SecureStore.setItemAsync('secure_token',json.token);
+                // this.goToFeed()
+            } 
+        })
     };
 
     render() {

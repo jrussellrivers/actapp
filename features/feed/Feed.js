@@ -14,7 +14,7 @@ export const Feed = () => {
     const posts = useSelector(state => state.posts)
     const comments = useSelector(state => state.comments)
     const likes = useSelector(state => state.likes)
-    const user = useSelector(state => state.user.user)
+    // const user = useSelector(state => state.user.user)
 
     const postStatus = useSelector(state => state.posts.status)
     const postsError = useSelector(state => state.posts.error)
@@ -22,8 +22,8 @@ export const Feed = () => {
     const commentsError = useSelector(state => state.comments.error)
     const likesStatus = useSelector(state => state.likes.status)
     const likesError = useSelector(state => state.likes.error)
-    const userStatus = useSelector(state => state.user.status)
-    const userError = useSelector(state => state.user.error)
+    // const userStatus = useSelector(state => state.user.status)
+    // const userError = useSelector(state => state.user.error)
 
     // This fetches all Posts
     useEffect(() => {
@@ -47,23 +47,23 @@ export const Feed = () => {
         }, [likesStatus, dispatch])
 
     // This fetches the User
-    useEffect(() => {
-        if (userStatus === 'idle') {
-                dispatch(fetchUser())
-            }
-        }, [userStatus, dispatch])
+    // useEffect(() => {
+    //     if (userStatus === 'idle') {
+    //             dispatch(fetchUser())
+    //         }
+    //     }, [userStatus, dispatch])
 
     let content
 
     // This checks to see if all Posts
-    if (postStatus === 'loading' || commentsStatus === 'loading' || likesStatus === 'loading' || userStatus === 'loading') {
+    if (postStatus === 'loading' || commentsStatus === 'loading' || likesStatus === 'loading') {
         content = <Text>Loading...</Text>
-    } else if (postStatus === 'succeeded' && commentsStatus === 'succeeded' && likesStatus === 'succeeded' && userStatus === 'succeeded') {
+    } else if (postStatus === 'succeeded' && commentsStatus === 'succeeded' && likesStatus === 'succeeded') {
         // Sort posts in reverse chronological order by datetime string
         console.log(posts.posts)
         console.log(comments.comments)
         console.log(likes.likes)
-        console.log(user)
+        // console.log(user)
         const orderedPosts = posts.posts
         .slice()
         .sort((a, b) => b.date_posted.localeCompare(a.date_posted))
@@ -82,7 +82,7 @@ export const Feed = () => {
                 </View>
                 <View><Text>Image Here</Text></View>
                 {/* <Icon name="heart" /> */}
-                <Likes postLikes={postLikes} />
+                <Likes postLikes={postLikes} postId={post.id}/>
                 <View>
                     <Text>{post.body}</Text>
                 </View>
@@ -102,15 +102,15 @@ export const Feed = () => {
             </View>
             )
         })
-    } else if (postStatus === 'failed' || commentsStatus === 'failed' || likesStatus === 'failed' || userStatus === 'failed') {
+    } else if (postStatus === 'failed' || commentsStatus === 'failed' || likesStatus === 'failed') {
         content = <Text>{postsError}, {commentsError}, {likesError}, {userError}</Text>
     } 
 
     console.log(posts)
     console.log(comments)
     console.log(likes)
-    console.log(userStatus)
-    console.log(user)
+    // console.log(userStatus)
+    // console.log(user)
 
     // this works
     // useEffect(()=>{
@@ -141,9 +141,7 @@ export const Feed = () => {
     //   ))
 
     return (
-        <View>
             <View>{content}</View>
-        </View>
     )
     
 }

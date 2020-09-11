@@ -16,7 +16,11 @@ const initialState = {
 const likesSlice = createSlice({
 name: 'likes',
 initialState,
-reducers: {},
+reducers: {
+  addLike(state, action) {
+    state.likes.push(action.payload)
+  }
+},
 extraReducers: {
     [fetchLikes.pending]: (state, action) => {
         state.status = 'loading'
@@ -32,5 +36,7 @@ extraReducers: {
     }
 }
 })
+
+export const { addLike } = likesSlice.actions
 
 export default likesSlice.reducer
