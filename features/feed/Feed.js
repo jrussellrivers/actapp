@@ -6,7 +6,7 @@ import {fetchComments, addComment, addCommentDB} from '../comments/commentsSlice
 import {Comments} from '../comments/Comments'
 import {fetchLikes} from '../likes/likesSlice'
 import {Likes} from '../likes/Likes'
-import {fetchUser} from '../login/userSlice'
+// import {fetchUser} from '../login/userSlice'
 // import Icon from 'react-native-vector-icons'
 
 export const Feed = () => {
@@ -14,6 +14,8 @@ export const Feed = () => {
     const posts = useSelector(state => state.posts)
     const comments = useSelector(state => state.comments)
     const likes = useSelector(state => state.likes)
+    const token = useSelector(state => state.token)
+    console.log(token, '18')
     // const user = useSelector(state => state.user.user)
 
     const postStatus = useSelector(state => state.posts.status)
