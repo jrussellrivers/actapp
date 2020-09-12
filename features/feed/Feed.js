@@ -89,7 +89,7 @@ export const Feed = () => {
                     <Text>{post.body}</Text>
                 </View>
                 <View>
-                    <Comments postComments={postComments} />
+                    <Comments postComments={postComments} postId={post.id}/>
                     <TextInput onSubmitEditing={(evt)=>{
                             dispatch(addComment({
                                 comment: evt.target.value, 
