@@ -1,7 +1,13 @@
 import React, {useState, useEffect} from "react"
 import { StyleSheet, View, Text, TextInput } from "react-native"
+import {changePostId} from '../posts/postIdSlice'
+import {changePage} from '../pageSlice'
+import {useSelector,useDispatch} from 'react-redux'
 
-export const Comments = ({postComments}) => {
+
+export const Comments = ({postComments, postId}) => {
+    const dispatch = useDispatch()
+
     if (postComments.length === 0){
         return null
     } else if (postComments.length === 1){
@@ -51,7 +57,10 @@ export const Comments = ({postComments}) => {
                 <Text>Comments:</Text>
                 {commentFirst}
                 {commentLast}
-                <Text>Link to Load More Comments!</Text>
+                <Text onPress={() => {
+                    dispatch(changePage('post'))
+                    dispatch(changePostId(postId))
+                }}>Link to Load More Comments!</Text>
             </View>
         )
     }

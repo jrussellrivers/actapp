@@ -7,12 +7,14 @@ import Register from './features/register/Register'
 import AddPost from './features/posts/AddPost'
 import {changePage} from './features/pageSlice'
 import {changeToken} from './features/login/tokenSlice'
+import Post from './features/posts/Post'
 
 export default function App() {
 
     const page = useSelector(state => state.page.pageName)
     const dispatch = useDispatch()
     const token = useSelector(state => state.token.token)
+    const postId = useSelector(state => state.postId.postId)
     console.log(token)
 
     const isEmpty = (obj) => {
@@ -25,7 +27,7 @@ export default function App() {
 
 
     if (isEmpty(token)) {
-        dispatch(changePage('login'))
+        if (page !== 'register') dispatch(changePage('login'))
     }
 
     let content
@@ -38,6 +40,11 @@ export default function App() {
         content = <AddPost />
     } else if (page === 'logout') {
         dispatch(changeToken({}))
+    } else if (page === 'register'){
+        content = <Register />
+    } else if (page === 'post'){
+        console.log(postId)
+        content = <Post postId={postId} />
     }
 
     return (

@@ -6,6 +6,7 @@ import likesReducer from '../features/likes/likesSlice'
 import userReducer from '../features/user/userSlice'
 import tokenReducer from '../features/login/tokenSlice'
 import pageReducer from '../features/pageSlice'
+import postIdReducer from '../features/posts/postIdSlice'
 
 export default configureStore({
   reducer: {
@@ -14,16 +15,7 @@ export default configureStore({
     likes: likesReducer,
     user: userReducer,
     token: tokenReducer,
-    page: pageReducer
+    page: pageReducer,
+    postId: postIdReducer
   }
 })
-
-// export default (state={posts: []}, action) => {
-//     console.log(action)
-//     switch (action.type){
-//         case 'fetchPosts':
-//             return {...state, posts: action.data}
-//         default: 
-//             return state
-//     }
-// }

@@ -211,9 +211,11 @@ import FormBuilder from './FormBuilder';
 
 import React from 'react'
 import { Text, View, TextInput, TouchableOpacity, Linking } from 'react-native'
+import { useDispatch, useSelector } from 'react-redux'
+import { changePage } from '../pageSlice'
 
 export default function Register() {
-
+    const dispatch = useDispatch()
     const formData = {}
     // const [entry,setEntry] = useState("")
 
@@ -254,7 +256,7 @@ export default function Register() {
             <TextInput name="gender" onChangeText={text => handleChange("gender",text)} placeholder="Identified Gender" />
             <TextInput name="birthdate" onChangeText={text => handleChange("birthdate",text)} placeholder="Birthdate" />
             <TouchableOpacity onPress={handleSubmit}><Text>Submit</Text></TouchableOpacity>
-            <Text onPress={() => Linking.openURL('/login')}>Already Have an Account? Login Here</Text>
+            <Text onPress={() => dispatch(changePage('login'))}>Already Have an Account? Login Here</Text>
         </View>
     )
 }
