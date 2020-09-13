@@ -7,6 +7,8 @@ import {Comments} from '../comments/Comments'
 import {fetchLikes} from '../likes/likesSlice'
 import {Likes} from '../likes/Likes'
 import {fetchUser} from '../user/userSlice'
+import {fetchPostById} from '../posts/postByIdSlice'
+import {changePage} from '../pageSlice'
 // import Icon from 'react-native-vector-icons'
 
 export const Feed = () => {
@@ -79,7 +81,10 @@ export const Feed = () => {
             <View key={post.id} style={styles.postContainer}>
                 <View>
                     <Text style={styles.bold}>{post.username}</Text>
-                    <Text>Link to Post Router</Text>
+                    {/* <Text onPress={() => {
+                        dispatch(changePage('post'))
+                        dispatch(fetchPostById(post.id))
+                    }}>Link to Post</Text> */}
                     <Text>{readableDate}</Text>
                 </View>
                 <View><Text>Image Here</Text></View>

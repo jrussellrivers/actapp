@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from "react"
 import { StyleSheet, View, Text, TextInput } from "react-native"
-import {changePostId} from '../posts/postIdSlice'
 import {changePage} from '../pageSlice'
 import {useSelector,useDispatch} from 'react-redux'
+import {fetchPostById} from '../posts/postByIdSlice'
+import {changePostId} from '../posts/postIdSlice'
 
 
 export const Comments = ({postComments, postId}) => {
@@ -58,8 +59,8 @@ export const Comments = ({postComments, postId}) => {
                 {commentFirst}
                 {commentLast}
                 <Text onPress={() => {
-                    dispatch(changePage('post'))
                     dispatch(changePostId(postId))
+                    dispatch(changePage('postcomments'))
                 }}>Link to Load More Comments!</Text>
             </View>
         )
