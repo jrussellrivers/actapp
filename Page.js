@@ -1,10 +1,12 @@
 import React from 'react';
 import {Feed} from "./features/feed/Feed"
-import { StyleSheet, Text, View} from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
 import {useSelector,useDispatch} from 'react-redux'
 import Login from './features/login/Login'
 import Register from './features/register/Register'
 import AddPost from './features/posts/AddPost'
+import Action from './features/actions/Actions'
+import ActionResources from './features/actions/ActionResources'
 import {changePage} from './features/pageSlice'
 import {changeToken} from './features/login/tokenSlice'
 import Post from './features/posts/Post'
@@ -15,6 +17,8 @@ export default function App() {
     const dispatch = useDispatch()
     const token = useSelector(state => state.token.token)
     const postId = useSelector(state => state.postId.postId)
+    const actionId = useSelector(state => state.actionId.actionId)
+
     console.log(token)
 
     const isEmpty = (obj) => {
@@ -45,10 +49,15 @@ export default function App() {
     } else if (page === 'post'){
         console.log(postId)
         content = <Post postId={postId} />
-    }
+    } else if (page === 'actions'){
+        content = <Action />
+    } else if (page === 'actionId'){
+        content = <ActionResources actionId={actionId} />
+    } 
 
     return (
         <View style={styles.container}>
+            {!isEmpty(token) && page !== 'actions' && page !== 'actionId' ? <Button title="Take Action" onPress={() => dispatch(changePage('actions'))} /> : null}
             {content}
             <View style={styles.nav}>
                 <Text onPress={() => dispatch(changePage('feed'))}>Feed</Text>
