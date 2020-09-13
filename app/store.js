@@ -8,6 +8,9 @@ import tokenReducer from '../features/login/tokenSlice'
 import pageReducer from '../features/pageSlice'
 import postIdReducer from '../features/posts/postIdSlice'
 import postByIdReducer from '../features/posts/postByIdSlice'
+import actionsReducer from '../features/actions/actionsSlice'
+import actionIdReducer from '../features/actions/actionIdSlice'
+import actionResourcesReducer from '../features/actions/actionResourcesSlice'
 
 export default configureStore({
   reducer: {
@@ -18,6 +21,9 @@ export default configureStore({
     token: tokenReducer,
     page: pageReducer,
     postId: postIdReducer,
-    postById: postByIdReducer
+    postById: postByIdReducer,
+    actions: actionsReducer,
+    actionId: actionIdReducer,
+    actionResources: actionResourcesReducer
   }
 })
