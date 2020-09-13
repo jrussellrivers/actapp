@@ -7,6 +7,7 @@ import userReducer from '../features/user/userSlice'
 import tokenReducer from '../features/login/tokenSlice'
 import pageReducer from '../features/pageSlice'
 import postIdReducer from '../features/posts/postIdSlice'
+import postByIdReducer from '../features/posts/postByIdSlice'
 
 export default configureStore({
   reducer: {
@@ -16,6 +17,7 @@ export default configureStore({
     user: userReducer,
     token: tokenReducer,
     page: pageReducer,
-    postId: postIdReducer
+    postId: postIdReducer,
+    postById: postByIdReducer
   }
 })
