@@ -10,6 +10,7 @@ import ActionResources from './features/actions/ActionResources'
 import {changePage} from './features/pageSlice'
 import {changeToken} from './features/login/tokenSlice'
 import Post from './features/posts/Post'
+import PostComments from './features/posts/PostComments'
 
 export default function App() {
 
@@ -17,6 +18,8 @@ export default function App() {
     const dispatch = useDispatch()
     const token = useSelector(state => state.token.token)
     const postId = useSelector(state => state.postId.postId)
+    const comments = useSelector(state => state.comments.comments)
+    const posts = useSelector(state => state.posts.posts)
     const actionId = useSelector(state => state.actionId.actionId)
 
     console.log(token)
@@ -46,6 +49,8 @@ export default function App() {
         dispatch(changeToken({}))
     } else if (page === 'register'){
         content = <Register />
+    } else if (page === 'postcomments'){
+        content = <PostComments postId={postId} comments={comments} posts={posts}/>
     } else if (page === 'post'){
         console.log(postId)
         content = <Post postId={postId} />
