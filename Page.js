@@ -11,6 +11,7 @@ import {changePage} from './features/pageSlice'
 import {changeToken} from './features/login/tokenSlice'
 import Post from './features/posts/Post'
 import PostComments from './features/posts/PostComments'
+import Search from './features/Search'
 
 export default function App() {
 
@@ -58,6 +59,8 @@ export default function App() {
         content = <Action />
     } else if (page === 'actionId'){
         content = <ActionResources actionId={actionId} />
+    } else if (page === 'search'){
+        content = <Search />
     } 
 
     return (
@@ -67,6 +70,7 @@ export default function App() {
             <View style={styles.nav}>
                 <Text onPress={() => dispatch(changePage('feed'))}>Feed</Text>
                 <Text onPress={() => dispatch(changePage('addpost'))}>Add Post</Text>
+                <Text onPress={() => dispatch(changePage('search'))}>Search</Text>
                 <Text onPress={() => dispatch(changePage('logout'))}>Logout</Text>
             </View>
         </View>

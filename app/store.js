@@ -21,7 +21,7 @@ export default configureStore({
     token: tokenReducer,
     page: pageReducer,
     postId: postIdReducer,
-    postById: postByIdReducer
+    postById: postByIdReducer,
     actions: actionsReducer,
     actionId: actionIdReducer,
     actionResources: actionResourcesReducer

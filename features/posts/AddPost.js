@@ -252,8 +252,11 @@ import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import {useState,useEffect} from 'react'
 import axios from 'axios'
+import {useSelector} from 'react-redux'
 
 export default function AddImage() {
+
+    const user = useSelector(state=>state.user.user)
 
     const [image,setImage] = useState(null)
     const [postText,setPostText] = useState(null)
@@ -305,25 +308,24 @@ export default function AddImage() {
             // Assume "photo" is the name of the form field the server expects
             let formData = new FormData();
             // let formData = {}
-            console.log(image)
-            const img = JSON.stringify({ uri: image.uri, name: image.filename, type: image.type })
+            console.log(image.uri)
+            const img = JSON.stringify({ uri: image.uri, name: image.filename, type: image.type, text: postText })
             // const blob = new Blob([JSON.stringify(img,null,2)],{type:'application/json'})
             // console.log(blob)
-            formData.append('photo',img)
-            formData.append('text',postText)
-            // formData.photo = img
-            console.log(formData)
-            console.log(formData.getAll('photo'))
+            // formData.append('photo',img)
+            // formData.append('text',postText)
+            // // formData.photo = img
+            // console.log(formData)
+            // console.log(formData.getAll('photo'))
             for (var p of formData) {
                 console.log(p);
             }
 
-            return await fetch('http://localhost:3333/upload', {
+            return await fetch(`http://localhost:3333/upload/${user.username}`, {
                 method: 'POST',
-                body: formData,
+                body: img,
                 headers: {
-                    // Accept: 'application/json',
-                    'Content-Type': 'multipart/form-data'
+                    'Content-Type': 'application/json'//send a json so it's a string that can be converted from base64 to binary
                 }
             });
 
