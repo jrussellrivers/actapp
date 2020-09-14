@@ -36,12 +36,14 @@ export default function AddImage() {
       };
 
     const  _pickImage = async () => {
+        console.log('in picker')
         try {
+            console.log('in try')
             let result = await ImagePicker.launchImageLibraryAsync({
                 mediaTypes: ImagePicker.MediaTypeOptions.All,
                 allowsEditing: true,
                 aspect: [4, 3],
-                quality: 1,
+                quality: 0,
             });
             if (!result.cancelled) {
                 let localUri = result.uri;
@@ -56,6 +58,7 @@ export default function AddImage() {
             console.log(result);
             return result
         } catch (E) {
+            console.log('in error')
             console.log(E);
         }
     };
@@ -63,6 +66,7 @@ export default function AddImage() {
     const _uploadToDB = async () => {
             
             const img = JSON.stringify({ uri: image.uri, name: image.filename, type: image.type, text: postText })
+            
 
             return await fetch(`http://localhost:3333/upload/${user.username}/${user.id}`, {
                 method: 'POST',
@@ -79,8 +83,8 @@ export default function AddImage() {
             {image && <Image source={{ uri: image.uri }} style={{ width: 200, height: 200 }} />}
             <TextInput onChangeText={handleChange} />
             {image && <Button title="Upload" onPress={
-                ()=>{
-                    _uploadToDB()
+                async ()=>{
+                    await _uploadToDB()
                     dispatch(changeStatus('idle'))
                     dispatch(changePage('feed'))
                 }

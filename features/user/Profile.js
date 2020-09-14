@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react"
-import { StyleSheet, View, Text, TextInput } from "react-native"
+import { StyleSheet, View, Text, TextInput, Image } from "react-native"
 import {changePage} from '../pageSlice'
 import {useSelector,useDispatch} from 'react-redux'
 import {ProfilePosts} from './ProfilePosts'
@@ -28,7 +28,11 @@ const Profile = () => {
         content = 
         <View>
             <View>
-                {/* <Image source={require('./ranPic.png')} /> */}
+                {/* Insert Profile Pic here */}
+                {/* <Image 
+                    source={{uri: post.picurl}} 
+                    style={{height: 75, width: 75}}
+                /> */}
                 <Text>{profileUser.username}</Text>
             </View>
             <View>
