@@ -2,10 +2,13 @@ import React, {useState, useEffect} from "react"
 import { StyleSheet, View, Text, TextInput } from "react-native"
 import {changePage} from '../pageSlice'
 import {useSelector,useDispatch} from 'react-redux'
+import {fetchProfileById} from '../user/profileByIdSlice'
 
 
 
 const PostComments = ({postId, comments, posts}) => {
+    const dispatch = useDispatch()
+
     let postComments = comments.filter(comment=>comment.post_id === postId ? true : false)
     let singlePost = posts.find(post => post.id === postId ? true : false)
     console.log(singlePost)
@@ -26,7 +29,10 @@ const PostComments = ({postId, comments, posts}) => {
 
     return (
         <View>
-            <Text>{singlePost.username} {singlePost.body} {readableDate}</Text>
+            <Text onPress={() => {
+                        dispatch(fetchProfileById(singlePost.user_id))
+                        dispatch(changePage('profile'))
+                    }}>{singlePost.username}</Text><Text> {singlePost.body} {readableDate}</Text>
             <Text>Comments:</Text>
             {content}
         </View>
