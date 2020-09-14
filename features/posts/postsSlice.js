@@ -34,8 +34,8 @@ const postsSlice = createSlice({
 name: 'posts',
 initialState,
 reducers: {
-  addPost(state, action) {
-    state.push(action.payload)
+  changeStatus(state, action) {
+    state.status = action.payload
   }
 },
 extraReducers: {
@@ -45,7 +45,7 @@ extraReducers: {
     [fetchPosts.fulfilled]: (state, action) => {
     state.status = 'succeeded'
     // Add any fetched posts to the array
-    state.posts = state.posts.concat(action.payload)
+    state.posts = action.payload
     },
     [fetchPosts.rejected]: (state, action) => {
     state.status = 'failed'
@@ -55,7 +55,7 @@ extraReducers: {
 })
 
 // console.log(postsSlice.reducer)
-export const { postAdded } = postsSlice.actions
+export const { changeStatus } = postsSlice.actions
 
 export default postsSlice.reducer
 
