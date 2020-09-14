@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react"
-import { StyleSheet, View, Text, TextInput } from "react-native"
+import { StyleSheet, View, Text, TextInput, Image, TouchableOpacity} from "react-native"
 import {changePage} from '../pageSlice'
 import {useSelector,useDispatch} from 'react-redux'
 import {fetchPostById} from '../posts/postByIdSlice'
@@ -22,12 +22,19 @@ export const ProfilePosts = ({posts}) => {
 
         let content = posts.map((post, idx) => {
             return (
-                <View key={idx}>
-                    <Text onPress={() => {
+                <TouchableOpacity key={idx} onPress={() => {
+                    dispatch(fetchPostById(post.id))
+                    dispatch(changePage('post'))
+                }}>
+                    {/* <Text onPress={() => {
                         dispatch(fetchPostById(post.id))
                         dispatch(changePage('post'))
-                    }}>Post id: {post.id}</Text>
-                </View>
+                    }}>Post id: {post.id}</Text> */}
+                    <Image 
+                        source={{uri: post.picurl}} 
+                        style={{height: 75, width: 75}}
+                    />
+                </TouchableOpacity>
             )
         })
 

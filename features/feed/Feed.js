@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react"
-import { StyleSheet, View, Text, TextInput } from "react-native"
+import { StyleSheet, View, Text, TextInput, Image } from "react-native"
 import { useSelector, useDispatch } from 'react-redux'
 import {fetchPosts} from '../posts/postsSlice'
 import {fetchComments, addComment, addCommentDB} from '../comments/commentsSlice'
@@ -78,39 +78,44 @@ export const Feed = () => {
             let readableDate = new Date(`${post.date_posted}`).toDateString()
 
             return (
-            <View key={post.id} style={styles.postContainer}>
-                <View>
-                    <Text style={styles.bold} onPress={() => {
-                        dispatch(fetchProfileById(post.user_id))
-                        dispatch(changePage('profile'))
-                    }}>{post.username}</Text>
-                    {/* <Text onPress={() => {
-                        dispatch(changePage('post'))
-                        dispatch(fetchPostById(post.id))
-                    }}>Link to Post</Text> */}
-                    <Text>{readableDate}</Text>
+                <View key={post.id} style={styles.postContainer}>
+                    <View>
+                        <Text style={styles.bold} onPress={() => {
+                            dispatch(fetchProfileById(post.user_id))
+                            dispatch(changePage('profile'))
+                        }}>{post.username}</Text>
+                        {/* <Text onPress={() => {
+                            dispatch(changePage('post'))
+                            dispatch(fetchPostById(post.id))
+                        }}>Link to Post</Text> */}
+                        <Text>{readableDate}</Text>
+                    </View>
+                    <View>
+                        <Image 
+                            source={{uri: post.picurl}} 
+                            style={{height: 200, width: 200}}
+                        />
+                    </View>
+                    {/* <Icon name="heart" /> */}
+                    <Likes postLikes={postLikes} postId={post.id} user={user}/>
+                    <View>
+                        <Text>{post.body}</Text>
+                    </View>
+                    <View>
+                        <Comments postComments={postComments} postId={post.id}/>
+                        <TextInput onSubmitEditing={(evt)=>{
+                                dispatch(addComment({
+                                    comment: evt.target.value, 
+                                    created_at: new Date().toUTCString(), 
+                                    post_id: post.id, 
+                                    username: user.username
+                                }))
+                                addCommentDB(evt.target.value, post.id, user.id, user.username)
+                                evt.target.value = ''
+                            }} placeholder='Add a Comment' />
+                    </View>
                 </View>
-                <View><Text>Image Here</Text></View>
-                {/* <Icon name="heart" /> */}
-                <Likes postLikes={postLikes} postId={post.id} user={user}/>
-                <View>
-                    <Text>{post.body}</Text>
-                </View>
-                <View>
-                    <Comments postComments={postComments} postId={post.id}/>
-                    <TextInput onSubmitEditing={(evt)=>{
-                            dispatch(addComment({
-                                comment: evt.target.value, 
-                                created_at: new Date().toUTCString(), 
-                                post_id: post.id, 
-                                username: user.username
-                            }))
-                            addCommentDB(evt.target.value, post.id, user.id, user.username)
-                            evt.target.value = ''
-                        }} placeholder='Add a Comment' />
-                </View>
-            </View>
-            )
+                )
         })
     } else if (postStatus === 'failed' || commentsStatus === 'failed' || likesStatus === 'failed' || userStatus === 'failed') {
         content = <Text>{postsError}, {commentsError}, {likesError}, {userError}</Text>

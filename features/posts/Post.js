@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react"
-import { StyleSheet, View, Text, TextInput } from "react-native"
+import { StyleSheet, View, Text, TextInput, Image } from "react-native"
 import {changePage} from '../pageSlice'
 import {useSelector,useDispatch} from 'react-redux'
 import {fetchProfileById} from '../user/profileByIdSlice'
@@ -39,7 +39,10 @@ const Post = () => {
                         dispatch(changePage('profile'))
                     }}>{postById.username}</Text>
                 <Text>{readableDate}</Text>
-                <View><Text>Image Here</Text></View>
+                <Image 
+                    source={{uri: postById.picurl}} 
+                    style={{height: 200, width: 200}}
+                />
                 <Likes postLikes={postLikes} postId={postById.id} user={user}/>
                 <Text>{postById.body}</Text>
                 <Text>Comments:</Text>
