@@ -11,6 +11,7 @@ import postByIdReducer from '../features/posts/postByIdSlice'
 import actionsReducer from '../features/actions/actionsSlice'
 import actionIdReducer from '../features/actions/actionIdSlice'
 import actionResourcesReducer from '../features/actions/actionResourcesSlice'
+import profileByIdReducer from '../features/user/profileByIdSlice'
 
 export default configureStore({
   reducer: {
@@ -24,6 +25,7 @@ export default configureStore({
     postById: postByIdReducer,
     actions: actionsReducer,
     actionId: actionIdReducer,
-    actionResources: actionResourcesReducer
+    actionResources: actionResourcesReducer,
+    profileById: profileByIdReducer
   }
 })

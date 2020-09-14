@@ -11,6 +11,7 @@ import {changePage} from './features/pageSlice'
 import {changeToken} from './features/login/tokenSlice'
 import Post from './features/posts/Post'
 import PostComments from './features/posts/PostComments'
+import Profile from './features/user/Profile'
 
 export default function App() {
 
@@ -52,13 +53,14 @@ export default function App() {
     } else if (page === 'postcomments'){
         content = <PostComments postId={postId} comments={comments} posts={posts}/>
     } else if (page === 'post'){
-        console.log(postId)
-        content = <Post postId={postId} />
+        content = <Post />
     } else if (page === 'actions'){
         content = <Action />
     } else if (page === 'actionId'){
         content = <ActionResources actionId={actionId} />
-    } 
+    } else if (page === 'profile'){
+        content = <Profile />
+    }
 
     return (
         <View style={styles.container}>
