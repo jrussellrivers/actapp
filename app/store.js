@@ -8,6 +8,8 @@ import tokenReducer from '../features/login/tokenSlice'
 import pageReducer from '../features/pageSlice'
 import postIdReducer from '../features/posts/postIdSlice'
 import postByIdReducer from '../features/posts/postByIdSlice'
+import causesReducer from '../features/actions/causesSlice'
+import actionsByCauseReducer from '../features/actions/actionsByCauseSlice'
 import actionsReducer from '../features/actions/actionsSlice'
 import actionIdReducer from '../features/actions/actionIdSlice'
 import actionResourcesReducer from '../features/actions/actionResourcesSlice'
@@ -25,6 +27,8 @@ export default configureStore({
     page: pageReducer,
     postId: postIdReducer,
     postById: postByIdReducer,
+    causes:causesReducer,
+    actionsByCause:actionsByCauseReducer,
     actions: actionsReducer,
     actionId: actionIdReducer,
     actionResources: actionResourcesReducer,

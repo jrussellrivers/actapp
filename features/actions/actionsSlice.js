@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
-export const fetchActions = createAsyncThunk('likes/fetchActions', async () => {
+export const fetchActions = createAsyncThunk('actions/fetchActions', async () => {
   const response = await fetch('http://localhost:3333/actions')
     .then(response => response.json())
     .then(data => data)
