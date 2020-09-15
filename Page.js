@@ -13,6 +13,8 @@ import Post from './features/posts/Post'
 import PostComments from './features/posts/PostComments'
 import Profile from './features/user/Profile'
 import Search from './features/Search'
+import Survey from './features/survey/Survey'
+import ProfilePic from './features/user/ProfilePic'
 
 export default function App() {
 
@@ -36,7 +38,7 @@ export default function App() {
 
 
     if (isEmpty(token)) {
-        if (page !== 'register') dispatch(changePage('login'))
+        if (page !== 'register' && page !== 'survey' && page !== 'profilepic') dispatch(changePage('login'))
     }
 
     let content
@@ -63,7 +65,11 @@ export default function App() {
         content = <Profile />
     } else if (page === 'search'){
         content = <Search />
-    } 
+    } else if (page === 'survey'){
+        content = <Survey />
+    } else if (page === 'profilepic'){
+        content = <ProfilePic />
+    }
 
     return (
         <View style={styles.container}>

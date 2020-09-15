@@ -12,6 +12,7 @@ import actionsReducer from '../features/actions/actionsSlice'
 import actionIdReducer from '../features/actions/actionIdSlice'
 import actionResourcesReducer from '../features/actions/actionResourcesSlice'
 import profileByIdReducer from '../features/user/profileByIdSlice'
+import registeredUserReducer from '../features/register/registeredUserSlice'
 
 export default configureStore({
   reducer: {
@@ -26,6 +27,7 @@ export default configureStore({
     actions: actionsReducer,
     actionId: actionIdReducer,
     actionResources: actionResourcesReducer,
-    profileById: profileByIdReducer
+    profileById: profileByIdReducer,
+    registeredUser: registeredUserReducer
   }
 })
