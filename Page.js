@@ -121,7 +121,8 @@ const styles = StyleSheet.create({
       backgroundColor:'white',
       width:width,
       padding:7,
-      textAlign:'center',
+      flex:1,
+      alignItems:'center',
       borderBottomWidth:1,
       borderBottomColor:'#ccc'
   },
