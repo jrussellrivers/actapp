@@ -95,7 +95,7 @@ export const Feed = () => {
                                 dispatch(changePage('profile'))
                             }}>
                             <Image 
-                                source={{uri: post.picurl}} 
+                                source={{uri: post.profile_pic}} 
                                 style={{height: 40, width: 40,borderRadius:50,marginRight:7}}
                                 
                             />
