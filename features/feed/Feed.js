@@ -35,6 +35,8 @@ export const Feed = () => {
     const userStatus = useSelector(state => state.user.status)
     const userError = useSelector(state => state.user.error)
 
+    console.log(userStatus)
+
     // This fetches all Posts
     useEffect(() => {
         if (postStatus === 'idle') {

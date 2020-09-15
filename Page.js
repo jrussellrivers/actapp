@@ -9,6 +9,7 @@ import Action from './features/actions/Actions'
 import ActionResources from './features/actions/ActionResources'
 import {changePage} from './features/pageSlice'
 import {changeToken} from './features/login/tokenSlice'
+import {changeUserStatus} from './features/user/userSlice'
 import Post from './features/posts/Post'
 import PostComments from './features/posts/PostComments'
 import Profile from './features/user/Profile'
@@ -54,6 +55,7 @@ export default function App() {
         content = <AddPost />
     } else if (page === 'logout') {
         dispatch(changeToken({}))
+        dispatch(changeUserStatus('idle'))
     } else if (page === 'register'){
         content = <Register />
     } else if (page === 'postcomments'){
