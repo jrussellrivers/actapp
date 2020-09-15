@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react"
-import { StyleSheet, View, Text, TextInput, Image, Dimensions } from "react-native"
+import { StyleSheet, View, Text, TextInput, Image, Dimensions, TouchableOpacity } from "react-native"
 import { useSelector, useDispatch } from 'react-redux'
 import {fetchPosts} from '../posts/postsSlice'
 import {fetchComments, addComment, addCommentDB} from '../comments/commentsSlice'
@@ -89,11 +89,17 @@ export const Feed = () => {
 
             return (
                 <View key={post.id} style={styles.postContainer}>
-                    <View style={styles.userWhoPosted}>
-                        <Image 
-                            source={{uri: post.picurl}} 
-                            style={{height: 40, width: 40,borderRadius:50,marginRight:7}}
-                        />
+                    <View style={styles.userWhoPosted} >
+                        <TouchableOpacity onPress={() => {
+                                dispatch(fetchProfileById(post.user_id))
+                                dispatch(changePage('profile'))
+                            }}>
+                            <Image 
+                                source={{uri: post.picurl}} 
+                                style={{height: 40, width: 40,borderRadius:50,marginRight:7}}
+                                
+                            />
+                        </TouchableOpacity>
                         <Text style={styles.bold} onPress={() => {
                             dispatch(fetchProfileById(post.user_id))
                             dispatch(changePage('profile'))
