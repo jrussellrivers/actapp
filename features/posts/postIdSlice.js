@@ -16,4 +16,4 @@ const postIdSlice = createSlice({
 
 export const { changePostId } = postIdSlice.actions
 
-export default postIdSlice.reducer
+export default postIdSlice.reducer 
