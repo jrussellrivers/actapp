@@ -4,7 +4,7 @@ import {changePage} from '../pageSlice'
 import {useSelector,useDispatch} from 'react-redux'
 import {fetchPostById} from '../posts/postByIdSlice'
 import {changePostId} from '../posts/postIdSlice'
-
+import Icon from 'react-native-vector-icons/AntDesign'
 
 export const Comments = ({postComments, postId}) => {
     const dispatch = useDispatch()
@@ -14,9 +14,8 @@ export const Comments = ({postComments, postId}) => {
     } else if (postComments.length === 1){
         let readableDate = new Date(`${postComments[0].created_at}`).toDateString()
         return (
-            <View key={postComments[0].id}>
-                <Text>Comments:</Text>
-                <Text>{postComments[0].username} {postComments[0].comment} {readableDate}</Text>
+            <View key={postComments[0].id} style={styles.commentsContainer}>
+                <Text style={styles.marginTop}><Text style={styles.bold}>{postComments[0].username}</Text> {postComments[0].comment} {readableDate}</Text>
             </View>
         )
     } else if (postComments.length === 2){
@@ -27,15 +26,14 @@ export const Comments = ({postComments, postId}) => {
         let content = orderedComments.map((comment, idx) => {
             let readableDate = new Date(`${comment.created_at}`).toDateString()
             return (
-                <View key={idx}>
-                    <Text>{comment.username} {comment.comment} {readableDate}</Text>
+                <View key={idx} >
+                    <Text style={styles.marginTop}><Text style={styles.bold}>{comment.username}</Text> {comment.comment} {readableDate}</Text>
                 </View>
             )
         })
 
         return (
-            <View>
-                <Text>Comments:</Text>
+            <View style={styles.commentsContainer}>
                 {content}
             </View>
         )
@@ -47,22 +45,39 @@ export const Comments = ({postComments, postId}) => {
         let readableDateFirst = new Date(`${orderedComments[0].created_at}`).toDateString()
         let readableDateLast = new Date(`${orderedComments[orderedComments.length - 1].created_at}`).toDateString()
         let commentFirst = <View key={orderedComments[0].id}>
-                                <Text>{orderedComments[0].username} {orderedComments[0].comment} {readableDateFirst}</Text>
+                                <Text style={styles.marginTop}><Text style={styles.bold}>{orderedComments[0].username}</Text> {orderedComments[0].comment} {readableDateFirst}</Text>
                             </View>
-        let commentLast = <View key={orderedComments[orderedComments.length - 1].id}>
-                                <Text>{orderedComments[orderedComments.length - 1].username} {orderedComments[orderedComments.length - 1].comment} {readableDateLast}</Text>
+        let commentLast = <View key={orderedComments[orderedComments.length - 1].id} style={styles.marginTop}>
+                                <Text><Text style={styles.bold}>{orderedComments[orderedComments.length - 1].username}</Text> {orderedComments[orderedComments.length - 1].comment} {readableDateLast}</Text>
                             </View>
 
         return (
-            <View>
-                <Text>Comments:</Text>
+            <View >
                 {commentFirst}
+                <View style={styles.center}>
+                    <Icon name="ellipsis1" size={30} onPress={() => {
+                        dispatch(changePostId(postId))
+                        dispatch(changePage('postcomments'))
+                    }} />
+                </View>
                 {commentLast}
-                <Text onPress={() => {
-                    dispatch(changePostId(postId))
-                    dispatch(changePage('postcomments'))
-                }}>Link to Load More Comments!</Text>
             </View>
         )
     }
 }
+
+const styles = StyleSheet.create({
+    bold: {
+        fontWeight:'bold'
+    },
+    commentsContainer: {
+        marginLeft:7
+    },
+    marginTop: {
+        marginTop:7
+    },
+    center: {
+        alignItems:'center',
+        marginBottom:-10
+    }
+})
