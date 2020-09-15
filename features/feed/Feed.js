@@ -87,6 +87,22 @@ export const Feed = () => {
         console.log(comments.comments)
         console.log(likes.likes)
         console.log(user, '68')
+
+        // let userCauses = [
+        //     {name:'BLM',id:1},
+        //     {name:'USPS',id:1}
+        // ]
+
+        // let filteredPosts = posts.posts.filter(post => {
+        //     let status = false
+        //     for (let i=0;i<userCauses.length;i++){
+        //         if (userCauses[i].name === post.cause){
+        //             status = true
+        //         }
+        //     }
+        //     return status
+        // })
+
         const orderedPosts = posts.posts
         .slice()
         .sort((a, b) => b.date_posted.localeCompare(a.date_posted))

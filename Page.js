@@ -16,7 +16,10 @@ import Profile from './features/user/Profile'
 import Search from './features/Search'
 import Survey from './features/survey/Survey'
 import ProfilePic from './features/user/ProfilePic'
+import ChangeProfilePic from './features/user/ChangeProfilePic'
 import Icon from 'react-native-vector-icons/AntDesign'
+import {fetchProfileById} from './features/user/profileByIdSlice'
+
 
 let width = Dimensions.get('window').width; //full width
 
@@ -29,6 +32,7 @@ export default function App() {
     const comments = useSelector(state => state.comments.comments)
     const posts = useSelector(state => state.posts.posts)
     const actionId = useSelector(state => state.actionId.actionId)
+    const user = useSelector(state => state.user.user)
 
     console.log(token)
 
@@ -74,6 +78,8 @@ export default function App() {
         content = <Survey />
     } else if (page === 'profilepic'){
         content = <ProfilePic />
+    } else if (page === 'changeprofilepic'){
+        content = <ChangeProfilePic />
     }
 
     return (
@@ -91,7 +97,10 @@ export default function App() {
                 <Icon name="database" size={30} onPress={() => dispatch(changePage('feed'))} />
                 <Icon name="search1" size={30} onPress={() => dispatch(changePage('search'))} />
                 <Icon name="plus" size={30} onPress={() => dispatch(changePage('addpost'))} />
-                <Icon name="user" size={30} onPress={() => dispatch(changePage('profile'))} />
+                <Icon name="user" size={30} onPress={() => {
+                    dispatch(fetchProfileById(user.id))
+                    dispatch(changePage('profile'))
+                }} />
                 <Icon name="logout" size={30} onPress={() => dispatch(changePage('logout'))} />
             </View>
         </View>
