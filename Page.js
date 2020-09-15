@@ -1,6 +1,6 @@
 import React from 'react';
 import {Feed} from "./features/feed/Feed"
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button, Dimensions } from 'react-native';
 import {useSelector,useDispatch} from 'react-redux'
 import Login from './features/login/Login'
 import Register from './features/register/Register'
@@ -15,6 +15,9 @@ import Profile from './features/user/Profile'
 import Search from './features/Search'
 import Survey from './features/survey/Survey'
 import ProfilePic from './features/user/ProfilePic'
+import Icon from 'react-native-vector-icons/AntDesign'
+
+let width = Dimensions.get('window').width; //full width
 
 export default function App() {
 
@@ -73,13 +76,20 @@ export default function App() {
 
     return (
         <View style={styles.container}>
-            {!isEmpty(token) && page !== 'actions' && page !== 'actionId' ? <Button title="Take Action" onPress={() => dispatch(changePage('actions'))} /> : null}
-            {content}
+            <View style={styles.fixed}>
+                <View style={styles.header}>
+                    <Text style={styles.headerText}><Text style={styles.green}>act</Text>app</Text>
+                </View>
+                {!isEmpty(token) && page !== 'actions' && page !== 'actionId' ? <View style={styles.actionButton}><Button style={styles.actionButton} title="Take Action" onPress={() => dispatch(changePage('actions'))} /></View> : null}
+            </View>
+            <View style={styles.main}>
+                {content}
+            </View>
             <View style={styles.nav}>
-                <Text onPress={() => dispatch(changePage('feed'))}>Feed</Text>
-                <Text onPress={() => dispatch(changePage('addpost'))}>Add Post</Text>
-                <Text onPress={() => dispatch(changePage('search'))}>Search</Text>
-                <Text onPress={() => dispatch(changePage('logout'))}>Logout</Text>
+                <Icon name="database" size={30} onPress={() => dispatch(changePage('feed'))} />
+                <Icon name="plus" size={30} onPress={() => dispatch(changePage('addpost'))} />
+                <Icon name="search1" size={30} onPress={() => dispatch(changePage('search'))} />
+                <Icon name="logout" size={30} onPress={() => dispatch(changePage('logout'))} />
             </View>
         </View>
     );
@@ -93,13 +103,43 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   nav: {
-    position:"sticky",
+    position:"fixed",
     bottom:0,
-    align:"stretch",
+    width:width,
     flex:1,
+    flexDirection:'row',
     justifyContent:"space-around",
     backgroundColor:"white",
     zIndex:2,
-    borderTopWidth:1
+    borderTopWidth:1,
+    padding:7
+  },
+  header: {
+      backgroundColor:'white',
+      width:width,
+      padding:7,
+      textAlign:'center',
+      borderBottomWidth:1,
+      borderBottomColor:'#ccc'
+  },
+  headerText: {
+      fontSize:36,
+      fontWeight:'bold'
+  },
+  green: {
+      color:'rgb(55,182,53)'
+  },
+  actionButton: {
+      backgroundColor:'#37B635',
+      margin:14
+  },
+  fixed: {
+      position:'fixed',
+      top:0,
+      backgroundColor:'white',
+      zIndex:2
+  },
+  main: {
+      marginTop:105
   }
 });

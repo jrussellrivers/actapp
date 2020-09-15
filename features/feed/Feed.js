@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react"
-import { StyleSheet, View, Text, TextInput, Image } from "react-native"
+import { StyleSheet, View, Text, TextInput, Image, Dimensions, TouchableOpacity } from "react-native"
 import { useSelector, useDispatch } from 'react-redux'
 import {fetchPosts} from '../posts/postsSlice'
 import {fetchComments, addComment, addCommentDB} from '../comments/commentsSlice'
@@ -9,9 +9,15 @@ import {Likes} from '../likes/Likes'
 import {fetchUser} from '../user/userSlice'
 import {changePage} from '../pageSlice'
 import {fetchProfileById} from '../user/profileByIdSlice'
-// import Icon from 'react-native-vector-icons'
+import Icon from 'react-native-vector-icons/FontAwesome'
 
 export const Feed = () => {
+
+    let width = Dimensions.get('window').width; //full width
+    let height = Dimensions.get('window').height;
+
+    const [addCommentShowing,setAddCommentShowing] = useState(false)
+
     const dispatch = useDispatch()
     const posts = useSelector(state => state.posts)
     const comments = useSelector(state => state.comments)
@@ -76,10 +82,24 @@ export const Feed = () => {
             let postComments = comments.comments.filter(comment=>comment.post_id === post.id ? true : false)
             let postLikes = likes.likes.filter(like=>like.post_id === post.id ? true : false)
             let readableDate = new Date(`${post.date_posted}`).toDateString()
+            let currentTimestamp = new Date()
+            console.log('readable date:', readableDate)
+            console.log('post.date_posted:', post.date_posted)
+            console.log('currentTimestamp:', currentTimestamp)
 
             return (
                 <View key={post.id} style={styles.postContainer}>
-                    <View>
+                    <View style={styles.userWhoPosted} >
+                        <TouchableOpacity onPress={() => {
+                                dispatch(fetchProfileById(post.user_id))
+                                dispatch(changePage('profile'))
+                            }}>
+                            <Image 
+                                source={{uri: post.picurl}} 
+                                style={{height: 40, width: 40,borderRadius:50,marginRight:7}}
+                                
+                            />
+                        </TouchableOpacity>
                         <Text style={styles.bold} onPress={() => {
                             dispatch(fetchProfileById(post.user_id))
                             dispatch(changePage('profile'))
@@ -93,17 +113,24 @@ export const Feed = () => {
                     <View>
                         <Image 
                             source={{uri: post.picurl}} 
-                            style={{height: 200, width: 200}}
+                            style={{height: width, width: width}}
                         />
                     </View>
-                    {/* <Icon name="heart" /> */}
-                    <Likes postLikes={postLikes} postId={post.id} user={user}/>
-                    <View>
-                        <Text>{post.body}</Text>
+                    <View style={styles.flex}>
+                        <Likes postLikes={postLikes} postId={post.id} user={user}/>
+                        <Icon style={styles.marginTop} name="comment-o" size={30} onPress={() => setAddCommentShowing(!addCommentShowing)} />
+                    </View>
+                    {postLikes.length === 0 ? null :
+                    postLikes.length === 1 ? <Text style={styles.likesNum}>{postLikes.length} like</Text> : <Text style={styles.likesNum}>{postLikes.length} likes</Text>
+                    }
+                    <View style={styles.postText}>
+                        <Text style={styles.bold}>{post.username}</Text>
+                        <Text style={styles.spaceLeft}>{post.body}</Text>
                     </View>
                     <View>
                         <Comments postComments={postComments} postId={post.id}/>
-                        <TextInput onSubmitEditing={(evt)=>{
+                        {addCommentShowing ? 
+                        <TextInput style={styles.addComment} onSubmitEditing={(evt)=>{
                                 dispatch(addComment({
                                     comment: evt.target.value, 
                                     created_at: new Date().toUTCString(), 
@@ -113,6 +140,7 @@ export const Feed = () => {
                                 addCommentDB(evt.target.value, post.id, user.id, user.username)
                                 evt.target.value = ''
                             }} placeholder='Add a Comment' />
+                        : null }
                     </View>
                 </View>
                 )
@@ -168,5 +196,40 @@ const styles = StyleSheet.create({
     },
     postContainer: {
         margin:10
+    },
+    spaceLeft: {
+        marginLeft:5
+    },
+    flex: {
+        flex:1,
+        flexDirection:'row',
+        justifyContent:'flex-start',
+        marginLeft:7
+    },
+    postText: {
+        flex:1,
+        flexDirection:'row',
+        justifyContent:'flex-start',
+        marginLeft:7,
+        marginTop:7
+    },
+    userWhoPosted: {
+        flex:1,
+        flexDirection:'row',
+        justifyContent:'flex-start',
+        margin:7,
+        alignItems:'center'
+    },
+    marginTop: {
+        marginTop:3
+    },
+    likesNum: {
+        fontSize:14,
+        fontWeight:'bold',
+        marginLeft:7
+    },
+    addComment: {
+        marginTop:7,
+        marginLeft:7
     }
 })
