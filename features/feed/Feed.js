@@ -9,6 +9,7 @@ import {Likes} from '../likes/Likes'
 import {fetchUser} from '../user/userSlice'
 import {changePage} from '../pageSlice'
 import {fetchProfileById} from '../user/profileByIdSlice'
+import {fetchUserPics} from '../user/userPicsSlice'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
 export const Feed = () => {
@@ -23,8 +24,8 @@ export const Feed = () => {
     const comments = useSelector(state => state.comments)
     const likes = useSelector(state => state.likes)
     const token = useSelector(state => state.token)
-    console.log(token, '18')
     const user = useSelector(state => state.user.user)
+    const userPics = useSelector(state => state.userPics.userPics)
 
     const postStatus = useSelector(state => state.posts.status)
     const postsError = useSelector(state => state.posts.error)
@@ -34,6 +35,9 @@ export const Feed = () => {
     const likesError = useSelector(state => state.likes.error)
     const userStatus = useSelector(state => state.user.status)
     const userError = useSelector(state => state.user.error)
+    const userPicsError = useSelector(state => state.userPics.error)
+    const userPicsStatus = useSelector(state => state.userPics.status)
+
 
     console.log(userStatus)
 
@@ -56,21 +60,28 @@ export const Feed = () => {
         if (likesStatus === 'idle') {
                 dispatch(fetchLikes())
             }
-        }, [likesStatus, dispatch])
+    }, [likesStatus, dispatch])
 
     // This fetches the User
     useEffect(() => {
         if (userStatus === 'idle') {
                 dispatch(fetchUser(token.token))
             }
-        }, [userStatus, dispatch])
+    }, [userStatus, dispatch])
+
+    // This fetches the User Pics
+    useEffect(() => {
+        if (userPicsStatus === 'idle') {
+                dispatch(fetchUserPics())
+            }
+    }, [userPicsStatus, dispatch])
 
     let content
 
     // This checks to see if all Posts
-    if (postStatus === 'loading' || commentsStatus === 'loading' || likesStatus === 'loading' || userStatus === 'loading') {
+    if (postStatus === 'loading' || commentsStatus === 'loading' || likesStatus === 'loading' || userStatus === 'loading' || userPicsStatus === 'loading') {
         content = <Text>Loading...</Text>
-    } else if (postStatus === 'succeeded' && commentsStatus === 'succeeded' && likesStatus === 'succeeded' && userStatus === 'succeeded') {
+    } else if (postStatus === 'succeeded' && commentsStatus === 'succeeded' && likesStatus === 'succeeded' && userStatus === 'succeeded' && userPicsStatus === 'succeeded') {
         // Sort posts in reverse chronological order by datetime string
         console.log(posts.posts)
         console.log(comments.comments)
@@ -83,6 +94,7 @@ export const Feed = () => {
         content = orderedPosts.map(post => {
             let postComments = comments.comments.filter(comment=>comment.post_id === post.id ? true : false)
             let postLikes = likes.likes.filter(like=>like.post_id === post.id ? true : false)
+            let profilePic = userPics.find(pic=>pic.id === post.user_id ? true : false)
             let readableDate = new Date(`${post.date_posted}`).toDateString()
             let currentTimestamp = new Date()
             console.log('readable date:', readableDate)
@@ -97,7 +109,7 @@ export const Feed = () => {
                                 dispatch(changePage('profile'))
                             }}>
                             <Image 
-                                source={{uri: post.profile_pic}} 
+                                source={{uri: profilePic.profilepic}} 
                                 style={{height: 40, width: 40,borderRadius:50,marginRight:7}}
                                 
                             />
@@ -147,8 +159,8 @@ export const Feed = () => {
                 </View>
                 )
         })
-    } else if (postStatus === 'failed' || commentsStatus === 'failed' || likesStatus === 'failed' || userStatus === 'failed') {
-        content = <Text>{postsError}, {commentsError}, {likesError}, {userError}</Text>
+    } else if (postStatus === 'failed' || commentsStatus === 'failed' || likesStatus === 'failed' || userStatus === 'failed' || userPicsStatus === 'failed') {
+        content = <Text>{postsError}, {commentsError}, {likesError}, {userError}, {userPicsError}</Text>
     } 
 
     console.log(posts)
