@@ -52,7 +52,7 @@ export const Comments = ({postComments, postId}) => {
                             </View>
 
         return (
-            <View >
+            <View style={styles.commentsContainer}>
                 {commentFirst}
                 <View style={styles.center}>
                     <Icon name="ellipsis1" size={30} onPress={() => {
