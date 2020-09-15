@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, TextInput} from "react-native"
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {addLike, addLikeDB} from './likesSlice'
 import { useDispatch } from 'react-redux'
+import Icon from 'react-native-vector-icons/AntDesign'
 
 export const Likes = ({postLikes, postId, user}) => {
     const dispatch = useDispatch()
@@ -18,21 +19,21 @@ export const Likes = ({postLikes, postId, user}) => {
     let button
 
     if (userLikeStatus){
-        button = <TouchableOpacity style={styles.TouchableOpacityPressed}><Text style={styles.TouchableText}>Click to Like</Text></TouchableOpacity>
+        button = <Icon name="like1" size={30} />
     } else {
-        button = <TouchableOpacity onPress={()=>{
-            dispatch(addLike({user_id: user.id, post_id: postId}))
-            addLikeDB(postId, user.id)
-        }} style={styles.TouchableOpacityNotPressed}><Text style={styles.TouchableText}>Click to Like</Text></TouchableOpacity>
+        button = <Icon name="like2" size={30}
+            onPress={()=>{
+                dispatch(addLike({user_id: user.id, post_id: postId}))
+                addLikeDB(postId, user.id)
+        }} />
     }
 
     if(postLikes.length === 0) {
-        return <View>{button}</View>
+        return <View style={styles.margin}>{button}</View>
     } else {
         return (
-            <View>
+            <View style={styles.margin}>
                 <View>{button}</View>
-                <Text>Likes: {postLikes.length}</Text>
             </View>
             //we will put logic for which friends liked it, and logic for if you yourself has liked it
         )
@@ -40,13 +41,13 @@ export const Likes = ({postLikes, postId, user}) => {
 }
 
 const styles = StyleSheet.create({
-    TouchableOpacityNotPressed: {
-        backgroundColor:'blue',
+    flex: {
+        flex:1,
+        flexDirection:'row',
+        // marginLeft:5
     },
-    TouchableOpacityPressed: {
-        backgroundColor:'red',
-    },
-    TouchableText:{
-        color:'white'
+    margin:{
+        marginRight:5,
+        marginTop:5
     }
 })
