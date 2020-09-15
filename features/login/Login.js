@@ -31,7 +31,7 @@ export default function Login() {
         <View>
             <TextInput name="username" placeholder="Username" onChangeText={text => handleChange("username",text)} style={styles.input} />
             <TextInput name="password" secureTextEntry={true} placeholder="Password" onChangeText={text => handleChange("password",text)} style={styles.input} />
-            <TouchableOpacity onPress={handleSubmit}><Button title="Submit"></Button></TouchableOpacity>
+            <Button title="Submit" onPress={handleSubmit}></Button>
             <TouchableOpacity onPress={() => dispatch(changePage('register'))}><Text>New? Register Here</Text></TouchableOpacity>
         </View>
     )

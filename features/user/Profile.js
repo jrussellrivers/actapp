@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, TextInput, Image } from "react-native"
 import {changePage} from '../pageSlice'
 import {useSelector,useDispatch} from 'react-redux'
 import {ProfilePosts} from './ProfilePosts'
+import {fetchUser} from './userSlice'
 
 
 
@@ -10,12 +11,20 @@ const Profile = () => {
     const dispatch = useDispatch()
     const profileUser = useSelector(state => state.profileById.profileById)
     const currentUser = useSelector(state => state.user.user)
+    const userStatus = useSelector(state => state.user.status)
+    const token = useSelector(state => state.token)
 
 
     const profileByIdStatus = useSelector(state => state.profileById.status)
     const profileByIdError = useSelector(state => state.profileById.error)
 
     const posts = useSelector(state => state.posts.posts)
+
+    useEffect(() => {
+        if (userStatus === 'idle') {
+                dispatch(fetchUser(token.token))
+            }
+    }, [userStatus, dispatch])
 
     let profilePosts = posts.filter(post=>post.user_id === profileUser.id ? true : false)
     const orderedPosts = profilePosts
@@ -36,7 +45,7 @@ const Profile = () => {
                             style={{height: 100, width: 100}}
                         />
                         <Text>{profileUser.username}</Text>
-                        <Text>Something to edit profile</Text>
+                        <Text onPress={()=>dispatch(changePage('changeprofilepic'))}>Change Profile Pic</Text>
                     </View>
                     <View>
                         <Text>{profilePosts.length} Posts</Text>
