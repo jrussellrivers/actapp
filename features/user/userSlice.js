@@ -20,7 +20,11 @@ const initialState = {
 const userSlice = createSlice({
 name: 'user',
 initialState,
-reducers: {},
+reducers: {
+  changeUserStatus(state, action) {
+    state.status = action.payload
+  }
+},
 extraReducers: {
     [fetchUser.pending]: (state, action) => {
         state.status = 'loading'
@@ -36,5 +40,7 @@ extraReducers: {
     }
 }
 })
+
+export const { changeUserStatus } = userSlice.actions
 
 export default userSlice.reducer
