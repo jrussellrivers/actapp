@@ -125,6 +125,9 @@ export const Feed = () => {
                         <Text>{readableDate}</Text>
                     </View>
                     <View>
+                        <Text>{post.action_title} <Text style={styles.green}>+{post.points}</Text></Text>
+                    </View>
+                    <View>
                         <Image 
                             source={{uri: post.picurl}} 
                             style={{height: width, width: width}}
@@ -245,5 +248,8 @@ const styles = StyleSheet.create({
     addComment: {
         marginTop:7,
         marginLeft:7
+    },
+    green: {
+        color:'rgb(55,182,53)'
     }
 })
