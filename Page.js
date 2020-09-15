@@ -87,8 +87,9 @@ export default function App() {
             </View>
             <View style={styles.nav}>
                 <Icon name="database" size={30} onPress={() => dispatch(changePage('feed'))} />
-                <Icon name="plus" size={30} onPress={() => dispatch(changePage('addpost'))} />
                 <Icon name="search1" size={30} onPress={() => dispatch(changePage('search'))} />
+                <Icon name="plus" size={30} onPress={() => dispatch(changePage('addpost'))} />
+                <Icon name="user" size={30} onPress={() => dispatch(changePage('profile'))} />
                 <Icon name="logout" size={30} onPress={() => dispatch(changePage('logout'))} />
             </View>
         </View>
