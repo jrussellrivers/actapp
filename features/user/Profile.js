@@ -1,11 +1,9 @@
 import React, {useState, useEffect} from "react"
-import { StyleSheet, View, Text, TextInput, Image } from "react-native"
+import { StyleSheet, View, Text, Dimensions, Image } from "react-native"
 import {changePage} from '../pageSlice'
 import {useSelector,useDispatch} from 'react-redux'
 import {ProfilePosts} from './ProfilePosts'
 import {fetchUser} from './userSlice'
-
-
 
 const Profile = () => {
     const dispatch = useDispatch()
@@ -39,31 +37,25 @@ const Profile = () => {
         if (profileUser.id === currentUser.id){
             content = 
                 <View>
-                    <View>
+                    <View style={styles.userInfo}>
                         <Image 
                             source={{uri: currentUser.profilepic}} 
-                            style={{height: 100, width: 100}}
+                            style={styles.profilePic}
                         />
                         <Text>{profileUser.username}</Text>
                         <Text onPress={()=>dispatch(changePage('changeprofilepic'))}>Change Profile Pic</Text>
-                    </View>
-                    <View>
-                        <Text>{profilePosts.length} Posts</Text>
                     </View>
                     <ProfilePosts posts={orderedPosts} />
                 </View>
         } else {
             content = 
                 <View>
-                    <View>
+                    <View style={styles.userInfo}>
                         <Image 
                             source={{uri: profileUser.profilepic}} 
-                            style={{height: 100, width: 100}}
+                            style={styles.profilePic}
                         />
                         <Text>{profileUser.username}</Text>
-                    </View>
-                    <View>
-                        <Text>{profilePosts.length} Posts</Text>
                     </View>
                     <ProfilePosts posts={orderedPosts} />
                 </View>
@@ -73,12 +65,41 @@ const Profile = () => {
         content = <Text>{profileByIdError}</Text>
     }
 
-
     return (
-        <View>
+        <View style={styles.main}>
             {content}
         </View>
     )
 }
+
+let width = Dimensions.get('window').width; //full width
+
+const styles = StyleSheet.create({
+    main: {
+        marginTop:20,
+        marginBottom:50
+    },
+    profilePic: {
+        borderRadius:50,
+        height: 100, 
+        width: 100
+    },
+    userInfo: {
+        flex:1,
+        flexDirection:'row',
+        justifyContent:'space-around',
+        alignItems:'center',
+        width:width
+    },
+    postImgContainer: {
+        width:width,
+        flex:1,
+        flexDirection:'row',
+        flexWrap:'wrap'
+    },
+    postImg: {
+        width:width*0.3
+    }
+})
 
 export default Profile

@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react"
 import { StyleSheet, View, Text, TextInput } from "react-native"
 import {changePage} from '../pageSlice'
 import {useSelector,useDispatch} from 'react-redux'
-import {changePostId} from '../posts/postIdSlice'
+import {fetchPostById} from '../posts/postByIdSlice'
 import Icon from 'react-native-vector-icons/AntDesign'
 
 export const Comments = ({postComments, postId}) => {
@@ -55,8 +55,8 @@ export const Comments = ({postComments, postId}) => {
                 {commentFirst}
                 <View style={styles.center}>
                     <Icon name="ellipsis1" size={30} onPress={() => {
-                        dispatch(changePostId(postId))
-                        dispatch(changePage('postcomments'))
+                        dispatch(fetchPostById(postId))
+                        dispatch(changePage('post'))
                     }} />
                 </View>
                 {commentLast}
