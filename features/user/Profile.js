@@ -35,7 +35,7 @@ const Profile = () => {
 
     if (profileByIdStatus === 'loading') {
         content = <Text >Loading...</Text>
-    } else if (profileByIdStatus === 'succeeded'){
+    } else if (profileByIdStatus === 'succeeded' && userStatus === 'succeeded'){
         if (profileUser.id === currentUser.id){
             content = 
                 <View>

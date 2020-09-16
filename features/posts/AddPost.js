@@ -41,7 +41,7 @@ export default function AddImage() {
     const [postCause,setPostCause] = useState("Cause: ")
     const [postAction,setPostAction] = useState(1)
     const [postPoints,setPostPoints] = useState(null)
-
+    
                         {/* ------------------------ PERMISSIONS ------------------------ */}
 
     useEffect(() => {

@@ -2,7 +2,6 @@ import React, {useState, useEffect} from "react"
 import { StyleSheet, View, Text, TextInput } from "react-native"
 import {changePage} from '../pageSlice'
 import {useSelector,useDispatch} from 'react-redux'
-import {fetchPostById} from '../posts/postByIdSlice'
 import {changePostId} from '../posts/postIdSlice'
 import Icon from 'react-native-vector-icons/AntDesign'
 

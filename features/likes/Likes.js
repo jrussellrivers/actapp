@@ -4,10 +4,26 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import {addLike, addLikeDB} from './likesSlice'
 import { useDispatch } from 'react-redux'
 import Icon from 'react-native-vector-icons/AntDesign'
+import {changeStatus} from '../posts/postsSlice'
 
-export const Likes = ({postLikes, postId, user}) => {
+export const Likes = ({postLikes, post, user}) => {
     const dispatch = useDispatch()
-    
+
+    const checkPoints = async (post, likes) => {
+        // XXXXXXXXXXX fetch likes, filter to post, use that length
+
+        console.log('checkpoints')
+        // CHANGE THIS NUMBER TO UPDATE POINT THRESHOLD 
+        if (likes.length === 9){
+            let author = await fetch(`http://localhost:3333/user/${post.user_id}`)
+            .then(res=>res.json())
+            .then(data=>data)
+
+            let value = author.points + post.points
+            await fetch(`http://localhost:3333/updatePoints/${value}/${author.id}`, {method:'post'})
+            await fetch(`http://localhost:3333/updatePointsStatus/${post.id}`, {method:'post'})
+        }
+    }
 
     let userLikeStatus = false
     for (let i=0;i<postLikes.length;i++){
@@ -23,8 +39,9 @@ export const Likes = ({postLikes, postId, user}) => {
     } else {
         button = <Icon name="like2" size={30}
             onPress={()=>{
-                dispatch(addLike({user_id: user.id, post_id: postId}))
-                addLikeDB(postId, user.id)
+                dispatch(addLike({user_id: user.id, post_id: post.id}))
+                addLikeDB(post.id, user.id)
+                post.points_awarded === false ? checkPoints(post, postLikes) : null
         }} />
     }
 
@@ -35,7 +52,6 @@ export const Likes = ({postLikes, postId, user}) => {
             <View style={styles.margin}>
                 <View>{button}</View>
             </View>
-            //we will put logic for which friends liked it, and logic for if you yourself has liked it
         )
     }
 }
