@@ -54,13 +54,6 @@ export default function Survey() {
                     unCheckedImage={<Icon name="like2" size={30} />}
                 />
                 <CheckBox
-                    onClick={()=>{changeUSPSStatus(!uspsStatus)}}
-                    isChecked={uspsStatus}
-                    rightText={'USPS'}
-                    checkedImage={<Icon name="like1" size={30} />}
-                    unCheckedImage={<Icon name="like2" size={30} />}
-                />
-                <CheckBox
                     onClick={()=>{changeClimateStatus(!climateStatus)}}
                     isChecked={climateStatus}
                     rightText={'Climate Change'}
