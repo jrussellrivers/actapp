@@ -79,7 +79,7 @@ export default function AddImage() {
                 result.type = type
                 setImage(result);
             }
-            console.log(result);
+            console.log(result.uri);
             return result
         } catch (E) {
             console.log('in error')
@@ -118,18 +118,22 @@ export default function AddImage() {
     let causesDropdownItems
 
     const [otherInputsShowing,setOtherInputsShowing] = useState(false)
-    const [infoShowing,setInfoShowing] = useState(0)
+    const [causeInfoShowing,setCauseInfoShowing] = useState(false)
 
-    const showInfo = e => {
-        setInfoShowing(infoShowing+1)
-        //XXXXXXXXXX changing the 1 to a different number below to account for more info boxes won't work if they click the cause ? more than once in the beginning, so implement redux of 'if user has not posted display the info automatically on top of the input'
-        if(infoShowing > 1) setInfoShowing(0)
+    const showCauseInfo = () => {
+        setCauseInfoShowing(!causeInfoShowing)
+    }
+
+    const [actionInfoShowing,setActionInfoShowing] = useState(false)
+
+    const showActionInfo = () => {
+        setActionInfoShowing(!actionInfoShowing)
     }
 
     if (causesStatus === 'loading'){
         return <Text>...loading</Text>
     } else if (causesStatus === 'succeeded'){
-        causesDropdownItems = causes.map((cause,idx)=> <Picker.Item key={idx} label={cause.cause_title} value={cause.cause_label} />)
+        causesDropdownItems = causes.filter(cause => cause.cause_title !== 'Browse All').map((cause,idx)=> <Picker.Item key={idx} label={cause.cause_title} value={cause.cause_label} />)
         {/* CAUSES DROPDOWN */}
         contentA = <View>
             <Picker
@@ -186,24 +190,24 @@ export default function AddImage() {
 {/* ------------------------ CAUSE DROPDOWN ------------------------ */}
             <View style={styles.flex}>
                 {contentA}
-                <Icon name="question" size={16} onPress={showInfo}/>
-                {infoShowing === 1 ? 
-                    <TouchableOpacity style={styles.info} onPress={showInfo}><Text>What cause does this post support?</Text></TouchableOpacity>
+                <Icon name="question" size={16} onPress={showCauseInfo}/>
+                {causeInfoShowing ? 
+                    <TouchableOpacity style={styles.info} onPress={showCauseInfo}><Text>What cause does this post support?</Text></TouchableOpacity>
                 : null}
             </View>
             {otherInputsShowing ? <TextInput style={styles.textInput} onFocus={() => {if(postCause === "Cause: "){setPostCause("");setPostAction(1)}}} onBlur={() => {if(postCause === "")setPostCause("Cause: ")}} onChangeText={text => setPostCause(text)} value={postCause} /> : null}
             {/* USER COULD ENTER OWN ACTION, but issues sending it back to the backend >>>>> {otherInputsShowing && postCause !== 'Cause: ' ? <TextInput style={styles.textInput} onFocus={() => {if(postAction === "Action: ")setPostAction("")}} onBlur={() => {if(postAction === "")setPostAction("Action: ")}} onChangeText={text => setPostAction(text)} value={postAction}/> : null} */}
             {otherInputsShowing ? <Text style={styles.smallGray}>Limit 40 Characters</Text> : null}
 {/* ------------------------ ACTION DROPDOWN ------------------------ */}
-            {!otherInputsShowing ? 
-                <View>{contentB}
-                    {/* <Icon name="question" size={16} onPress={showInfo}/> */}
-                    {/* XXXXXXX NOT GOING TO WORK - SEE XXXXX NOTE ABOVE */}
-                    {/* {infoShowing === 2 ? 
-                        <TouchableOpacity style={styles.info} onPress={showInfo}><Text>What cause does this post support?</Text></TouchableOpacity>
-                    : null} */}
-                </View> : null}
-            {/* <Text>Points: {postAction.points}</Text> */}
+            {!otherInputsShowing && postCause !== 'Cause: ' ? 
+                <View style={styles.flex}>
+                    {contentB}
+                    <Icon name="question" size={16} onPress={showActionInfo}/>
+                    {actionInfoShowing ? 
+                        <TouchableOpacity style={styles.info} onPress={showActionInfo}><Text>You can earn points if your post shows proof you completed an action on the Actions List (see "Take Action" above for the list and for resources to help you get started). If you don't see your action on the list, select "None of the Above" and continue posting! If you have a suggestion for an action to add to the list, type "SUGGESTED ACTION:" in your post's caption and we'll take a look! </Text></TouchableOpacity>
+                    : null}
+                </View>
+            : null }
             {image && postText !== "Write a caption..." && postText !== "" ? <Button title="Post" onPress={
                 async ()=>{
                     await _uploadToDB()
@@ -230,13 +234,14 @@ const styles = StyleSheet.create({
     },
     picker: { 
         height: 36, 
-        width: 250, 
+        width: 300, 
         borderWidth:0, 
         margin:7, 
         backgroundColor:'white' 
     },
     pic: {
-        marginTop:-90
+        marginTop:-90,
+        marginBottom:7
     },
     info: {
         position:'absolute',

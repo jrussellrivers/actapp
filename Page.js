@@ -84,14 +84,17 @@ export default function App() {
     return (
         <View style={styles.container}>
             <View style={styles.fixed}>
-                <View style={styles.header}>
-                    <Text style={styles.headerText}><Text style={styles.green}>act</Text>app</Text>
-                </View>
+                {page !== 'login' ? 
+                    <View style={styles.header}>
+                        <Text style={styles.headerText}><Text style={styles.green}>act</Text>app</Text>
+                    </View>
+                : null }
                 {!isEmpty(token) && page !== 'actions' && page !== 'actionId' ? <View style={styles.actionButton}><Button style={styles.actionButton} title="Take Action" onPress={() => dispatch(changePage('actions'))} /></View> : null}
             </View>
             <View style={styles.main}>
                 {content}
             </View>
+            {!isEmpty(token) ? 
             <View style={styles.nav}>
                 <Icon name="database" size={30} onPress={() => {
                     dispatch(changeStatus('idle'))
@@ -105,6 +108,7 @@ export default function App() {
                 }} />
                 <Icon name="logout" size={30} onPress={() => dispatch(changePage('logout'))} />
             </View>
+            : null }
         </View>
     );
 }

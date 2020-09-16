@@ -12,8 +12,8 @@ export const SinglePostComments = ({orderedComments}) => {
         let content = orderedComments.map((comment, idx) => {
             let readableDate = new Date(`${comment.created_at}`).toDateString()
             return (
-                <View key={idx}>
-                    <Text>{comment.username} {comment.comment} {readableDate}</Text>
+                <View key={idx} style={styles.commentsContainer}>
+                    <Text style={styles.marginTop}><Text style={styles.bold}>{comment.username}</Text> {comment.comment} {readableDate}</Text>
                 </View>
             )
         })
@@ -25,3 +25,19 @@ export const SinglePostComments = ({orderedComments}) => {
         )
     }
 }
+
+const styles = StyleSheet.create({
+    bold: {
+        fontWeight:'bold'
+    },
+    commentsContainer: {
+        marginLeft:7
+    },
+    marginTop: {
+        marginTop:7
+    },
+    center: {
+        alignItems:'center',
+        marginBottom:-10
+    }
+})

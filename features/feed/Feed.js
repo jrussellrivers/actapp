@@ -14,9 +14,6 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 
 export const Feed = () => {
 
-    let width = Dimensions.get('window').width; //full width
-    let height = Dimensions.get('window').height;
-
     const [addCommentShowing,setAddCommentShowing] = useState(false)
 
     const dispatch = useDispatch()
@@ -74,10 +71,11 @@ export const Feed = () => {
     }, [userPicsStatus, dispatch])
 
     let content
+    const [showFullText,setShowFullText] = useState(false)
 
     // This checks to see if all Posts
     if (postStatus === 'loading' || commentsStatus === 'loading' || likesStatus === 'loading' || userStatus === 'loading' || userPicsStatus === 'loading') {
-        content = <Text>Loading...</Text>
+        content = <Text style={styles.loading}>Loading...</Text>
     } else if (postStatus === 'succeeded' && commentsStatus === 'succeeded' && likesStatus === 'succeeded' && userStatus === 'succeeded' && userPicsStatus === 'succeeded') {
         // Sort posts in reverse chronological order by datetime string
 
@@ -105,16 +103,19 @@ export const Feed = () => {
             let postLikes = likes.likes.filter(like=>like.post_id === post.id ? true : false)
             let profilePic = userPics.find(pic=>pic.id === post.user_id ? true : false)
             let readableDate = new Date(`${post.date_posted}`).toDateString()
+
+            let abridgedText = post.body.substr(0,80)
+
             let currentTimestamp = new Date()
             // console.log('readable date:', readableDate)
             // console.log('post.date_posted:', post.date_posted)
             // console.log('currentTimestamp:', currentTimestamp)
-            let test
-            post.points_awarded === false ? test = 'Not Awarded' : test = 'Awarded'
+            let pointsStyle
+            post.points_awarded === false ? pointsStyle = styles.pointsNotAwarded : pointsStyle = styles.pointsAwarded
 
             return (
                 <View key={post.id} style={styles.postContainer}>
-                    <View style={styles.userWhoPosted} >
+                    <View style={styles.userWhoPosted}>
                         <TouchableOpacity onPress={() => {
                                 dispatch(fetchProfileById(post.user_id))
                                 dispatch(changePage('profile'))
@@ -134,12 +135,11 @@ export const Feed = () => {
                             dispatch(fetchPostById(post.id))
                         }}>Link to Post</Text> */}
                         <Text>{readableDate}</Text>
-                        <Text>{test}</Text>
                     </View>
                     <View>
                         <Image 
                             source={{uri: post.picurl}} 
-                            style={{height: width, width: width}}
+                            style={pointsStyle}
                         />
                     </View>
                     {post.action_title ? 
@@ -152,11 +152,13 @@ export const Feed = () => {
                         <Icon style={styles.marginTop} name="comment-o" size={30} onPress={() => setAddCommentShowing(!addCommentShowing)} />
                     </View>
                     {postLikes.length === 0 ? null :
-                    postLikes.length === 1 ? <Text style={styles.likesNum}>{postLikes.length} like</Text> : <Text style={styles.likesNum}>{postLikes.length} likes</Text>
+                     postLikes.length === 1 ? <Text style={styles.likesNum}>{postLikes.length} like</Text> : <Text style={styles.likesNum}>{postLikes.length} likes</Text>
                     }
                     <View style={styles.postText}>
                         <Text style={styles.bold}>{post.username}</Text>
-                        <Text style={styles.spaceLeft}>{post.body}</Text>
+                        {showFullText ? null : <Text style={styles.spaceLeft}>{abridgedText}
+                            {post.body.length > 80 ? <Text onPress={() => setShowFullText(true)}>...</Text> : null} </Text>}
+                        {showFullText ? <Text style={styles.spaceLeft}>{post.body}</Text> : null}
                     </View>
                     <View>
                         <Comments postComments={postComments} postId={post.id}/>
@@ -181,12 +183,20 @@ export const Feed = () => {
     } 
 
     return (
-            <View>{content}</View>
+            <View style={styles.main}>{content}</View>
     )
     
 }
 
+let width = Dimensions.get('window').width; //full width
+
 const styles = StyleSheet.create({
+    main: {
+        marginBottom:50
+    },
+    loading: {
+        marginTop:20
+    },
     bold: {
         fontWeight:'700'
     },
@@ -226,7 +236,8 @@ const styles = StyleSheet.create({
     },
     addComment: {
         marginTop:7,
-        marginLeft:7
+        marginLeft:7,
+        height:36
     },
     green: {
         color:'rgb(55,182,53)',
@@ -240,5 +251,15 @@ const styles = StyleSheet.create({
         borderBottomWidth:1,
         borderColor:'#ccc',
         padding:7
+    },
+    pointsNotAwarded: {
+        height: width, 
+        width: width
+    },
+    pointsAwarded: {
+        height: width, 
+        width: width, 
+        borderWidth: 10, 
+        borderColor:'rgb(55,182,53)'
     }
 })

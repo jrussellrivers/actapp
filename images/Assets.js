@@ -16,5 +16,13 @@ export let assets = {
             name:"blackbizowner",
             uri:require('./blackbizowner.png')
         }
-    ]
+    ],
+    actCoin: {
+        name:"actcoin",
+        uri:require('./icons/actcoin_logo.png')
+    },
+    fist: {
+        name:"fist",
+        uri:require('./icons/blm_icon.png')
+    },
 }
