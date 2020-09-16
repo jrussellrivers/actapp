@@ -38,6 +38,11 @@ export const Feed = () => {
     const userPicsError = useSelector(state => state.userPics.error)
     const userPicsStatus = useSelector(state => state.userPics.status)
 
+    console.log(user)
+    console.log(likes)
+    console.log(comments)
+    console.log(posts)
+
     // This fetches all Posts
     useEffect(() => {
         if (postStatus === 'idle') {
@@ -166,9 +171,10 @@ export const Feed = () => {
                                     comment: evt.target.value, 
                                     created_at: new Date().toUTCString(), 
                                     post_id: post.id, 
-                                    username: user.username
+                                    username: user.username,
+                                    post_username: post.username
                                 }))
-                                addCommentDB(evt.target.value, post.id, user.id, user.username)
+                                addCommentDB(evt.target.value, post.id, user.id, user.username, post.username)
                                 evt.target.value = ''
                             }} placeholder='Add a Comment' />
                         : null }

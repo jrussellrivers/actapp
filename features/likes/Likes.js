@@ -39,8 +39,13 @@ export const Likes = ({postLikes, post, user}) => {
     } else {
         button = <Icon name="like2" size={30}
             onPress={()=>{
-                dispatch(addLike({user_id: user.id, post_id: post.id}))
-                addLikeDB(post.id, user.id)
+                dispatch(addLike({
+                    user_id: user.id, 
+                    post_id: post.id, 
+                    post_username: post.username,
+                    created_at: new Date().toUTCString()
+                }))
+                addLikeDB(post.id, user.id, post.username)
                 post.points_awarded === false ? checkPoints(post, postLikes) : null
         }} />
     }
