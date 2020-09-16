@@ -7,7 +7,6 @@ import { changePage } from '../pageSlice'
 export default function Login() {
     const dispatch = useDispatch()
     const token = useSelector(state => state.token.token)
-    console.log(token, '103')
 
     const formData = {}
 
@@ -20,7 +19,6 @@ export default function Login() {
         .then(data=>data.json())
         .then(json=>{
             if (json.success === true){
-                console.log(json)
                 dispatch(changeToken(json))
                 dispatch(changePage('feed'))
             } 

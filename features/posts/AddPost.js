@@ -39,6 +39,8 @@ export default function AddImage() {
     const [postAction,setPostAction] = useState("none")
     const [postPoints,setPostPoints] = useState(null)
 
+    
+
     useEffect(() => {
         getPermissionAsync();
     }, [])

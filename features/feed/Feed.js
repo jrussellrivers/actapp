@@ -38,9 +38,6 @@ export const Feed = () => {
     const userPicsError = useSelector(state => state.userPics.error)
     const userPicsStatus = useSelector(state => state.userPics.status)
 
-
-    console.log(userStatus)
-
     // This fetches all Posts
     useEffect(() => {
         if (postStatus === 'idle') {
@@ -83,10 +80,6 @@ export const Feed = () => {
         content = <Text>Loading...</Text>
     } else if (postStatus === 'succeeded' && commentsStatus === 'succeeded' && likesStatus === 'succeeded' && userStatus === 'succeeded' && userPicsStatus === 'succeeded') {
         // Sort posts in reverse chronological order by datetime string
-        console.log(posts.posts)
-        console.log(comments.comments)
-        console.log(likes.likes)
-        console.log(user, '68')
 
         // let userCauses = [
         //     {name:'BLM',id:1},
@@ -113,9 +106,11 @@ export const Feed = () => {
             let profilePic = userPics.find(pic=>pic.id === post.user_id ? true : false)
             let readableDate = new Date(`${post.date_posted}`).toDateString()
             let currentTimestamp = new Date()
-            console.log('readable date:', readableDate)
-            console.log('post.date_posted:', post.date_posted)
-            console.log('currentTimestamp:', currentTimestamp)
+            // console.log('readable date:', readableDate)
+            // console.log('post.date_posted:', post.date_posted)
+            // console.log('currentTimestamp:', currentTimestamp)
+            let test
+            post.points_awarded === false ? test = 'Not Awarded' : test = 'Awarded'
 
             return (
                 <View key={post.id} style={styles.postContainer}>
@@ -139,6 +134,7 @@ export const Feed = () => {
                             dispatch(fetchPostById(post.id))
                         }}>Link to Post</Text> */}
                         <Text>{readableDate}</Text>
+                        <Text>{test}</Text>
                     </View>
                     <View>
                         <Text>{post.action_title} <Text style={styles.green}>+{post.points}</Text></Text>
@@ -150,7 +146,7 @@ export const Feed = () => {
                         />
                     </View>
                     <View style={styles.flex}>
-                        <Likes postLikes={postLikes} postId={post.id} user={user}/>
+                        <Likes postLikes={postLikes} post={post} user={user}/>
                         <Icon style={styles.marginTop} name="comment-o" size={30} onPress={() => setAddCommentShowing(!addCommentShowing)} />
                     </View>
                     {postLikes.length === 0 ? null :
@@ -181,41 +177,6 @@ export const Feed = () => {
     } else if (postStatus === 'failed' || commentsStatus === 'failed' || likesStatus === 'failed' || userStatus === 'failed' || userPicsStatus === 'failed') {
         content = <Text>{postsError}, {commentsError}, {likesError}, {userError}, {userPicsError}</Text>
     } 
-
-    console.log(posts)
-    console.log(comments)
-    console.log(likes)
-    console.log(user)
-    // console.log(userStatus)
-    // console.log(user)
-
-    // this works
-    // useEffect(()=>{
-    //     console.log('fetching')
-    //     fetch('http://localhost:3333/posts')
-    //     .then(resp=>resp.json())
-    //     .then(data=>{
-    //         dispatch({type: 'fetchPosts', data: data})
-    //     })
-    // },[dispatch])
-
-    // console.log(posts, postStatus, error)
-    // const [postText,setPostText] = useState('')
-
-    // const onChangeText = (text) => {
-    //     setPostText(text)
-    // }
-
-    // if (!posts){
-    //     return <Text>...Loading</Text>
-    // } 
-    // const renderedPosts = posts.map(post => (
-    //     // <View className="post-excerpt" key={post.id}>
-    //     //   <Text>{post.title}</Text>
-    //     //   <Text>{post.content.substring(0, 100)}</Text>
-    //     // </View>
-    //         <Text key={post.id}>{post.body}</Text>
-    //   ))
 
     return (
             <View>{content}</View>

@@ -19,6 +19,7 @@ import ProfilePic from './features/user/ProfilePic'
 import ChangeProfilePic from './features/user/ChangeProfilePic'
 import Icon from 'react-native-vector-icons/AntDesign'
 import {fetchProfileById} from './features/user/profileByIdSlice'
+import { changeStatus } from './features/posts/postsSlice';
 
 
 let width = Dimensions.get('window').width; //full width
@@ -33,8 +34,6 @@ export default function App() {
     const posts = useSelector(state => state.posts.posts)
     const actionId = useSelector(state => state.actionId.actionId)
     const user = useSelector(state => state.user.user)
-
-    console.log(token)
 
     const isEmpty = (obj) => {
         for(var key in obj) {
@@ -94,7 +93,10 @@ export default function App() {
                 {content}
             </View>
             <View style={styles.nav}>
-                <Icon name="database" size={30} onPress={() => dispatch(changePage('feed'))} />
+                <Icon name="database" size={30} onPress={() => {
+                    dispatch(changeStatus('idle'))
+                    dispatch(changePage('feed'))
+                }} />
                 <Icon name="search1" size={30} onPress={() => dispatch(changePage('search'))} />
                 <Icon name="plus" size={30} onPress={() => dispatch(changePage('addpost'))} />
                 <Icon name="user" size={30} onPress={() => {
