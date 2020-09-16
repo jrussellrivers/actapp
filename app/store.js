@@ -9,6 +9,7 @@ import pageReducer from '../features/pageSlice'
 import postIdReducer from '../features/posts/postIdSlice'
 import postByIdReducer from '../features/posts/postByIdSlice'
 import causesReducer from '../features/actions/causesSlice'
+import causeIdReducer from '../features/actions/causeIdSlice'
 import actionsByCauseReducer from '../features/actions/actionsByCauseSlice'
 import actionsReducer from '../features/actions/actionsSlice'
 import actionIdReducer from '../features/actions/actionIdSlice'
@@ -28,6 +29,7 @@ export default configureStore({
     postId: postIdReducer,
     postById: postByIdReducer,
     causes:causesReducer,
+    causeId:causeIdReducer,
     actionsByCause:actionsByCauseReducer,
     actions: actionsReducer,
     actionId: actionIdReducer,
