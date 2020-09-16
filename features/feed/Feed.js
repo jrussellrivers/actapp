@@ -137,14 +137,16 @@ export const Feed = () => {
                         <Text>{test}</Text>
                     </View>
                     <View>
-                        <Text>{post.action_title} <Text style={styles.green}>+{post.points}</Text></Text>
-                    </View>
-                    <View>
                         <Image 
                             source={{uri: post.picurl}} 
                             style={{height: width, width: width}}
                         />
                     </View>
+                    {post.action_title ? 
+                    <View style={styles.actionContainer}>
+                        <Text>{post.action_title} <Text style={styles.green}> +{post.points} </Text></Text>
+                    </View>
+                    : null}
                     <View style={styles.flex}>
                         <Likes postLikes={postLikes} post={post} user={user}/>
                         <Icon style={styles.marginTop} name="comment-o" size={30} onPress={() => setAddCommentShowing(!addCommentShowing)} />
@@ -227,6 +229,16 @@ const styles = StyleSheet.create({
         marginLeft:7
     },
     green: {
-        color:'rgb(55,182,53)'
+        color:'rgb(55,182,53)',
+        fontWeight:'bold'
+    },
+    actionContainer: {
+        flex:1,
+        alignItems:'center',
+        backgroundColor:'#fff',
+        borderTopWidth:1,
+        borderBottomWidth:1,
+        borderColor:'#ccc',
+        padding:7
     }
 })
