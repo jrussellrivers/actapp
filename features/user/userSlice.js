@@ -20,6 +20,9 @@ initialState,
 reducers: {
   changeUserStatus(state, action) {
     state.status = action.payload
+  },
+  changeNotificationDate(state, action) {
+    state.user.notification_check = action.payload
   }
 },
 extraReducers: {
@@ -38,6 +41,6 @@ extraReducers: {
 }
 })
 
-export const { changeUserStatus } = userSlice.actions
+export const { changeUserStatus, changeNotificationDate } = userSlice.actions
 
 export default userSlice.reducer

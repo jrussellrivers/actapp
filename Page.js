@@ -20,6 +20,7 @@ import ChangeProfilePic from './features/user/ChangeProfilePic'
 import Icon from 'react-native-vector-icons/AntDesign'
 import {fetchProfileById} from './features/user/profileByIdSlice'
 import { changeStatus } from './features/posts/postsSlice';
+import Notifications from './features/user/Notifications'
 
 
 let width = Dimensions.get('window').width; //full width
@@ -42,7 +43,6 @@ export default function App() {
         }
         return true;
     }
-
 
     if (isEmpty(token)) {
         if (page !== 'register' && page !== 'survey' && page !== 'profilepic') dispatch(changePage('login'))
@@ -79,6 +79,8 @@ export default function App() {
         content = <ProfilePic />
     } else if (page === 'changeprofilepic'){
         content = <ChangeProfilePic />
+    } else if (page === 'notifications'){
+        content = <Notifications />
     }
 
     return (
@@ -102,11 +104,12 @@ export default function App() {
                 }} />
                 <Icon name="search1" size={30} onPress={() => dispatch(changePage('search'))} />
                 <Icon name="plus" size={30} onPress={() => dispatch(changePage('addpost'))} />
+                <Icon name="heart" size={30} onPress={() => dispatch(changePage('notifications'))} />
                 <Icon name="user" size={30} onPress={() => {
                     dispatch(fetchProfileById(user.id))
                     dispatch(changePage('profile'))
                 }} />
-                <Icon name="logout" size={30} onPress={() => dispatch(changePage('logout'))} />
+                {/* <Icon name="logout" size={30} onPress={() => dispatch(changePage('logout'))} /> */}
             </View>
             : null }
         </View>

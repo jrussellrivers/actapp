@@ -7,8 +7,8 @@ export const fetchLikes = createAsyncThunk('likes/fetchLikes', async () => {
     return response
 })
 
-export const addLikeDB = async (postId, userId) => {
-  const response = await fetch(`http://localhost:3333/addLike/${postId}/${userId}`, {method:'post'})
+export const addLikeDB = async (postId, userId, postUsername) => {
+  const response = await fetch(`http://localhost:3333/addLike/${postId}/${userId}/${postUsername}`, {method:'post'})
   return response
 }
 
