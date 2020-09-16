@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Image, View, Platform, TextInput } from 'react-native';
+import { StyleSheet, Image, View, Platform, TouchableOpacity, Text, Dimensions } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import {useState,useEffect} from 'react'
@@ -74,17 +74,41 @@ export default function ChangeProfilePic() {
         }
 
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Button title="Pick an image from camera roll" onPress={_pickImage} />
-            {image && <Image source={{ uri: image.uri }} style={{ width: 200, height: 200 }} />}
-            {image && <Button title="Upload" onPress={
+        <View style={styles.main}>
+            <TouchableOpacity onPress={_pickImage} style={styles.button}><Text style={{fontWeight: 'bold', color:'rgb(55,182,53)'}}>CHOOSE A PROFILE PICTURE</Text></TouchableOpacity>
+            {image && <Image source={{ uri: image.uri }} style={styles.image} />}
+            {image && <TouchableOpacity style={styles.button} onPress={
                 async ()=>{
                     await _uploadToDB()
                     dispatch(changeUserPicsStatus('idle'))
                     dispatch(changeUserStatus('idle'))
                     dispatch(changePage('profile'))
                 }
-            }/>}
+            }><Text style={{fontWeight: 'bold', color:'rgb(55,182,53)'}}>UPLOAD</Text></TouchableOpacity>}
         </View>
     )
 }
+
+let width = Dimensions.get('window').width; //full width
+
+const styles = StyleSheet.create({
+    main: {
+        flex: 1, 
+        alignItems: 'center', 
+        justifyContent: 'center', 
+        marginTop: 100, 
+        width:width 
+    },
+    button: {
+        flex:1,
+        alignItems:'center',
+        padding:14,
+        width:width-50
+    },
+    image: { 
+        width: width, 
+        height: width, 
+        borderRadius:250 
+    }
+    
+})

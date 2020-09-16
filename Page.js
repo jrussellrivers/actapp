@@ -1,6 +1,6 @@
 import React from 'react';
 import {Feed} from "./features/feed/Feed"
-import { StyleSheet, Text, View, Button, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Dimensions } from 'react-native';
 import {useSelector,useDispatch} from 'react-redux'
 import Login from './features/login/Login'
 import Register from './features/register/Register'
@@ -91,7 +91,7 @@ export default function App() {
                         <Text style={styles.headerText}><Text style={styles.green}>act</Text>app</Text>
                     </View>
                 : null }
-                {!isEmpty(token) && page !== 'actions' && page !== 'actionId' ? <View style={styles.actionButton}><Button style={styles.actionButton} title="Take Action" onPress={() => dispatch(changePage('actions'))} /></View> : null}
+                {!isEmpty(token) && page !== 'actions' && page !== 'actionId' ? <View style={styles.actionButton}><TouchableOpacity style={styles.button} onPress={() => dispatch(changePage('actions'))} ><Text style={{fontWeight: 'bold', color:'rgb(55,182,53)'}}>TAKE ACTION</Text></TouchableOpacity></View> : null}
             </View>
             <View style={styles.main}>
                 {content}
@@ -104,7 +104,7 @@ export default function App() {
                 }} />
                 <Icon name="search1" size={30} onPress={() => dispatch(changePage('search'))} />
                 <Icon name="plus" size={30} onPress={() => dispatch(changePage('addpost'))} />
-                <Icon name="heart" size={30} onPress={() => dispatch(changePage('notifications'))} />
+                <Icon name="hearto" size={30} onPress={() => dispatch(changePage('notifications'))} />
                 <Icon name="user" size={30} onPress={() => {
                     dispatch(fetchProfileById(user.id))
                     dispatch(changePage('profile'))
@@ -151,9 +151,11 @@ const styles = StyleSheet.create({
   green: {
       color:'rgb(55,182,53)'
   },
-  actionButton: {
-      backgroundColor:'#37B635',
-      margin:14
+  button: {
+    flex:1,
+    alignItems:'center',
+    padding:14,
+    width:width
   },
   fixed: {
       position:'fixed',
