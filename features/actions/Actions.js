@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import { View, Text, StyleSheet, Button, Dimensions, Image } from "react-native"
 import { fetchActions } from './actionsSlice'
 import { fetchCauses } from './causesSlice'
+import { fetchCoordinatedActions } from './coordinatedSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import { changeActionId } from '../actions/actionIdSlice'
 import { changeCauseId } from '../actions/causeIdSlice'
@@ -21,6 +22,10 @@ export default function TakeAction() {
     const actions = useSelector(state => state.actions.actions)
     const actionsStatus = useSelector(state => state.actions.status)
     const actionsError = useSelector(state => state.actions.error)
+
+    const coordinatedActions = useSelector(state => state.coordinatedActions.coordinatedActions)
+    const coordinatedActionsStatus = useSelector(state => state.coordinatedActions.status)
+    const coordinatedActionsError = useSelector(state => state.coordinatedActions.error)
     
 
     // This fetches all Actions
@@ -37,12 +42,25 @@ export default function TakeAction() {
         }
     }, [causesStatus, dispatch])
 
+    // This fetches all Coordinated Actions
+    useEffect(() => {
+        if (coordinatedActionsStatus === 'idle') {
+            dispatch(fetchCoordinatedActions())
+        }
+    }, [coordinatedActionsStatus, dispatch])
+
     console.log(actions)
     console.log(assets.icons)
 
     const [menuItemShowing,setMenuItemShowing] = useState(null)
 
-    let coordinatedActions //= coordinatedActions.map(action=><Button style={styles.button} title={action.title}/>)
+    console.log(coordinatedActions)
+    let coordActions = coordinatedActions.map((action,idx)=><TouchableOpacity key={action.id} style={styles.button} actionId={action.id} onPress={() => {
+        dispatch(changePage('actionId'))
+        dispatch(changeActionId(action.id))
+        // dispatch(fetchActionResources(action.id))
+    }}><View style={styles.bullet}><Text style={styles.bold}>action</Text></View><Image source={{uri:action.icon}} style={{width:25,height:25,margin:7}} /><Text>{action.title.toUpperCase()}</Text></TouchableOpacity>)
+    
     let menu 
     if(menuItemShowing) {
         menu = causes.filter(cause => cause.id === menuItemShowing).map((cause,idx)=><TouchableOpacity key={cause.id} style={styles.button} title={cause.cause_title} causeId={cause.id} onPress={() => {
@@ -75,11 +93,11 @@ export default function TakeAction() {
 
     return (
         <View>
-            
-            <Text>Coordinated Actions (?)</Text>
-            {/* {coordinatedActions} */}<Text>..........List of Coordinated Actions.........</Text>
+            <View style={styles.coordActionsContainer}>
+                <View style={styles.center}><Text style={styles.header}>COORDINATED ACTIONS (?)</Text></View>
+                {coordActions}
+            </View>
             {menu}
-            <Text>Take Action</Text>
             {content}
             <Button title="Back" onPress={() => dispatch(changePage('feed'))} /> 
         </View>
@@ -92,6 +110,25 @@ let width = Dimensions.get('window').width; //full width
 const styles = StyleSheet.create({
     postContainer: {
         margin:10
+    },
+    header: {
+        fontSize:16,
+        fontWeight:'bold'
+    },
+    center: {
+        flex:1,
+        alignItems:'center',
+        borderBottomWidth:1,
+        borderBottomColor:'#ddd',
+        paddingTop:10,
+        paddingBottom:20,
+        marginBottom:10
+    },
+    coordActionsContainer: {
+        borderWidth:1,
+        borderColor:'#aaa',
+        borderRadius:10,
+        padding:10
     },
     button: {
         flex:1,

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Feed} from "./features/feed/Feed"
-import { StyleSheet, Text, View, TouchableOpacity, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image, Dimensions } from 'react-native';
 import {useSelector,useDispatch} from 'react-redux'
 import Login from './features/login/Login'
 import Register from './features/register/Register'
@@ -92,6 +92,7 @@ export default function App() {
                     </View>
                 : null }
                 {!isEmpty(token) && page !== 'actions' && page !== 'actionId' ? <View style={styles.actionButton}><TouchableOpacity style={styles.button} onPress={() => dispatch(changePage('actions'))} ><Text style={{fontWeight: 'bold', color:'rgb(55,182,53)'}}>TAKE ACTION</Text></TouchableOpacity></View> : null}
+                {!isEmpty(token) && page === 'actions' ? posts.map(post=><Image source={post.picurl} style={{width:width/8,height:width/8}}/>).slice(0,8) : null }
             </View>
             <View style={styles.main}>
                 {content}

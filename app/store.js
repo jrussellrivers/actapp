@@ -14,6 +14,8 @@ import actionsByCauseReducer from '../features/actions/actionsByCauseSlice'
 import actionsReducer from '../features/actions/actionsSlice'
 import actionIdReducer from '../features/actions/actionIdSlice'
 import actionResourcesReducer from '../features/actions/actionResourcesSlice'
+import coordinatedActionsReducer from '../features/actions/coordinatedSlice'
+import coordinatedActionResourcesReducer from '../features/actions/coordinatedActionResourcesSlice'
 import profileByIdReducer from '../features/user/profileByIdSlice'
 import registeredUserReducer from '../features/register/registeredUserSlice'
 import userPicsReducer from '../features/user/userPicsSlice'
@@ -34,6 +36,8 @@ export default configureStore({
     actions: actionsReducer,
     actionId: actionIdReducer,
     actionResources: actionResourcesReducer,
+    coordinatedActions:coordinatedActionsReducer,
+    coordinatedActionResources:coordinatedActionResourcesReducer,
     profileById: profileByIdReducer,
     registeredUser: registeredUserReducer,
     userPics: userPicsReducer
