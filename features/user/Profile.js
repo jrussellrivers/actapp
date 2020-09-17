@@ -4,7 +4,7 @@ import {changePage} from '../pageSlice'
 import {useSelector,useDispatch} from 'react-redux'
 import {ProfilePosts} from './ProfilePosts'
 import {fetchUser} from './userSlice'
-import {addMyCommunityDB, addMyCommunity, fetchMyCommunity} from './myCommunitySlice'
+import {addMyCommunityDB, addMyCommunity, fetchMyCommunity, removeMyCommunityDB} from './myCommunitySlice'
 import Icon from 'react-native-vector-icons/AntDesign'
 
 const Profile = () => {

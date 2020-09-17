@@ -30,9 +30,6 @@ reducers: {
   addMyCommunity(state, action) {
     state.myCommunity.push(action.payload)
   },
-  changeMyCommunityStatus(state, action) {
-    state.status = action.payload
-  }
 },
 extraReducers: {
     [fetchMyCommunity.pending]: (state, action) => {
@@ -50,6 +47,6 @@ extraReducers: {
 }
 })
 
-export const { addMyCommunity, changeMyCommunityStatus } = myCommunitySlice.actions
+export const { addMyCommunity } = myCommunitySlice.actions
 
 export default myCommunitySlice.reducer
