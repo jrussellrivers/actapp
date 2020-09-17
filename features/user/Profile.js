@@ -18,6 +18,8 @@ const Profile = () => {
     let communityStatus = myCommunity.filter(com=>com.username === currentUser.username && com.user_id === profileUser.id ? true : false)
     let added = communityStatus.length > 0 ? true : false
 
+    let allMyCommunity = myCommunity.filter(com=>com.username === profileUser.username ? true : false)
+
     const profileByIdStatus = useSelector(state => state.profileById.status)
     const profileByIdError = useSelector(state => state.profileById.error)
 
@@ -52,6 +54,7 @@ const Profile = () => {
                         <Text style={styles.username}>{profileUser.username}</Text>
                         <Text><Text style={styles.username}>{profileUser.points}</Text> points</Text>
                     </View>
+                    <TouchableOpacity><Text>My Community: {allMyCommunity.length}</Text></TouchableOpacity>
                     <ProfilePosts posts={orderedPosts} />
                 </View>
         } else {
@@ -70,6 +73,7 @@ const Profile = () => {
                         await removeMyCommunityDB(profileUser.id,currentUser.id)
                         dispatch(fetchMyCommunity())
                     }}><Icon name="deleteusergroup" size={25}/></TouchableOpacity>
+                    <TouchableOpacity><Text>My Community: {allMyCommunity.length}</Text></TouchableOpacity>
                     <ProfilePosts posts={orderedPosts} />
                 </View>
             } else {
@@ -92,6 +96,9 @@ const Profile = () => {
                         }))
                         addMyCommunityDB(profileUser.id,currentUser.username,currentUser.id)
                     }}><Icon name="addusergroup" size={25}/></TouchableOpacity>
+                    <TouchableOpacity onPress={()=>{
+                        dispatch(changePage('mycommunity'))
+                    }}><Text>My Community: {allMyCommunity.length}</Text></TouchableOpacity>
                     <ProfilePosts posts={orderedPosts} />
                 </View>
             }

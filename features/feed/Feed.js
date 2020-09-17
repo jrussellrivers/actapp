@@ -111,14 +111,30 @@ export const Feed = () => {
 
         if (myCommunity.length > 0){
             const communityFilter = myCommunity.filter(com => com.adder_id === user.id ? true : false)
-
             const causesToFilterBy = usersCauses.filter(cause => cause.user_id === user.id ? true : false)
 
+            communityFilter.forEach(person=>{
+                let communityPosts = posts.posts.filter(post=> person.user_id === post.user_id ? true : false)
+                filteredPosts = filteredPosts.concat(communityPosts)
+            })
+
             causesToFilterBy.forEach(cause=>{
-                communityFilter.forEach(person => {
-                    let postsByFilteredCause = posts.posts.filter(post=>post.cause === cause.cause || person.user_id === post.user_id ? true : false)
-                    filteredPosts = filteredPosts.concat(postsByFilteredCause)
+                let postsByFilteredCause = posts.posts.filter(post=>{
+                    if(post.cause === cause.cause){
+                        let added = filteredPosts.find(p=>p.id === post.id ? true : false)
+                        
+                        if(!added) return true
+                    }
                 })
+
+                filteredPosts = filteredPosts.concat(postsByFilteredCause)
+            })
+
+            let myPosts = posts.posts.filter(post=> user.id === post.user_id ? true : false)
+            myPosts.forEach(post=>{
+                let added = filteredPosts.find(p=>p.id === post.id ? true : false)
+
+                if(!added) filteredPosts.push(post)
             })
         } else {
 
@@ -128,11 +144,20 @@ export const Feed = () => {
                 let postsByFilteredCause = posts.posts.filter(post=>post.cause === cause.cause ? true : false)
                 filteredPosts = filteredPosts.concat(postsByFilteredCause)
             })
+
+            let myPosts = posts.posts.filter(post=> user.id === post.user_id ? true : false)
+            myPosts.forEach(post=>{
+                let added = filteredPosts.find(p=>p.id === post.id ? true : false)
+
+                if(!added) filteredPosts.push(post)
+            })
         }
         
         const orderedPosts = filteredPosts
         .slice()
         .sort((a, b) => b.date_posted.localeCompare(a.date_posted))
+
+        console.log(orderedPosts)
         
         content = orderedPosts.map(post => {
             let postComments = comments.comments.filter(comment=>comment.post_id === post.id ? true : false)
