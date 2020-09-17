@@ -22,7 +22,11 @@ const PostComments = ({postId, comments, posts}) => {
         let readableDate = new Date(`${comment.created_at}`).toDateString()
         return (
             <View key={idx}>
-                <Text>{comment.username} {comment.comment} {readableDate}</Text>
+                <Text><TouchableOpacity onPress={() => {
+                            console.log('clicked')
+                            dispatch(fetchProfileById(comment.user_id))
+                            dispatch(changePage('profile'))
+                        }}><Text>{comment.username}</Text></TouchableOpacity> {comment.comment} {readableDate}</Text>
             </View>
         )
     })

@@ -160,7 +160,10 @@ export const Feed = () => {
                      postLikes.length === 1 ? <Text style={styles.likesNum}>{postLikes.length} like</Text> : <Text style={styles.likesNum}>{postLikes.length} likes</Text>
                     }
                     <View style={styles.postText}>
-                        <Text style={styles.bold}>{post.username}</Text>
+                        <Text style={styles.bold} onPress={() => {
+                            dispatch(fetchProfileById(post.user_id))
+                            dispatch(changePage('profile'))
+                        }}>{post.username}</Text>
                         {showFullText ? null : <Text style={styles.spaceLeft}>{abridgedText}
                             {post.body.length > 80 ? <Text onPress={() => setShowFullText(true)}>...</Text> : null} </Text>}
                         {showFullText ? <Text style={styles.spaceLeft}>{post.body}</Text> : null}
