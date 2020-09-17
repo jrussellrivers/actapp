@@ -106,13 +106,15 @@ export const Feed = () => {
         content = <Text style={styles.loading}>Loading...</Text>
     } else if (postStatus === 'succeeded' && commentsStatus === 'succeeded' && likesStatus === 'succeeded' && userStatus === 'succeeded' && userPicsStatus === 'succeeded') {
 
-        
+        const communityFilter = myCommunity.filter(com => com.adder_id === user.id ? true : false)
 
         const causesToFilterBy = usersCauses.filter(cause => cause.user_id === user.id ? true : false)
         let filteredPosts = []
         causesToFilterBy.forEach(cause=>{
-            let postsByFilteredCause = posts.posts.filter(post=>post.cause === cause.cause ? true : false)
-            filteredPosts = filteredPosts.concat(postsByFilteredCause)
+            communityFilter.forEach(person => {
+                let postsByFilteredCause = posts.posts.filter(post=>post.cause === cause.cause || person.user_id === post.user_id ? true : false)
+                filteredPosts = filteredPosts.concat(postsByFilteredCause)
+            })
         })
         
         const orderedPosts = filteredPosts
