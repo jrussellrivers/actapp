@@ -17,12 +17,13 @@ import Search from './features/Search'
 import Survey from './features/survey/Survey'
 import ProfilePic from './features/user/ProfilePic'
 import ChangeProfilePic from './features/user/ChangeProfilePic'
+import ChangeUserInfo from './features/user/ChangeUserInfo'
 import Icon from 'react-native-vector-icons/AntDesign'
 import {fetchProfileById} from './features/user/profileByIdSlice'
 import { changeStatus } from './features/posts/postsSlice';
 import Notifications from './features/user/Notifications'
 import MyCommunity from './features/user/MyCommunity'
-
+import Menu from './features/Menu'
 
 let width = Dimensions.get('window').width; //full width
 
@@ -80,10 +81,14 @@ export default function App() {
         content = <ProfilePic />
     } else if (page === 'changeprofilepic'){
         content = <ChangeProfilePic />
+    } else if (page === 'changeuserinfo'){
+        content = <ChangeUserInfo user={user}/>
     } else if (page === 'notifications'){
         content = <Notifications />
     } else if (page === 'mycommunity'){
         content = <MyCommunity />
+    } else if (page === 'menu'){
+        content = <Menu />
     }
 
     return (
@@ -94,6 +99,7 @@ export default function App() {
                         <Text style={styles.headerText}><Text style={styles.green}>act</Text>app</Text>
                     </View>
                 : null }
+                {!isEmpty(token) ? <Icon name="menuunfold" size={30} style={styles.menu} onPress={() => dispatch(changePage('menu'))}/> : null }
                 {!isEmpty(token) && page !== 'actions' && page !== 'actionId' ? <View style={styles.actionButton}><TouchableOpacity style={styles.button} onPress={() => dispatch(changePage('actions'))} ><Text style={{fontWeight: 'bold', color:'rgb(55,182,53)'}}>TAKE ACTION</Text></TouchableOpacity></View> : null}
             </View>
             <View style={styles.main}>
@@ -166,6 +172,11 @@ const styles = StyleSheet.create({
       top:0,
       backgroundColor:'white',
       zIndex:2
+  },
+  menu: {
+    position:'absolute',
+    top:15,
+    right:15
   },
   main: {
       marginTop:105
