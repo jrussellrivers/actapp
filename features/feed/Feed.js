@@ -7,6 +7,7 @@ import {Comments} from '../comments/Comments'
 import {fetchLikes} from '../likes/likesSlice'
 import {Likes} from '../likes/Likes'
 import {fetchUser} from '../user/userSlice'
+import {fetchUsersCauses} from '../actions/usersCausesSlice'
 import {changePage} from '../pageSlice'
 import {fetchProfileById} from '../user/profileByIdSlice'
 import {fetchUserPics} from '../user/userPicsSlice'
@@ -23,6 +24,7 @@ export const Feed = () => {
     const token = useSelector(state => state.token)
     const user = useSelector(state => state.user.user)
     const userPics = useSelector(state => state.userPics.userPics)
+    const usersCauses = useSelector(state => state.usersCauses.usersCauses)
 
     const postStatus = useSelector(state => state.posts.status)
     const postsError = useSelector(state => state.posts.error)
@@ -34,6 +36,8 @@ export const Feed = () => {
     const userError = useSelector(state => state.user.error)
     const userPicsError = useSelector(state => state.userPics.error)
     const userPicsStatus = useSelector(state => state.userPics.status)
+    const usersCausesError = useSelector(state => state.usersCauses.error)
+    const usersCausesStatus = useSelector(state => state.usersCauses.status)
 
     console.log(user)
     console.log(likes)
@@ -75,6 +79,13 @@ export const Feed = () => {
             }
     }, [userPicsStatus, dispatch])
 
+    // This fetches all the Users' Causes
+    useEffect(() => {
+        if (usersCausesStatus === 'idle') {
+                dispatch(fetchUsersCauses())
+            }
+    }, [usersCausesStatus, dispatch])
+
     let content
     const [showFullText,setShowFullText] = useState(false)
 
@@ -82,27 +93,20 @@ export const Feed = () => {
     if (postStatus === 'loading' || commentsStatus === 'loading' || likesStatus === 'loading' || userStatus === 'loading' || userPicsStatus === 'loading') {
         content = <Text style={styles.loading}>Loading...</Text>
     } else if (postStatus === 'succeeded' && commentsStatus === 'succeeded' && likesStatus === 'succeeded' && userStatus === 'succeeded' && userPicsStatus === 'succeeded') {
-        // Sort posts in reverse chronological order by datetime string
 
-        // let userCauses = [
-        //     {name:'BLM',id:1},
-        //     {name:'USPS',id:1}
-        // ]
+        
 
-        // let filteredPosts = posts.posts.filter(post => {
-        //     let status = false
-        //     for (let i=0;i<userCauses.length;i++){
-        //         if (userCauses[i].name === post.cause){
-        //             status = true
-        //         }
-        //     }
-        //     return status
-        // })
-
-        const orderedPosts = posts.posts
+        const causesToFilterBy = usersCauses.filter(cause => cause.user_id === user.id ? true : false)
+        let filteredPosts = []
+        causesToFilterBy.forEach(cause=>{
+            let postsByFilteredCause = posts.posts.filter(post=>post.cause === cause.cause ? true : false)
+            filteredPosts = filteredPosts.concat(postsByFilteredCause)
+        })
+        
+        const orderedPosts = filteredPosts
         .slice()
         .sort((a, b) => b.date_posted.localeCompare(a.date_posted))
-
+        
         content = orderedPosts.map(post => {
             let postComments = comments.comments.filter(comment=>comment.post_id === post.id ? true : false)
             let postLikes = likes.likes.filter(like=>like.post_id === post.id ? true : false)

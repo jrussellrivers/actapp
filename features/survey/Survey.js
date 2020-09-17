@@ -16,9 +16,9 @@ export default function Survey() {
 
     const handleSubmit = () => {
         let causes = [
-            {name:'Black Lives Matter', status:blmStatus},
-            {name:'Climate Change', status:climateStatus},
-            {name:'Political Representation', status:politicalStatus}
+            {name:'blm', status:blmStatus},
+            {name:'climate', status:climateStatus},
+            {name:'politics', status:politicalStatus}
         ]
 
         causes.forEach(cause =>{
