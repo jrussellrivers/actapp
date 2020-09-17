@@ -156,8 +156,6 @@ export const Feed = () => {
         const orderedPosts = filteredPosts
         .slice()
         .sort((a, b) => b.date_posted.localeCompare(a.date_posted))
-
-        console.log(orderedPosts)
         
         content = orderedPosts.map(post => {
             let postComments = comments.comments.filter(comment=>comment.post_id === post.id ? true : false)
