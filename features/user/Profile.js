@@ -4,6 +4,7 @@ import {changePage} from '../pageSlice'
 import {useSelector,useDispatch} from 'react-redux'
 import {ProfilePosts} from './ProfilePosts'
 import {fetchUser} from './userSlice'
+import {addMyCommunityDB, addMyCommunity} from './myCommunitySlice'
 
 const Profile = () => {
     const dispatch = useDispatch()
@@ -12,6 +13,9 @@ const Profile = () => {
     const userStatus = useSelector(state => state.user.status)
     const token = useSelector(state => state.token)
 
+    const myCommunity = useSelector(state => state.myCommunity.myCommunity)
+    let communityStatus = myCommunity.filter(com=>com.username === currentUser.username && com.user_id === profileUser.id ? true : false)
+    let added = communityStatus.length > 0 ? true : false
 
     const profileByIdStatus = useSelector(state => state.profileById.status)
     const profileByIdError = useSelector(state => state.profileById.error)
@@ -50,20 +54,43 @@ const Profile = () => {
                     <ProfilePosts posts={orderedPosts} />
                 </View>
         } else {
-            content = 
+            if (added){
+                content = 
                 <View>
                     <View style={styles.userInfo}>
-                        <TouchableOpacity onPress={()=>dispatch(changePage('changeprofilepic'))}>
-                            <Image 
-                                source={{uri: profileUser.profilepic}} 
-                                style={styles.profilePic}
-                            />
-                        </TouchableOpacity>
+                        <Image 
+                            source={{uri: profileUser.profilepic}} 
+                            style={styles.profilePic}
+                        />
                         <Text style={styles.username}>{profileUser.username}</Text>
                         <Text style={styles.username}>{profileUser.points} points</Text>
                     </View>
+                    <Text>Already Added</Text>
                     <ProfilePosts posts={orderedPosts} />
                 </View>
+            } else {
+                content = 
+                <View>
+                    <View style={styles.userInfo}>
+                        <Image 
+                            source={{uri: profileUser.profilepic}} 
+                            style={styles.profilePic}
+                        />
+                        <Text style={styles.username}>{profileUser.username}</Text>
+                        <Text style={styles.username}>{profileUser.points} points</Text>
+                    </View>
+                    <TouchableOpacity onPress={()=>{
+                        dispatch(addMyCommunity({
+                            user_id: profileUser.id,
+                            created_at: new Date().toUTCString(),
+                            username: currentUser.username,
+                            adder_id: currentUser.id
+                        }))
+                        addMyCommunityDB(profileUser.id,currentUser.username,currentUser.id)
+                    }}><Text>Add to My Community</Text></TouchableOpacity>
+                    <ProfilePosts posts={orderedPosts} />
+                </View>
+            }
         }
         
     } else if (profileByIdStatus === 'failed'){

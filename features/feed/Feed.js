@@ -10,6 +10,7 @@ import {fetchUser} from '../user/userSlice'
 import {changePage} from '../pageSlice'
 import {fetchProfileById} from '../user/profileByIdSlice'
 import {fetchUserPics} from '../user/userPicsSlice'
+import {fetchMyCommunity} from '../user/myCommunitySlice'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
 export const Feed = () => {
@@ -23,6 +24,7 @@ export const Feed = () => {
     const token = useSelector(state => state.token)
     const user = useSelector(state => state.user.user)
     const userPics = useSelector(state => state.userPics.userPics)
+    const myCommunity = useSelector(state => state.myCommunity.myCommunity)
 
     const postStatus = useSelector(state => state.posts.status)
     const postsError = useSelector(state => state.posts.error)
@@ -34,11 +36,14 @@ export const Feed = () => {
     const userError = useSelector(state => state.user.error)
     const userPicsError = useSelector(state => state.userPics.error)
     const userPicsStatus = useSelector(state => state.userPics.status)
+    const myCommunityError = useSelector(state => state.myCommunity.error)
+    const myCommunityStatus = useSelector(state => state.myCommunity.status)
 
     console.log(user)
     console.log(likes)
     console.log(comments)
     console.log(posts)
+    console.log(myCommunity)
 
     // This fetches all Posts
     useEffect(() => {
@@ -74,6 +79,13 @@ export const Feed = () => {
                 dispatch(fetchUserPics())
             }
     }, [userPicsStatus, dispatch])
+
+    // This fetches My Community State
+    useEffect(() => {
+        if (myCommunityStatus === 'idle') {
+                dispatch(fetchMyCommunity())
+            }
+    }, [myCommunityStatus, dispatch])
 
     let content
     const [showFullText,setShowFullText] = useState(false)
