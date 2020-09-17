@@ -92,7 +92,6 @@ export default function App() {
                     </View>
                 : null }
                 {!isEmpty(token) && page !== 'actions' && page !== 'actionId' ? <View style={styles.actionButton}><TouchableOpacity style={styles.button} onPress={() => dispatch(changePage('actions'))} ><Text style={{fontWeight: 'bold', color:'rgb(55,182,53)'}}>TAKE ACTION</Text></TouchableOpacity></View> : null}
-                {!isEmpty(token) && page === 'actions' ? posts.map(post=><Image source={post.picurl} style={{width:width/8,height:width/8}}/>).slice(0,8) : null }
             </View>
             <View style={styles.main}>
                 {content}
@@ -123,6 +122,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    overflow:'hidden'
   },
   nav: {
     position:"fixed",
@@ -166,5 +166,13 @@ const styles = StyleSheet.create({
   },
   main: {
       marginTop:105
+  },
+  row: {
+      flex:1,
+      flexDirection:'row',
+      marginTop:20,
+      marginBottom:10,
+      width:width,
+      overflow:'scroll'
   }
 });

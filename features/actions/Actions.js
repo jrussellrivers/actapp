@@ -27,6 +27,8 @@ export default function TakeAction() {
     const coordinatedActionsStatus = useSelector(state => state.coordinatedActions.status)
     const coordinatedActionsError = useSelector(state => state.coordinatedActions.error)
     
+    const posts = useSelector(state => state.posts.posts)
+    console.log(posts)
 
     // This fetches all Actions
     useEffect(() => {
@@ -92,11 +94,17 @@ export default function TakeAction() {
     
 
     return (
-        <View>
+        <View style={styles.main}>
+            <View style={styles.row}>
+                {posts.map(post=><Image key={post.id} source={post.picurl} style={{width:width/8,height:width/8}}/>).slice(posts.length-20,posts.length)}
+            </View> 
             <View style={styles.coordActionsContainer}>
                 <View style={styles.center}><Text style={styles.header}>COORDINATED ACTIONS (?)</Text></View>
                 {coordActions}
             </View>
+            <View style={styles.row}>
+                {posts.map(post=><Image key={post.id} source={post.picurl} style={{width:width/8,height:width/8}}/>).slice(posts.length-20,posts.length)}
+            </View> 
             {menu}
             {content}
             <Button title="Back" onPress={() => dispatch(changePage('feed'))} /> 
@@ -108,8 +116,9 @@ export default function TakeAction() {
 let width = Dimensions.get('window').width; //full width
 
 const styles = StyleSheet.create({
-    postContainer: {
-        margin:10
+    main: {
+        marginTop:-50,
+        marginBottom:50
     },
     header: {
         fontSize:16,
@@ -129,6 +138,14 @@ const styles = StyleSheet.create({
         borderColor:'#aaa',
         borderRadius:10,
         padding:10
+    },
+    row: {
+        flex:1,
+        flexDirection:'row',
+        marginTop:20,
+        marginBottom:20,
+        width:width,
+        overflow:'scroll'
     },
     button: {
         flex:1,

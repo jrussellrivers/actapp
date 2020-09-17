@@ -86,10 +86,13 @@ const Post = () => {
                     postLikes.length === 1 ? <Text style={styles.likesNum}>{postLikes.length} like</Text> : <Text style={styles.likesNum}>{postLikes.length} likes</Text>
                 }
                 <View style={styles.postText}>
-                    <Text style={styles.bold}>{postById.username}</Text>
+                    <Text style={styles.bold} onPress={() => {
+                            dispatch(fetchProfileById(postById.user_id))
+                            dispatch(changePage('profile'))
+                        }}>{postById.username}</Text>
                     <Text style={styles.spaceLeft}>{postById.body}</Text>
                 </View>
-                <SinglePostComments orderedComments={orderedComments}/>                    
+                <SinglePostComments orderedComments={orderedComments} comments={comments}/>                    
                 {/* {addCommentShowing ?  */}
                     <TextInput style={styles.addComment} onSubmitEditing={(evt)=>{
                         dispatch(addComment({
