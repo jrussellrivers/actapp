@@ -5,6 +5,7 @@ import {useSelector,useDispatch} from 'react-redux'
 import {ProfilePosts} from './ProfilePosts'
 import {fetchUser} from './userSlice'
 import {addMyCommunityDB, addMyCommunity} from './myCommunitySlice'
+import Icon from 'react-native-vector-icons/AntDesign'
 
 const Profile = () => {
     const dispatch = useDispatch()
@@ -65,7 +66,7 @@ const Profile = () => {
                         <Text style={styles.username}>{profileUser.username}</Text>
                         <Text style={styles.username}>{profileUser.points} points</Text>
                     </View>
-                    <Text>Already Added</Text>
+                    <Icon name="deleteusergroup" size={25}/>
                     <ProfilePosts posts={orderedPosts} />
                 </View>
             } else {
@@ -87,7 +88,7 @@ const Profile = () => {
                             adder_id: currentUser.id
                         }))
                         addMyCommunityDB(profileUser.id,currentUser.username,currentUser.id)
-                    }}><Text>Add to My Community</Text></TouchableOpacity>
+                    }}><Icon name="addusergroup" size={25}/></TouchableOpacity>
                     <ProfilePosts posts={orderedPosts} />
                 </View>
             }
