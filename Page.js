@@ -22,6 +22,7 @@ import Icon from 'react-native-vector-icons/AntDesign'
 import {fetchProfileById} from './features/user/profileByIdSlice'
 import { changeStatus } from './features/posts/postsSlice';
 import Notifications from './features/user/Notifications'
+import MyCommunity from './features/user/MyCommunity'
 import Menu from './features/Menu'
 
 let width = Dimensions.get('window').width; //full width
@@ -84,6 +85,8 @@ export default function App() {
         content = <ChangeUserInfo user={user}/>
     } else if (page === 'notifications'){
         content = <Notifications />
+    } else if (page === 'mycommunity'){
+        content = <MyCommunity />
     } else if (page === 'menu'){
         content = <Menu />
     }
