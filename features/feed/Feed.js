@@ -174,7 +174,8 @@ export const Feed = () => {
                                     created_at: new Date().toUTCString(), 
                                     post_id: post.id, 
                                     username: user.username,
-                                    post_username: post.username
+                                    post_username: post.username,
+                                    user_id: user.id
                                 }))
                                 addCommentDB(evt.target.value, post.id, user.id, user.username, post.username)
                                 evt.target.value = ''
