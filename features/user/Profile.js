@@ -4,7 +4,7 @@ import {changePage} from '../pageSlice'
 import {useSelector,useDispatch} from 'react-redux'
 import {ProfilePosts} from './ProfilePosts'
 import {fetchUser} from './userSlice'
-import {addMyCommunityDB, addMyCommunity} from './myCommunitySlice'
+import {addMyCommunityDB, addMyCommunity, fetchMyCommunity} from './myCommunitySlice'
 import Icon from 'react-native-vector-icons/AntDesign'
 
 const Profile = () => {
@@ -66,7 +66,10 @@ const Profile = () => {
                         <Text style={styles.username}>{profileUser.username}</Text>
                         <Text style={styles.username}>{profileUser.points} points</Text>
                     </View>
-                    <Icon name="deleteusergroup" size={25}/>
+                    <TouchableOpacity onPress={async()=>{
+                        await removeMyCommunityDB(profileUser.id,currentUser.id)
+                        dispatch(fetchMyCommunity())
+                    }}><Icon name="deleteusergroup" size={25}/></TouchableOpacity>
                     <ProfilePosts posts={orderedPosts} />
                 </View>
             } else {
