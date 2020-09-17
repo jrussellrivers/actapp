@@ -20,6 +20,7 @@ import coordinatedActionResourcesReducer from '../features/actions/coordinatedAc
 import profileByIdReducer from '../features/user/profileByIdSlice'
 import registeredUserReducer from '../features/register/registeredUserSlice'
 import userPicsReducer from '../features/user/userPicsSlice'
+import myCommunityReducer from '../features/user/myCommunitySlice'
 
 export default configureStore({
   reducer: {
@@ -42,6 +43,7 @@ export default configureStore({
     coordinatedActionResources:coordinatedActionResourcesReducer,
     profileById: profileByIdReducer,
     registeredUser: registeredUserReducer,
-    userPics: userPicsReducer
+    userPics: userPicsReducer,
+    myCommunity: myCommunityReducer
   }
 })
