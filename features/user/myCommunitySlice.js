@@ -12,6 +12,11 @@ export const addMyCommunityDB = async (userId, username,addId) => {
   return response
 }
 
+export const removeMyCommunityDB = async (userId,addId) => {
+    const response = await fetch(`http://localhost:3333/removeMyCommunity/${userId}/${addId}`, {method:'post'})
+    return response
+  }
+
 const initialState = {
     likes: [],
     status: 'idle',
@@ -24,6 +29,9 @@ initialState,
 reducers: {
   addMyCommunity(state, action) {
     state.myCommunity.push(action.payload)
+  },
+  changeMyCommunityStatus(state, action) {
+    state.status = action.payload
   }
 },
 extraReducers: {
@@ -42,6 +50,6 @@ extraReducers: {
 }
 })
 
-export const { addMyCommunity } = myCommunitySlice.actions
+export const { addMyCommunity, changeMyCommunityStatus } = myCommunitySlice.actions
 
 export default myCommunitySlice.reducer

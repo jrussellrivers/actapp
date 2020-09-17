@@ -48,6 +48,7 @@ export const Feed = () => {
     console.log(comments)
     console.log(posts)
     console.log(myCommunity)
+    console.log(usersCauses)
 
     // This fetches all Posts
     useEffect(() => {
@@ -104,18 +105,30 @@ export const Feed = () => {
     // This checks to see if all Posts
     if (postStatus === 'loading' || commentsStatus === 'loading' || likesStatus === 'loading' || userStatus === 'loading' || userPicsStatus === 'loading') {
         content = <Text style={styles.loading}>Loading...</Text>
-    } else if (postStatus === 'succeeded' && commentsStatus === 'succeeded' && likesStatus === 'succeeded' && userStatus === 'succeeded' && userPicsStatus === 'succeeded') {
+    } else if (postStatus === 'succeeded' && commentsStatus === 'succeeded' && likesStatus === 'succeeded' && userStatus === 'succeeded' && userPicsStatus === 'succeeded' && myCommunityStatus === 'succeeded' && usersCausesStatus === 'succeeded') {
 
-        const communityFilter = myCommunity.filter(com => com.adder_id === user.id ? true : false)
-
-        const causesToFilterBy = usersCauses.filter(cause => cause.user_id === user.id ? true : false)
         let filteredPosts = []
-        causesToFilterBy.forEach(cause=>{
-            communityFilter.forEach(person => {
-                let postsByFilteredCause = posts.posts.filter(post=>post.cause === cause.cause || person.user_id === post.user_id ? true : false)
+
+        if (myCommunity.length > 0){
+            const communityFilter = myCommunity.filter(com => com.adder_id === user.id ? true : false)
+
+            const causesToFilterBy = usersCauses.filter(cause => cause.user_id === user.id ? true : false)
+
+            causesToFilterBy.forEach(cause=>{
+                communityFilter.forEach(person => {
+                    let postsByFilteredCause = posts.posts.filter(post=>post.cause === cause.cause || person.user_id === post.user_id ? true : false)
+                    filteredPosts = filteredPosts.concat(postsByFilteredCause)
+                })
+            })
+        } else {
+
+            const causesToFilterBy = usersCauses.filter(cause => cause.user_id === user.id ? true : false)
+
+            causesToFilterBy.forEach(cause=>{
+                let postsByFilteredCause = posts.posts.filter(post=>post.cause === cause.cause ? true : false)
                 filteredPosts = filteredPosts.concat(postsByFilteredCause)
             })
-        })
+        }
         
         const orderedPosts = filteredPosts
         .slice()
