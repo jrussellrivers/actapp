@@ -25,4 +25,22 @@ export let assets = {
         name:"fist",
         uri:require('./icons/blm_icon.png')
     },
+    icons: [
+        {
+            name:"fist",
+            uri:require('./icons/blm_icon.png')
+        },
+        {
+            name:"tree",
+            uri:require('./icons/environment_icon.png')
+        },
+        {
+            name:"people",
+            uri:require('./icons/politics_icon.png')
+        },
+        {
+            name:"plus",
+            uri:require('./icons/plus_icon3.png')
+        }
+    ]
 }

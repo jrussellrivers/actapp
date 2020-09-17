@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react"
-import { StyleSheet, View, Text, Dimensions, Image } from "react-native"
+import { StyleSheet, View, Text, Dimensions, Image, TouchableOpacity } from "react-native"
 import {changePage} from '../pageSlice'
 import {useSelector,useDispatch} from 'react-redux'
 import {ProfilePosts} from './ProfilePosts'
@@ -38,12 +38,14 @@ const Profile = () => {
             content = 
                 <View>
                     <View style={styles.userInfo}>
-                        <Image 
-                            source={{uri: currentUser.profilepic}} 
-                            style={styles.profilePic}
-                        />
-                        <Text>{profileUser.username}</Text>
-                        <Text onPress={()=>dispatch(changePage('changeprofilepic'))}>Change Profile Pic</Text>
+                        <TouchableOpacity onPress={()=>dispatch(changePage('changeprofilepic'))}>
+                            <Image 
+                                source={{uri: currentUser.profilepic}} 
+                                style={styles.profilePic}
+                            />
+                        </TouchableOpacity>
+                        <Text style={styles.username}>{profileUser.username}</Text>
+                        <Text><Text style={styles.username}>{profileUser.points}</Text> points</Text>
                     </View>
                     <ProfilePosts posts={orderedPosts} />
                 </View>
@@ -51,11 +53,14 @@ const Profile = () => {
             content = 
                 <View>
                     <View style={styles.userInfo}>
-                        <Image 
-                            source={{uri: profileUser.profilepic}} 
-                            style={styles.profilePic}
-                        />
-                        <Text>{profileUser.username}</Text>
+                        <TouchableOpacity onPress={()=>dispatch(changePage('changeprofilepic'))}>
+                            <Image 
+                                source={{uri: profileUser.profilepic}} 
+                                style={styles.profilePic}
+                            />
+                        </TouchableOpacity>
+                        <Text style={styles.username}>{profileUser.username}</Text>
+                        <Text style={styles.username}>{profileUser.points} points</Text>
                     </View>
                     <ProfilePosts posts={orderedPosts} />
                 </View>
@@ -90,6 +95,13 @@ const styles = StyleSheet.create({
         justifyContent:'space-around',
         alignItems:'center',
         width:width
+    },
+    username: {
+        fontWeight:'bold'
+    },
+    points: {
+        fontWeight:'bold',
+        color:'rgb(55,182,53)'
     },
     postImgContainer: {
         width:width,

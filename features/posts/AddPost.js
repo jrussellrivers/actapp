@@ -182,7 +182,7 @@ export default function AddImage() {
         <View style={styles.main}>
             {postCause !== "none" ?
                 <View>
-                    {image ? null : <Button title="Pick an image from camera roll" onPress={_pickImage} />}
+                    {image ? null : <TouchableOpacity style={styles.button} onPress={_pickImage}><Text style={styles.green}>SELECT AN IMAGE FROM CAMERA ROLL</Text></TouchableOpacity>}
                     {image && <TouchableOpacity onPress={_pickImage} style={styles.pic}><Image source={{ uri: image.uri }} style={{ width: width, height: width }} /></TouchableOpacity>}
                 </View>
             : null}
@@ -208,14 +208,16 @@ export default function AddImage() {
                     : null}
                 </View>
             : null }
-            {image && postText !== "Write a caption..." && postText !== "" ? <Button title="Post" onPress={
-                async ()=>{
-                    await _uploadToDB()
-                    dispatch(changeStatus('idle'))
-                    dispatch(changePage('feed'))
-                }
-            }/>
-            : null}
+            <View style={{marginTop:50}}>
+                {image && postText !== "Write a caption..." && postText !== "" ? <TouchableOpacity style={styles.button} onPress={
+                    async ()=>{
+                        await _uploadToDB()
+                        dispatch(changeStatus('idle'))
+                        dispatch(changePage('feed'))
+                    }
+                }><Text style={styles.green}>POST</Text></TouchableOpacity>
+                : null}
+            </View>
         </View>
     )
 }
@@ -246,7 +248,20 @@ const styles = StyleSheet.create({
     info: {
         position:'absolute',
         backgroundColor:'#eee',
-        padding:14
+        padding:14,
+        zIndex:9999
+    },
+    button: {
+        flex:1,
+        alignItems:'center',
+        padding:14,
+        width:width-50,
+        zIndex:1
+    },
+    green: {
+        color:'rgb(55,182,53)',
+        fontWeight:'bold',
+        zIndex:-1
     },
     textInput: {
         padding:7,
