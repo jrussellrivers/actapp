@@ -8,6 +8,10 @@ export const fetchUser = createAsyncThunk('user/fetchUser', async (token) => {
     return response
 })
 
+export const changeNoteDateDB = (timestamp, id) => {
+  return fetch(`http://localhost:3333/changeNoteDate/${timestamp}/${id}`, {method:'post'})
+}
+
 const initialState = {
     user: {},
     status: 'idle',

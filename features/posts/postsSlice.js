@@ -1,22 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
-// const initialFetch = async () =>{
-//     console.log('in the fetch')
-//     //  http://localhost:3333/posts
-//     const data = await fetch('https://swapi.dev/api/people/1')
-//     .then(response=>response.json())
-
-//     console.log(data)
-//     return data
-// }
-    
-// const initialState = initialFetch()
-// const initialState = fetch('https://swapi.dev/api/people/1')
-// .then(response=>response.json())
-// .then(data=> data)
-
-// console.log(initialState)
-
 export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
     const response = await fetch('http://localhost:3333/posts')
     .then(response=>response.json())
