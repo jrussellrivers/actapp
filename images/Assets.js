@@ -19,7 +19,7 @@ export let assets = {
     ],
     actCoin: {
         name:"actcoin",
-        uri:require('./icons/actcoin_logo.png')
+        uri:require('./actcoin_logo.png')
     },
     fist: {
         name:"fist",
