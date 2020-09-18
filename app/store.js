@@ -21,6 +21,7 @@ import profileByIdReducer from '../features/user/profileByIdSlice'
 import registeredUserReducer from '../features/register/registeredUserSlice'
 import userPicsReducer from '../features/user/userPicsSlice'
 import myCommunityReducer from '../features/user/myCommunitySlice'
+import communityByIdReducer from '../features/user/communityByIdSlice'
 
 export default configureStore({
   reducer: {
@@ -44,6 +45,7 @@ export default configureStore({
     profileById: profileByIdReducer,
     registeredUser: registeredUserReducer,
     userPics: userPicsReducer,
-    myCommunity: myCommunityReducer
+    myCommunity: myCommunityReducer,
+    communityById: communityByIdReducer
   }
 })

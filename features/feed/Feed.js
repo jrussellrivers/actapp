@@ -226,6 +226,10 @@ export const Feed = () => {
                         <Comments postComments={postComments} postId={post.id}/>
                         {addCommentShowing ? 
                         <TextInput style={styles.addComment} onSubmitEditing={(evt)=>{
+                                const searchRegExp = /'/g;
+                                const replaceWith = "''";
+                                const result = evt.target.value.replace(searchRegExp, replaceWith)
+
                                 dispatch(addComment({
                                     comment: evt.target.value, 
                                     created_at: new Date().toUTCString(), 
@@ -234,7 +238,7 @@ export const Feed = () => {
                                     post_username: post.username,
                                     user_id: user.id
                                 }))
-                                addCommentDB(evt.target.value, post.id, user.id, user.username, post.username)
+                                addCommentDB(result, post.id, user.id, user.username, post.username)
                                 evt.target.value = ''
                             }} placeholder='Add a Comment' />
                         : null }

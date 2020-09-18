@@ -9,7 +9,10 @@ export default function Register() {
     const formData = {}
 
     const handleChange = (name,text) => {
-        formData[name] = text
+        const searchRegExp = /'/g;
+        const replaceWith = "''";
+        const result = text.replace(searchRegExp, replaceWith)
+        formData[name] = result
     }
     
     const handleSubmit = async () => {
@@ -35,10 +38,6 @@ export default function Register() {
             <TextInput name="firstName" onChangeText={text => handleChange("firstName",text)} placeholder="First Name" />
             <TextInput name="lastName" onChangeText={text => handleChange("lastName",text)} placeholder="Last Name" />
             <TextInput name="email" onChangeText={text => handleChange("email",text)} placeholder="Email" />
-            <TextInput name="streetAddress" onChangeText={text => handleChange("streetAddress",text)} placeholder="Address" />
-            <TextInput name="city" onChangeText={text => handleChange("city",text)} placeholder="City" />
-            <TextInput name="state" onChangeText={text => handleChange("state",text)} placeholder="State" />
-            <TextInput name="zipcode" onChangeText={text => handleChange("zipcode",text)} placeholder="Zip Code" />
             <TextInput name="race" onChangeText={text => handleChange("race",text)} placeholder="Race/Ethnicity" />
             <TextInput name="gender" onChangeText={text => handleChange("gender",text)} placeholder="Identified Gender" />
             <TextInput name="birthdate" onChangeText={text => handleChange("birthdate",text)} placeholder="Birthdate" />
