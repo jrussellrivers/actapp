@@ -256,6 +256,7 @@ let width = Dimensions.get('window').width; //full width
 
 const styles = StyleSheet.create({
     main: {
+        marginTop:-10,
         marginBottom:50
     },
     loading: {

@@ -31,7 +31,7 @@ export const ProfilePosts = ({posts}) => {
                     }}>Post id: {post.id}</Text> */}
                     <Image 
                         source={{uri: post.picurl}} 
-                        style={{height: width*0.3, width:width*0.3}}
+                        style={{height: width*0.33, width:width*0.33}}
                     />
                 </TouchableOpacity>
             )
@@ -49,14 +49,16 @@ let width = Dimensions.get('window').width; //full width
 
 const styles = StyleSheet.create({
     container: {
-        marginTop:75,
         marginBottom:75,
         width:width,
+        height:width,
         flex:1,
         flexDirection:'row',
-        flexWrap:'wrap'
+        justifyContent:'space-between',
+        flexWrap:'wrap',
+        overflow:'scroll'
     },
     item: {
-        margin:width*0.0167
+        
     }
 })

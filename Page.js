@@ -82,7 +82,9 @@ export default function App() {
     } else if (page === 'changeprofilepic'){
         content = <ChangeProfilePic />
     } else if (page === 'changeuserinfo'){
-        content = <ChangeUserInfo user={user}/>
+        content = <ChangeUserInfo />
+    } else if (page === 'updateCauses'){
+        content = <UpdateCauses />
     } else if (page === 'notifications'){
         content = <Notifications />
     } else if (page === 'mycommunity'){
