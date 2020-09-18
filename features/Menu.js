@@ -14,7 +14,7 @@ const Menu = () => {
     return (
         <View style={{marginTop:15}}>
             <Text onPress={() => dispatch(changePage('changeuserinfo'))}>Edit Your Info</Text>
-            <Text onPress={() => dispatch(changePage('updateCauses'))}>Update Your Causes</Text>
+            <Text onPress={() => dispatch(changePage('changeCauses'))}>Update Your Causes</Text>
             <Text onPress={() => dispatch(changePage('logout'))}>Logout</Text>
         </View>
     )

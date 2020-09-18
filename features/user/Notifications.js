@@ -73,7 +73,7 @@ const Notifications = () =>{
 
         console.log(orderedNotifications)
 
-        let filteredDates = orderedNotifications.filter(notification=>notification.content.created_at > checkedDate ? true : false)
+        let filteredDates = orderedNotifications.filter(notification=>notification.content.created_at < checkedDate ? true : false)
 
         content = filteredDates.map((notification, idx) => {
             if(notification.type === 'comment'){
@@ -130,7 +130,7 @@ const Notifications = () =>{
         content = <Text>Loading...</Text>
     }
     return(
-        <View>
+        <View style={styles.main}>
             {content}
             <TouchableOpacity onPress={()=>{
                 let currentTime = new Date().toUTCString()
@@ -145,6 +145,9 @@ const Notifications = () =>{
 let width = Dimensions.get('window').width; //full width
 
 const styles = StyleSheet.create({
+    main: {
+        marginBottom:75
+    },
     notificationContainer: {
         flex:1,
         flexDirection:'row',

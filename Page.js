@@ -1,15 +1,15 @@
 import React from 'react';
 import {Feed} from "./features/feed/Feed"
 import { StyleSheet, Text, View, TouchableOpacity, Image, Dimensions } from 'react-native';
-import {useSelector,useDispatch} from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import Login from './features/login/Login'
 import Register from './features/register/Register'
 import AddPost from './features/posts/AddPost'
 import Action from './features/actions/Actions'
 import ActionResources from './features/actions/ActionResources'
-import {changePage} from './features/pageSlice'
-import {changeToken} from './features/login/tokenSlice'
-import {changeUserStatus} from './features/user/userSlice'
+import { changePage } from './features/pageSlice'
+import { changeToken } from './features/login/tokenSlice'
+import { changeUserStatus } from './features/user/userSlice'
 import Post from './features/posts/Post'
 import PostComments from './features/posts/PostComments'
 import Profile from './features/user/Profile'
@@ -18,8 +18,9 @@ import Survey from './features/survey/Survey'
 import ProfilePic from './features/user/ProfilePic'
 import ChangeProfilePic from './features/user/ChangeProfilePic'
 import ChangeUserInfo from './features/user/ChangeUserInfo'
+import ChangeCauses from './features/user/ChangeCauses'
 import Icon from 'react-native-vector-icons/AntDesign'
-import {fetchProfileById} from './features/user/profileByIdSlice'
+import { fetchProfileById } from './features/user/profileByIdSlice'
 import { changeStatus } from './features/posts/postsSlice';
 import Notifications from './features/user/Notifications'
 import MyCommunity from './features/user/MyCommunity'
@@ -83,8 +84,8 @@ export default function App() {
         content = <ChangeProfilePic />
     } else if (page === 'changeuserinfo'){
         content = <ChangeUserInfo />
-    } else if (page === 'updateCauses'){
-        content = <UpdateCauses />
+    } else if (page === 'changeCauses'){
+        content = <ChangeCauses />
     } else if (page === 'notifications'){
         content = <Notifications />
     } else if (page === 'mycommunity'){
