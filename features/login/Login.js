@@ -3,7 +3,7 @@ import { Text, View, TextInput, TouchableOpacity, StyleSheet, Dimensions, Button
 import { useDispatch, useSelector } from 'react-redux'
 import { changeToken }  from './tokenSlice'
 import { changePage } from '../pageSlice'
-import {assets} from '../../images/Assets'
+import { assets } from '../../images/Assets'
 
 export default function Login() {
     const dispatch = useDispatch()
