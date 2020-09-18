@@ -51,7 +51,7 @@ export default function Login() {
     )
 }
 
-let width = Dimensions.get('window').width; //full width
+let width = Dimensions.get('window').width
 
 const styles = StyleSheet.create({
     imageBackground: {
