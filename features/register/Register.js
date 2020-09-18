@@ -9,7 +9,10 @@ export default function Register() {
     const formData = {}
 
     const handleChange = (name,text) => {
-        formData[name] = text
+        const searchRegExp = /'/g;
+        const replaceWith = "''";
+        const result = text.replace(searchRegExp, replaceWith)
+        formData[name] = result
     }
     
     const handleSubmit = async () => {

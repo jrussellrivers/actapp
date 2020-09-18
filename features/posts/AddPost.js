@@ -92,8 +92,11 @@ export default function AddImage() {
             .then(r=>r.json())
             .then(data=>data)
 
-            console.log(action,postAction)
-            const img = JSON.stringify({ uri: image.uri, name: image.filename, type: image.type, text: postText, cause: postCause, action: action.title, points: action.points })
+            const searchRegExp = /'/g;
+            const replaceWith = "''";
+            const result = postText.replace(searchRegExp, replaceWith)
+
+            const img = JSON.stringify({ uri: image.uri, name: image.filename, type: image.type, text: result, cause: postCause, action: action.title, points: action.points })
             
             return await fetch(`http://localhost:3333/upload/${user.username}/${user.id}`, {
                 method: 'POST',

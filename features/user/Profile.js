@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { StyleSheet, View, Text, Dimensions, Image, TouchableOpacity } from "react-native"
+import {fetchCommunityById} from './communityByIdSlice'
 import { changePage } from '../pageSlice'
 import { useSelector,useDispatch } from 'react-redux'
 import { ProfilePosts } from './ProfilePosts'
@@ -76,6 +77,10 @@ const Profile = () => {
                     <View style={styles.headerContainer}>
                         <Text style={styles.header}>POSTS</Text>
                     </View>
+                    <TouchableOpacity onPress={()=>{
+                        dispatch(fetchCommunityById(profileUser.id))
+                        dispatch(changePage('mycommunity'))
+                    }}><Text>My Community: {allMyCommunity.length}</Text></TouchableOpacity>
                     <ProfilePosts posts={orderedPosts} />
                 </View>
         } else {
@@ -117,6 +122,14 @@ const Profile = () => {
                     <View style={styles.headerContainer}>
                         <Text style={styles.header}>POSTS</Text>
                     </View>
+                    <TouchableOpacity onPress={async()=>{
+                        await removeMyCommunityDB(profileUser.id,currentUser.id)
+                        dispatch(fetchMyCommunity())
+                    }}><Icon name="deleteusergroup" size={25}/></TouchableOpacity>
+                    <TouchableOpacity onPress={()=>{
+                        dispatch(fetchCommunityById(profileUser.id))
+                        dispatch(changePage('mycommunity'))
+                    }}><Text>My Community: {allMyCommunity.length}</Text></TouchableOpacity>
                     <ProfilePosts posts={orderedPosts} />
                 </View>
             } else {
@@ -165,6 +178,19 @@ const Profile = () => {
                     <View style={styles.headerContainer}>
                         <Text style={styles.header}>POSTS</Text>
                     </View>
+                    <TouchableOpacity onPress={()=>{
+                        dispatch(addMyCommunity({
+                            user_id: profileUser.id,
+                            created_at: new Date().toUTCString(),
+                            username: currentUser.username,
+                            adder_id: currentUser.id
+                        }))
+                        addMyCommunityDB(profileUser.id,currentUser.username,currentUser.id)
+                    }}><Icon name="addusergroup" size={25}/></TouchableOpacity>
+                    <TouchableOpacity onPress={async ()=>{
+                        await dispatch(fetchCommunityById(profileUser.id))
+                        dispatch(changePage('mycommunity'))
+                    }}><Text>My Community: {allMyCommunity.length}</Text></TouchableOpacity>
                     <ProfilePosts posts={orderedPosts} />
                 </View>
             }
