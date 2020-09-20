@@ -1,36 +1,42 @@
-import React, {useState, useEffect} from "react"
-import { StyleSheet, View, Text, Image } from "react-native"
-import {changePage} from '../pageSlice'
-import {useSelector,useDispatch} from 'react-redux'
-import {CoordinatedActionResources} from './coordinatedActionResourcesSlice'
+import React, { useState, useEffect } from "react"
+import { StyleSheet, View, Text, Image, Dimensions } from "react-native"
+import { changePage } from '../pageSlice'
+import { useSelector, useDispatch } from 'react-redux'
+import { fetchCoordinatedActionResources, changeCoordinatedActionResourcesStatus } from './coordinatedActionResourcesSlice'
+import { fetchUser } from '../user/userSlice'
 import * as WebBrowser from 'expo-web-browser';
-import {assets} from '../../images/Assets'
+import { assets } from '../../images/Assets'
+import { TouchableOpacity } from "react-native-gesture-handler"
 
-const CoordinatedActionResources = ({coordinatedActionId}) => {
-
-    // console.log(mapImage)
-    // const mapImageUri = Image.resolveAssetSource(mapImage).uri
-    ///////////////////////////////
-
-    // console.log(images.map.uri)
+const CoordinatedActionResources = () => {
 
     const dispatch = useDispatch()
 
-    const [browserPage,setBrowserPage] = useState(null)
+    const user = useSelector(state => state.user.user)
+    const userStatus = useSelector(state => state.causes.status)
+    const userError = useSelector(state => state.causes.error)
 
-    const coordinatedActionResources = useSelector(state => state.actionResources.actionResources)
-    const coordinatedActionResourcesStatus = useSelector(state => state.actionResources.status)
-    const coordinatedActionResourcesError = useSelector(state => state.actionResources.error)
+    // This fetches User info
+    useEffect(() => {
+        if (userStatus === 'idle') {
+            dispatch(fetchUser())
+        }
+    }, [userStatus, dispatch])
+
+    const coordinatedActionId = useSelector(state => state.coordinatedActionId.coordinatedActionId)
+
+    const coordinatedActionResources = useSelector(state => state.coordinatedActionResources.coordinatedActionResources)
+    const coordinatedActionResourcesStatus = useSelector(state => state.coordinatedActionResources.status)
+    const coordinatedActionResourcesError = useSelector(state => state.coordinatedActionResources.error)
 
     useEffect(() => {
-        dispatch(fetchActionResources(actionId))
-        console.log(coordinatedActionResourcesStatus)
+        dispatch(fetchCoordinatedActionResources(coordinatedActionId))
     }, [])
 
     useEffect(() => {
         if (coordinatedActionResourcesStatus === 'idle') {
+            dispatch(fetchCoordinatedActionResources(coordinatedActionId))
             console.log(coordinatedActionResourcesStatus)
-            dispatch(fetchCoordinatedActionResources(actionId))
         }
     }, [coordinatedActionResourcesStatus, dispatch])
 
@@ -38,40 +44,106 @@ const CoordinatedActionResources = ({coordinatedActionId}) => {
 
     let content
 
-    console.log(coordinatedActionResources.coordinatedActionResources)
+    console.log(coordinatedActionResources)
 
-    const openLink = async(e) => {
-        let result = await WebBrowser.openBrowserAsync(coordinatedActionResources[e.currentTarget.id].url);
+    const convertUrl = url => {
+
+        let newUrl
+
+        if (url.includes('${city}')) {
+            newUrl = url.replace('${city}', user.city)
+        }
+        if (url.includes('${state}')) {
+            newUrl = url.replace('${state}', user.state)
+        }
+        if (url.includes('${state}') && url.includes('${state}')) {
+            newUrl = url.replace('${city}', user.city).replace('${state}', user.state)
+        }
+        if (url.includes('${zipcode}')) {
+            newUrl = url.replace('${zipcode}', user.zipcode)
+        }
+        if (url.includes('${streetaddress}')) {
+            newUrl = url.replace('${streetaddress}', user.streetaddress)
+        } else {
+            newUrl = url
+        }
+
+        return newUrl
+    }
+
+    const openLink = async id => {
+        let url = convertUrl(coordinatedActionResources[id].url)
+        await WebBrowser.openBrowserAsync(url);
     }
 
     if (coordinatedActionResourcesStatus === 'loading') {
         content = <Text>Loading...</Text>
-    }else if (coordinatedActionResourcesStatus === 'succeeded') {
-        content = actionResources.map((resource,idx)=><View key={idx}><Image source={assets.actionResources[idx].uri} style={{ width: 20, height: 20 }}/><Text  id={idx} onPress={openLink}>{resource.name}</Text></View>)
-    } else if (coordinatedActionResourcesStatus === 'failed'){
-        content = <Text>`Action id = ${actionId}`</Text>
+    } else if (coordinatedActionResourcesStatus === 'succeeded') {
+        content = coordinatedActionResources.map((resource, idx) =>
+            <View key={idx} style={styles.resourceContainer}>
+                <Text onPress={() => openLink(idx)} style={styles.header}>{resource.name}</Text>
+                <TouchableOpacity onPress={() => openLink(idx)}>
+                    <Image source={resource.pic} style={styles.img} />
+                </TouchableOpacity>
+                <Text style={styles.textCenter}>{resource.description}</Text>
+            </View>
+        )
+    } else if (coordinatedActionResourcesStatus === 'failed') {
+        content = <Text>failed</Text>
     }
-    console.log(actionId,actionResources)
+    console.log(coordinatedActionId, coordinatedActionResources)
 
     return (
-        <View style={styles.container}>
+        <View style={styles.main}>
+            <TouchableOpacity onPress={() => {
+                dispatch(changePage('actions'))
+            }} style={styles.button}><Text style={styles.green}>BACK</Text></TouchableOpacity>
             {content}
-            <Image source={require('../../images/map.png')} style={{ width: 200, height: 200 }}/>
-            <Text onPress={() => {
-                    dispatch(changePage('actions'))
-                }}>Return to List of Actions</Text>
+            <TouchableOpacity onPress={() => {
+                dispatch(changePage('actions'))
+            }} style={styles.button}><Text style={styles.green}>BACK</Text></TouchableOpacity>
         </View>
     )
 }
 
-export default CoordinatedActionResources
+let width = Dimensions.get('window').width
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection:'column',
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  }
+    main: {
+        marginTop:-48,
+        marginBottom: 50
+    },
+    resourceContainer: {
+        width: width,
+        borderTopWidth: 1,
+        borderTopColor: '#aaa',
+        borderBottomWidth: 1,
+        borderBottomColor: '#aaa',
+        padding: 10
+    },
+    header: {
+        textAlign: 'center',
+        fontWeight: 'bold',
+        fontSize: 24
+    },
+    img: {
+        width: width,
+        height: 200,
+        margin: '10 auto',
+    },
+    textCenter: {
+        textAlign: 'center'
+    },
+    button: {
+        flex: 1,
+        alignItems: 'center',
+        padding: 14,
+        width: width
+    },
+    green: {
+        color: 'rgb(55,182,53)',
+        fontWeight: 'bold'
+    }
 });
+
+export default CoordinatedActionResources

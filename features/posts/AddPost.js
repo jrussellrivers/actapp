@@ -195,7 +195,7 @@ export default function AddImage() {
                 {contentA}
                 <Icon name="question" size={16} onPress={showCauseInfo}/>
                 {causeInfoShowing ? 
-                    <TouchableOpacity style={styles.info} onPress={showCauseInfo}><Text>What cause does this post support?</Text></TouchableOpacity>
+                    <TouchableOpacity style={styles.infoOne} onPress={showCauseInfo}><Text>What cause does this post support?</Text></TouchableOpacity>
                 : null}
             </View>
             {otherInputsShowing ? <TextInput style={styles.textInput} onFocus={() => {if(postCause === "Cause: "){setPostCause("");setPostAction(1)}}} onBlur={() => {if(postCause === "")setPostCause("Cause: ")}} onChangeText={text => setPostCause(text)} value={postCause} /> : null}
@@ -207,7 +207,7 @@ export default function AddImage() {
                     {contentB}
                     <Icon name="question" size={16} onPress={showActionInfo}/>
                     {actionInfoShowing ? 
-                        <TouchableOpacity style={styles.info} onPress={showActionInfo}><Text>You can earn points if your post shows proof you completed an action on the Actions List (see "Take Action" above for the list and for resources to help you get started). If you don't see your action on the list, select "None of the Above" and continue posting! If you have a suggestion for an action to add to the list, type "SUGGESTED ACTION:" in your post's caption and we'll take a look! </Text></TouchableOpacity>
+                        <TouchableOpacity style={styles.infoTwo} onPress={showActionInfo}><Text>You can <Text style={styles.bold}>earn points</Text> if your post shows proof you completed an action on the Actions List (see "Take Action" above for the list and for resources to help you get started). If you don't see your action on the list, select "None of the Above" and continue posting! If you have a suggestion for an action to add to the list, type "SUGGESTED ACTION:" in your post's caption and we'll take a look! </Text></TouchableOpacity>
                     : null}
                 </View>
             : null }
@@ -248,10 +248,17 @@ const styles = StyleSheet.create({
         marginTop:-90,
         marginBottom:7
     },
-    info: {
+    infoOne: {
         position:'absolute',
         backgroundColor:'#eee',
         padding:14,
+        zIndex:9999
+    },
+    infoTwo: {
+        position:'absolute',
+        backgroundColor:'#eee',
+        padding:14,
+        paddingBottom:42,
         zIndex:9999
     },
     button: {
@@ -274,5 +281,8 @@ const styles = StyleSheet.create({
         fontSize:12,
         color:'#999',
         fontStyle:'italic'
+    },
+    bold: {
+        fontWeight:'bold'
     }
 })

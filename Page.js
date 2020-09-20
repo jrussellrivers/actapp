@@ -7,6 +7,7 @@ import Register from './features/register/Register'
 import AddPost from './features/posts/AddPost'
 import Action from './features/actions/Actions'
 import ActionResources from './features/actions/ActionResources'
+import CoordinatedActionResources from './features/actions/CoordinatedActionResources'
 import { changePage } from './features/pageSlice'
 import { changeToken } from './features/login/tokenSlice'
 import { changeUserStatus } from './features/user/userSlice'
@@ -71,7 +72,9 @@ export default function App() {
     } else if (page === 'actions'){
         content = <Action />
     } else if (page === 'actionId'){
-        content = <ActionResources actionId={actionId} />
+        content = <ActionResources />
+    } else if (page === 'coordActionId'){
+        content = <CoordinatedActionResources />
     } else if (page === 'profile'){
         content = <Profile />
     } else if (page === 'search'){
@@ -103,7 +106,7 @@ export default function App() {
                     </View>
                 : null }
                 {!isEmpty(token) ? <Icon name="menuunfold" size={30} style={styles.menu} onPress={() => dispatch(changePage('menu'))}/> : null }
-                {!isEmpty(token) && page !== 'actions' && page !== 'actionId' ? <View style={styles.actionButton}><TouchableOpacity style={styles.button} onPress={() => dispatch(changePage('actions'))} ><Text style={{fontWeight: 'bold', color:'rgb(55,182,53)'}}>TAKE ACTION</Text></TouchableOpacity></View> : null}
+                {!isEmpty(token) && page !== 'actions' && page !== 'actionId' && page !== 'coordActionId' ? <View><TouchableOpacity style={styles.button} onPress={() => dispatch(changePage('actions'))} ><Text style={{fontWeight: 'bold', color:'rgb(55,182,53)'}}>TAKE ACTION</Text></TouchableOpacity></View> : null}
             </View>
             <View style={styles.main}>
                 {content}

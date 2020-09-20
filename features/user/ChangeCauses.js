@@ -1,10 +1,11 @@
 import React, {useState,useEffect} from 'react'
-import { Text, View, TextInput, TouchableOpacity} from 'react-native'
+import { Text, View, Image, TouchableOpacity, Dimensions, StyleSheet } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { changePage } from '../pageSlice'
-import {fetchUsersCauses} from '../actions/allUsersCausesSlice'
+import { fetchUsersCauses } from '../actions/allUsersCausesSlice'
 import CheckBox from 'react-native-check-box'
 import Icon from 'react-native-vector-icons/AntDesign'
+import { assets } from '../../images/Assets'
 
 export default function Survey() {
     const dispatch = useDispatch()
@@ -14,6 +15,7 @@ export default function Survey() {
     const [blmStatus, changeBLMStatus] = useState(false)
     const [climateStatus, changeClimateStatus] = useState(false)
     const [politicalStatus, changePoliticalStatus] = useState(false)
+    const [noneSelected, setNoneSelected] = useState(false)
 
     const user = useSelector(state => state.user.user)
     const causes = useSelector(state => state.usersCauses.usersCauses)
@@ -59,38 +61,111 @@ export default function Survey() {
             }
         })
 
-        dispatch(changePage('feed'))
+        if(!blmStatus && !climateStatus && !politicalStatus) {
+            setNoneSelected(true)
+        } else {
+            setNoneSelected(false)
+            dispatch(changePage('feed'))
+        }
     }
 
     let content = 
-            <View>
+            <View style={styles.checkboxContainer}>
                 <CheckBox
                     onClick={()=>{changeBLMStatus(!blmStatus)}}
                     isChecked={blmStatus}
                     rightText={'Black Lives Matter'}
-                    checkedImage={<Icon name="like1" size={30} />}
-                    unCheckedImage={<Icon name="like2" size={30} />}
+                    unCheckedImage={<Icon name="checkcircleo" size={30} />}
+                    checkedImage={<Icon name="checkcircle" size={30} color={'rgb(55,182,53)'} />}
+                    style={styles.checkbox}
                 />
                 <CheckBox
                     onClick={()=>{changeClimateStatus(!climateStatus)}}
                     isChecked={climateStatus}
                     rightText={'Climate Change'}
-                    checkedImage={<Icon name="like1" size={30} />}
-                    unCheckedImage={<Icon name="like2" size={30} />}
+                    unCheckedImage={<Icon name="checkcircleo" size={30} />}
+                    checkedImage={<Icon name="checkcircle" size={30} color={'rgb(55,182,53)'} />}
+                    style={styles.checkbox}
                 />
                 <CheckBox
                     onClick={()=>{changePoliticalStatus(!politicalStatus)}}
                     isChecked={politicalStatus}
                     rightText={'Political Representation'}
-                    checkedImage={<Icon name="like1" size={30} />}
-                    unCheckedImage={<Icon name="like2" size={30} />}
+                    unCheckedImage={<Icon name="checkcircleo" size={30} />}
+                    checkedImage={<Icon name="checkcircle" size={30} color={'rgb(55,182,53)'} />}
+                    style={styles.checkbox}
                 />
             </View>
     
     return (
-        <View>
+        <View style={styles.container}>
+            <View style={styles.headerContainer}>     
+                <Text style={styles.header}>Update which causes matter to you so we can customize the content you see.</Text>
+            </View>
             {content}
-            <TouchableOpacity onPress={handleSubmit}><Text>Submit</Text></TouchableOpacity>
+            {noneSelected ? <Text style={styles.message}>Please choose at least one cause</Text> : null}
+            <TouchableOpacity onPress={handleSubmit} style={styles.button}>
+                <Text style={styles.green}>SUBMIT</Text>
+            </TouchableOpacity>
         </View>
     )
 }
+
+let width = Dimensions.get('window').width
+
+const styles = StyleSheet.create({
+    headerContainer: {
+        borderRadius:10,
+        padding:10,
+        width:width-40,
+        borderBottomColor:'#ddd',
+        borderBottomWidth:1,
+        flex:1,
+        alignItems:'center'
+    },
+    // headerContainer: {
+    //     paddingBottom:20,
+    //     borderBottomColor:'#ddd',
+    //     borderBottomWidth:1,
+    //     marginTop:-3,
+    //     marginBottom:10
+    // },
+    imageBackground: {
+        backgroundColor:'rgb(55,182,53)',
+        borderRadius:100,
+        padding:10,
+        marginTop:-3,
+        marginBottom:20
+    },
+    header: {
+        textAlign:'center',
+        marginTop:10
+    },
+    checkboxContainer: {
+        padding:10,
+        paddingLeft:30,
+        borderBottomColor:'#ddd',
+        borderBottomWidth:1,
+    },
+    checkbox: {
+        marginTop:5,
+        marginBottom:5
+    },
+    button: {
+        flex:1,
+        alignItems:'center',
+        padding:14,
+        width:width-50,
+        marginTop:0
+    },
+    green: {
+        color:'rgb(55,182,53)',
+        fontWeight:'bold'
+    },
+    message: {
+        fontStyle:'italic',
+        color:'#999',
+        marginTop:10,
+        textAlign:'center'
+    }
+})

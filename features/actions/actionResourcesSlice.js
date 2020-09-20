@@ -9,15 +9,17 @@ export const fetchActionResources = createAsyncThunk('actionResources/fetchActio
 })
 
 const initialState = {
-    actionResources:[]
+    actionResources:[],
+    status: 'idle',
+    error: null
 }
 
 const actionResourcesSlice = createSlice({
     name: 'actionResources',
     initialState,
     reducers: {
-        getActionResources(state, action) {
-            state.actionResources = action.payload
+        changeActionResourcesStatus(state, action) {
+            state.status = action.payload
         }
     },
     extraReducers: {
@@ -36,6 +38,6 @@ const actionResourcesSlice = createSlice({
     }
 })
 
-export const { getActionResources } = actionResourcesSlice.actions
+export const { changeActionResourcesStatus } = actionResourcesSlice.actions
 
 export default actionResourcesSlice.reducer

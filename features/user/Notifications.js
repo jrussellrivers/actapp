@@ -136,7 +136,7 @@ const Notifications = () =>{
                 let currentTime = new Date().toUTCString()
                 changeNoteDateDB(currentTime, user.id)
                 dispatch(changeNotificationDate(currentTime))
-            }}><Text>Clear Notifications</Text></TouchableOpacity>
+            }} style={styles.button}><Text style={styles.gray}>CLEAR NOTIFICATIONS</Text></TouchableOpacity>
         </View>
     )
 
@@ -178,6 +178,18 @@ const styles = StyleSheet.create({
     },
     gray: {
         color:'#aaa'
+    },
+    button: {
+        flex:1,
+        alignItems:'center',
+        padding:14,
+        width:width-50,
+        zIndex:1
+    },
+    green: {
+        color:'rgb(55,182,53)',
+        fontWeight:'bold',
+        zIndex:-1
     }
 })
 
