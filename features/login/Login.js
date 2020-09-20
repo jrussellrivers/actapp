@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { changeToken }  from './tokenSlice'
 import { changePage } from '../pageSlice'
 import { assets } from '../../images/Assets'
+import url from '../../url'
 
 export default function Login() {
     const dispatch = useDispatch()
@@ -16,7 +17,7 @@ export default function Login() {
     }
     
     const handleSubmit = () => {
-        fetch('http://localhost:3333/users/login',{method:'post',body:JSON.stringify(formData),headers:{'Content-Type': 'application/json'}})
+        fetch(`${url}/users/login`,{method:'post',body:JSON.stringify(formData),headers:{'Content-Type': 'application/json'}})
         .then(data=>data.json())
         .then(json=>{
             if (json.success === true){

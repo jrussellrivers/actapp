@@ -6,6 +6,7 @@ import {ProfilePosts} from './ProfilePosts'
 import {fetchUser} from './userSlice'
 import {addMyCommunityDB, addMyCommunity, fetchMyCommunity, removeMyCommunityDB} from './myCommunitySlice'
 import Icon from 'react-native-vector-icons/AntDesign'
+import url from '../../url'
 
 const MyCommunity = ()=>{
 
@@ -14,7 +15,7 @@ const MyCommunity = ()=>{
     const [users,setUsers] = useState()
 
     useEffect(() => {
-        fetch(`http://localhost:3333/searchUsers/`)
+        fetch(`${url}/searchUsers/`)
         .then(r=>r.json())
         .then(data=>setUsers(data))
     },[])

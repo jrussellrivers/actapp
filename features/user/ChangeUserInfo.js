@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { changePage } from '../pageSlice'
 import { changeUserStatus } from '../user/userSlice'
 import Icon from 'react-native-vector-icons/EvilIcons'
+import url from '../../url'
 
 export default function ChangeUserInfo() {
     const dispatch = useDispatch()
@@ -16,7 +17,7 @@ export default function ChangeUserInfo() {
     }
     console.log(user.id)
     const handleSubmit = async () => {
-        fetch(`http://localhost:3333/user/updateInfo/${user.id}`, {method:'post',body:JSON.stringify(formData),headers:{'Content-Type':'application/json'}})
+        fetch(`${url}/user/updateInfo/${user.id}`, {method:'post',body:JSON.stringify(formData),headers:{'Content-Type':'application/json'}})
         dispatch(changeUserStatus('idle'))
         dispatch(changePage('feed'))
     }

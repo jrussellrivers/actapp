@@ -7,6 +7,7 @@ import {useSelector,useDispatch} from 'react-redux'
 import {changePage} from '../pageSlice'
 import {changeUserStatus} from '../user/userSlice'
 import {changeUserPicsStatus} from '../user/userPicsSlice'
+import url from '../../url'
 
 export default function ChangeProfilePic() {
 
@@ -64,7 +65,7 @@ export default function ChangeProfilePic() {
             const img = JSON.stringify({ uri: image.uri, name: image.filename, type: image.type})
             
 
-            return await fetch(`http://localhost:3333/user/profilePic/${user.id}`, {
+            return await fetch(`${url}/user/profilePic/${user.id}`, {
                 method: 'POST',
                 body: img,
                 headers: {

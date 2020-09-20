@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import url from '../../url'
 
 export const fetchComments = createAsyncThunk('comments/fetchComments', async () => {
-    const response = await fetch('http://localhost:3333/comments')
+    const response = await fetch(`${url}/comments`)
     .then(response=>response.json())
     .then(data=>data)
     return response
@@ -9,7 +10,7 @@ export const fetchComments = createAsyncThunk('comments/fetchComments', async ()
 
 export const addCommentDB = async (comment, postId, userId, username, post_username) => {
   console.log('doin the fetch')
-  const response = await fetch(`http://localhost:3333/addComment/${comment}/${postId}/${userId}/${username}/${post_username}`, {method:'post'})
+  const response = await fetch(`${url}/addComment/${comment}/${postId}/${userId}/${username}/${post_username}`, {method:'post'})
   console.log('finished the fetch')
   return response
 }

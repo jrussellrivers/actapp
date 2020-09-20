@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { changePage } from '../pageSlice'
 import {changeRegisteredUser} from '../register/registeredUserSlice'
 import { assets } from '../../images/Assets'
+import url from '../../url'
 
 export default function Register() {
     const dispatch = useDispatch()
@@ -20,7 +21,7 @@ export default function Register() {
 
         // XXXXXXXXXXXX INSERT ERROR HANDLING FOR DUPES
         if (formData.password === formData.confirmPassword){
-            await fetch('http://localhost:3333/users/register',{method:'post',body:JSON.stringify(formData),headers:{'Content-Type': 'application/json'}})
+            await fetch(`${url}/users/register`,{method:'post',body:JSON.stringify(formData),headers:{'Content-Type': 'application/json'}})
             .then(resp=>resp.json())
             .then(data=> dispatch(changeRegisteredUser(data)))
 

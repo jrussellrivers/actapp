@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import url from '../../url'
 
 export const fetchCommunityById = createAsyncThunk('communityById/fetchCommunityById', async (adder_id) => {
-    const response = await fetch(`http://localhost:3333/communityById/${adder_id}`)
+    const response = await fetch(`${url}/communityById/${adder_id}`)
     .then(response=>response.json())
     .then(data=>data)
     return response

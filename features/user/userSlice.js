@@ -1,15 +1,15 @@
 import { createSlice, createAsyncThunk} from '@reduxjs/toolkit'
-import {useSelector} from 'react-redux'
+import url from '../../url'
 
 export const fetchUser = createAsyncThunk('user/fetchUser', async (token) => {
-    const response = await fetch('http://localhost:3333/user', {headers:{'Authorization':token.token}})
+    const response = await fetch(`${url}/user`, {headers:{'Authorization':token.token}})
     .then(response=>response.json())
     .then(data=>data)
     return response
 })
 
 export const changeNoteDateDB = (timestamp, id) => {
-  return fetch(`http://localhost:3333/changeNoteDate/${timestamp}/${id}`, {method:'post'})
+  return fetch(`${url}/changeNoteDate/${timestamp}/${id}`, {method:'post'})
 }
 
 const initialState = {

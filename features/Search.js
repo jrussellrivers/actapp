@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react"
 import { View, Text, TextInput, Dimensions, Image } from "react-native"
-import { set } from "react-native-reanimated"
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { changePage } from './pageSlice'
 import { fetchProfileById } from './user/profileByIdSlice'
 import { useSelector,useDispatch } from 'react-redux'
+import url from '../url'
 
 let width = Dimensions.get('window').width; //full width
 
@@ -23,7 +23,7 @@ const Search = () => {
     }
 
     useEffect(() => {
-        fetch(`http://localhost:3333/searchUsers/`)
+        fetch(`${url}/searchUsers/`)
         .then(r=>r.json())
         .then(data=>setUsers(data))
     },[])

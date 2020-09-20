@@ -4,8 +4,6 @@ import {changePage} from '../pageSlice'
 import {useSelector,useDispatch} from 'react-redux'
 import {fetchProfileById} from '../user/profileByIdSlice'
 
-
-
 const PostComments = ({postId, comments, posts}) => {
     const dispatch = useDispatch()
 

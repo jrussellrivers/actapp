@@ -1,19 +1,20 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import url from '../../url'
 
 export const fetchMyCommunity = createAsyncThunk('myCommunity/fetchmyCommunity', async () => {
-    const response = await fetch('http://localhost:3333/myCommunity')
+    const response = await fetch(`${url}/myCommunity`)
     .then(response=>response.json())
     .then(data=>data)
     return response
 })
 
 export const addMyCommunityDB = async (userId, username,addId) => {
-  const response = await fetch(`http://localhost:3333/addMyCommunity/${userId}/${username}/${addId}`, {method:'post'})
+  const response = await fetch(`${url}/addMyCommunity/${userId}/${username}/${addId}`, {method:'post'})
   return response
 }
 
 export const removeMyCommunityDB = async (userId,addId) => {
-    const response = await fetch(`http://localhost:3333/removeMyCommunity/${userId}/${addId}`, {method:'post'})
+    const response = await fetch(`${url}/removeMyCommunity/${userId}/${addId}`, {method:'post'})
     return response
   }
 

@@ -4,7 +4,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import {addLike, addLikeDB} from './likesSlice'
 import { useDispatch } from 'react-redux'
 import Icon from 'react-native-vector-icons/AntDesign'
-import {changeStatus} from '../posts/postsSlice'
+import url from '../../url'
 
 export const Likes = ({postLikes, post, user}) => {
     const dispatch = useDispatch()
@@ -15,13 +15,13 @@ export const Likes = ({postLikes, post, user}) => {
         console.log('checkpoints')
         // CHANGE THIS NUMBER TO UPDATE POINT THRESHOLD 
         if (likes.length === 9){
-            let author = await fetch(`http://localhost:3333/user/${post.user_id}`)
+            let author = await fetch(`${url}/user/${post.user_id}`)
             .then(res=>res.json())
             .then(data=>data)
 
             let value = author.points + post.points
-            await fetch(`http://localhost:3333/updatePoints/${value}/${author.id}`, {method:'post'})
-            await fetch(`http://localhost:3333/updatePointsStatus/${post.id}`, {method:'post'})
+            await fetch(`${url}/updatePoints/${value}/${author.id}`, {method:'post'})
+            await fetch(`${url}/updatePointsStatus/${post.id}`, {method:'post'})
         }
     }
 

@@ -13,6 +13,7 @@ import { assets } from "../../images/Assets"
 import { changeCausesStatus, fetchCauses } from '../actions/causesSlice'
 import { updateAddress } from '../user/userSlice'
 import { fetchPosts } from '../posts/postsSlice'
+import url from '../../url'
 
 export default function TakeAction() {
     const dispatch = useDispatch()
@@ -88,7 +89,7 @@ export default function TakeAction() {
     }
 
     const handleSubmit = async () => {
-        fetch(`http://localhost:3333/user/updateInfo/${user.id}`, {method:'post',body:JSON.stringify(formData),headers:{'Content-Type':'application/json'}})
+        fetch(`${url}/user/updateInfo/${user.id}`, {method:'post',body:JSON.stringify(formData),headers:{'Content-Type':'application/json'}})
         dispatch(changeCausesStatus('idle'))
     }
 
