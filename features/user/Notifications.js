@@ -5,6 +5,7 @@ import { changePage } from '../pageSlice'
 import { changeNotificationDate,changeNoteDateDB } from './userSlice'
 import { fetchProfileById } from './profileByIdSlice'
 import { fetchPostById } from '../posts/postByIdSlice'
+import url from '../../url'
 
 const Notifications = () =>{
     const dispatch = useDispatch()
@@ -17,7 +18,7 @@ const Notifications = () =>{
     const [userpics,setUserPics] = useState([])
 
     useEffect(() => {
-        fetch(`http://localhost:3333/userpics/`)
+        fetch(`${url}/userpics/`)
         .then(r=>r.json())
         .then(data=>data)
         .then(d=>setUserPics(d))

@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import url from '../../url'
 
 export const fetchUsersCauses = createAsyncThunk('usersCauses/fetchUsersCauses', async () => {
-  const response = await fetch('http://localhost:3333/causes/users')
+  const response = await fetch(`${url}/causes/users`)
     .then(response => response.json())
     .then(data => data)
     console.log(response)

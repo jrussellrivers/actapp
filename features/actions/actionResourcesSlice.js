@@ -1,8 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import url from '../../url'
 
 export const fetchActionResources = createAsyncThunk('actionResources/fetchActionResources', async (actionId) => {
     console.log('made it')
-    const response = await fetch(`http://localhost:3333/actions/resources/${actionId}`)
+    const response = await fetch(`${url}/actions/resources/${actionId}`)
     .then(response=>response.json())
     .then(data=>data)
     return response

@@ -5,6 +5,7 @@ import { changePage } from '../pageSlice'
 import CheckBox from 'react-native-check-box'
 import Icon from 'react-native-vector-icons/AntDesign'
 import { assets } from '../../images/Assets'
+import url from '../../url'
 
 export default function Survey() {
     const dispatch = useDispatch()
@@ -25,7 +26,7 @@ export default function Survey() {
 
         causes.forEach(cause =>{
             if (cause.status){
-                fetch(`http://localhost:3333/register/survey/${cause.name}/${registeredUser.id}`,{method:'post'})
+                fetch(`${url}/register/survey/${cause.name}/${registeredUser.id}`,{method:'post'})
                 .then(resp=>resp.json())
                 .then(data=>console.log(data))
             }

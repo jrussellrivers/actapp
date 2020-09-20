@@ -1,14 +1,15 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import url from '../../url'
 
 export const fetchLikes = createAsyncThunk('likes/fetchLikes', async () => {
-    const response = await fetch('http://localhost:3333/likes')
+    const response = await fetch(`${url}/likes`)
     .then(response=>response.json())
     .then(data=>data)
     return response
 })
 
 export const addLikeDB = async (postId, userId, postUsername, username) => {
-  const response = await fetch(`http://localhost:3333/addLike/${postId}/${userId}/${postUsername}/${username}`, {method:'post'})
+  const response = await fetch(`${url}/addLike/${postId}/${userId}/${postUsername}/${username}`, {method:'post'})
   return response
 }
 

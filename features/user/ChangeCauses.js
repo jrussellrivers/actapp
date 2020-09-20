@@ -6,6 +6,7 @@ import { fetchUsersCauses } from '../actions/allUsersCausesSlice'
 import CheckBox from 'react-native-check-box'
 import Icon from 'react-native-vector-icons/AntDesign'
 import { assets } from '../../images/Assets'
+import url from '../../url'
 
 export default function Survey() {
     const dispatch = useDispatch()
@@ -44,7 +45,7 @@ export default function Survey() {
 
         causes.forEach(cause =>{        
             if (cause.status){
-                fetch(`http://localhost:3333/register/survey/${cause.name}/${user.id}`,{method:'post'})
+                fetch(`${url}/register/survey/${cause.name}/${user.id}`,{method:'post'})
                 .then(resp=>resp.json())
                 .then(data=>console.log(data))
                 //need to update the state so it re-renders then we're gucci
@@ -52,7 +53,7 @@ export default function Survey() {
                     dispatch(fetchUsersCauses())
                 })
             } else {
-                fetch(`http://localhost:3333/user/delCause/${cause.name}/${user.id}`,{method:'post'})
+                fetch(`${url}/user/delCause/${cause.name}/${user.id}`,{method:'post'})
                 .then(resp=>resp.json())
                 .then(data=>console.log(data))
                 .then(d=>{

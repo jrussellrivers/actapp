@@ -6,6 +6,7 @@ import {useState,useEffect} from 'react'
 import {useSelector,useDispatch} from 'react-redux'
 import {changePage} from '../pageSlice'
 import { assets } from '../../images/Assets'
+import url from '../../url'
 
 export default function ProfilePic() {
 
@@ -64,7 +65,7 @@ export default function ProfilePic() {
             const img = JSON.stringify({ uri: image.uri, name: image.filename, type: image.type})
             
 
-            return await fetch(`http://localhost:3333/user/profilePic/${registeredUser.id}`, {
+            return await fetch(`${url}/user/profilePic/${registeredUser.id}`, {
                 method: 'POST',
                 body: img,
                 headers: {

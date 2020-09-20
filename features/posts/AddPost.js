@@ -11,6 +11,7 @@ import {changePage} from '../pageSlice'
 import {fetchCauses} from '../actions/causesSlice'
 import {fetchActionsByCause} from '../actions/actionsByCauseSlice'
 import Icon from 'react-native-vector-icons/AntDesign'
+import url from '../../url'
 
 let width = Dimensions.get('window').width; //full width
 
@@ -88,7 +89,7 @@ export default function AddImage() {
     };
 
     const _uploadToDB = async () => {
-            let action = await fetch(`http://localhost:3333/actions/id/${postAction}`)
+            let action = await fetch(`${url}/actions/id/${postAction}`)
             .then(r=>r.json())
             .then(data=>data)
 
@@ -98,7 +99,7 @@ export default function AddImage() {
 
             const img = JSON.stringify({ uri: image.uri, name: image.filename, type: image.type, text: result, cause: postCause, action: action.title, points: action.points })
             
-            return await fetch(`http://localhost:3333/upload/${user.username}/${user.id}`, {
+            return await fetch(`${url}/upload/${user.username}/${user.id}`, {
                 method: 'POST',
                 body: img,
                 headers: {

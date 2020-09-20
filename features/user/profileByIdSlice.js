@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk} from '@reduxjs/toolkit'
+import url from '../../url'
 
 export const fetchProfileById = createAsyncThunk('profileById/fetchProfileById', async (profileId) => {
-    const response = await fetch(`http://localhost:3333/user/${profileId}`)
+    const response = await fetch(`${url}/user/${profileId}`)
     .then(response=>response.json())
     .then(data=>data)
     return response
