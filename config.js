@@ -10,5 +10,6 @@ module.exports = {
         secret:'tghvbREGsdgwhwghwrggERgerBHerb', 
         resave: false, 
         saveUninitialized: false
-    }
+    },
+    apiKey:"AIzaSyA-FD7UmxJXC2NjReClIbSv-BFjfELmqN4"
 }

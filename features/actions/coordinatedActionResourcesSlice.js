@@ -1,23 +1,26 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
-export const fetchCoordinatedActionResources = createAsyncThunk('coordinatedActionResources/getCoordinatedActionResources', async (coordinatedActionId) => {
+export const fetchCoordinatedActionResources = createAsyncThunk('coordinatedActionResources/fetchCoordinatedActionResources', async (coordinatedActionId) => {
     console.log('made it')
     const response = await fetch(`http://localhost:3333/actions/coordinated/resources/${coordinatedActionId}`)
     .then(response=>response.json())
     .then(data=>data)
+    console.log(response)
     return response
 })
 
 const initialState = {
-    coordinatedActionResources:[]
+    coordinatedActionResources:[],
+    status: 'idle',
+    error: null
 }
 
 const coordinatedActionResourcesSlice = createSlice({
     name: 'coordinatedActionResources',
     initialState,
     reducers: {
-        getCoordinatedActionResources(state, action) {
-            state.coordinatedActionResources = action.payload
+        changeCoordinatedActionResourcesStatus(state, action) {
+            state.status = action.payload
         }
     },
     extraReducers: {
@@ -26,7 +29,6 @@ const coordinatedActionResourcesSlice = createSlice({
           },
         [fetchCoordinatedActionResources.fulfilled]: (state, action) => {
         state.status = 'succeeded'
-        // Add any fetched comments to the array
         state.coordinatedActionResources = action.payload
         },
         [fetchCoordinatedActionResources.rejected]: (state, action) => {
@@ -36,6 +38,6 @@ const coordinatedActionResourcesSlice = createSlice({
     }
 })
 
-export const { getCoordinatedActionResources } = coordinatedActionResourcesSlice.actions
+export const { changeCoordinatedActionResourcesStatus } = coordinatedActionResourcesSlice.actions
 
 export default coordinatedActionResourcesSlice.reducer

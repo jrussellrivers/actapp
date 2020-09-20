@@ -27,6 +27,9 @@ reducers: {
   },
   changeNotificationDate(state, action) {
     state.user.notification_check = action.payload
+  },
+  updateAddress(state, action) {
+    state.user.streetaddress = action.payload
   }
 },
 extraReducers: {
@@ -35,7 +38,6 @@ extraReducers: {
       },
     [fetchUser.fulfilled]: (state, action) => {
     state.status = 'succeeded'
-    // Add any fetched comments to the array
     state.user = action.payload
     },
     [fetchUser.rejected]: (state, action) => {
@@ -45,6 +47,6 @@ extraReducers: {
 }
 })
 
-export const { changeUserStatus, changeNotificationDate } = userSlice.actions
+export const { changeUserStatus, changeNotificationDate, updateAddress } = userSlice.actions
 
 export default userSlice.reducer

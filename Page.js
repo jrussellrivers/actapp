@@ -1,15 +1,16 @@
 import React from 'react';
 import {Feed} from "./features/feed/Feed"
 import { StyleSheet, Text, View, TouchableOpacity, Image, Dimensions } from 'react-native';
-import {useSelector,useDispatch} from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import Login from './features/login/Login'
 import Register from './features/register/Register'
 import AddPost from './features/posts/AddPost'
 import Action from './features/actions/Actions'
 import ActionResources from './features/actions/ActionResources'
-import {changePage} from './features/pageSlice'
-import {changeToken} from './features/login/tokenSlice'
-import {changeUserStatus} from './features/user/userSlice'
+import CoordinatedActionResources from './features/actions/CoordinatedActionResources'
+import { changePage } from './features/pageSlice'
+import { changeToken } from './features/login/tokenSlice'
+import { changeUserStatus } from './features/user/userSlice'
 import Post from './features/posts/Post'
 import PostComments from './features/posts/PostComments'
 import Profile from './features/user/Profile'
@@ -18,8 +19,9 @@ import Survey from './features/survey/Survey'
 import ProfilePic from './features/user/ProfilePic'
 import ChangeProfilePic from './features/user/ChangeProfilePic'
 import ChangeUserInfo from './features/user/ChangeUserInfo'
+import ChangeCauses from './features/user/ChangeCauses'
 import Icon from 'react-native-vector-icons/AntDesign'
-import {fetchProfileById} from './features/user/profileByIdSlice'
+import { fetchProfileById } from './features/user/profileByIdSlice'
 import { changeStatus } from './features/posts/postsSlice';
 import Notifications from './features/user/Notifications'
 import MyCommunity from './features/user/MyCommunity'
@@ -70,7 +72,9 @@ export default function App() {
     } else if (page === 'actions'){
         content = <Action />
     } else if (page === 'actionId'){
-        content = <ActionResources actionId={actionId} />
+        content = <ActionResources />
+    } else if (page === 'coordActionId'){
+        content = <CoordinatedActionResources />
     } else if (page === 'profile'){
         content = <Profile />
     } else if (page === 'search'){
@@ -83,8 +87,8 @@ export default function App() {
         content = <ChangeProfilePic />
     } else if (page === 'changeuserinfo'){
         content = <ChangeUserInfo />
-    } else if (page === 'updateCauses'){
-        content = <UpdateCauses />
+    } else if (page === 'changeCauses'){
+        content = <ChangeCauses />
     } else if (page === 'notifications'){
         content = <Notifications />
     } else if (page === 'mycommunity'){
@@ -102,7 +106,7 @@ export default function App() {
                     </View>
                 : null }
                 {!isEmpty(token) ? <Icon name="menuunfold" size={30} style={styles.menu} onPress={() => dispatch(changePage('menu'))}/> : null }
-                {!isEmpty(token) && page !== 'actions' && page !== 'actionId' ? <View style={styles.actionButton}><TouchableOpacity style={styles.button} onPress={() => dispatch(changePage('actions'))} ><Text style={{fontWeight: 'bold', color:'rgb(55,182,53)'}}>TAKE ACTION</Text></TouchableOpacity></View> : null}
+                {!isEmpty(token) && page !== 'actions' && page !== 'actionId' && page !== 'coordActionId' ? <View><TouchableOpacity style={styles.button} onPress={() => dispatch(changePage('actions'))} ><Text style={{fontWeight: 'bold', color:'rgb(55,182,53)'}}>TAKE ACTION</Text></TouchableOpacity></View> : null}
             </View>
             <View style={styles.main}>
                 {content}

@@ -40,6 +40,7 @@
     "react-native-form-generator": "^0.9.9",
     "react-native-form4u": "0.0.3",
     "react-native-gesture-handler": "~1.6.1",
+    "react-native-google-places-autocomplete": "^1.8.2",
     "react-native-inappbrowser-reborn": "^3.4.0",
     "react-native-keyboard-aware-scroll-view": "^0.9.2",
     "react-native-navigation": "^7.0.0",

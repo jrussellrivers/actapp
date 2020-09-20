@@ -57,17 +57,18 @@ const Profile = () => {
                             <Text style={styles.username}>{profileUser.username}</Text>
                         </View>
                         <View style={styles.columnA}>
-                            <TouchableOpacity style={styles.community}>
-                                <Text style={styles.username}>{profilePosts.length}</Text>
-                            </TouchableOpacity>
+                            <Text style={styles.username}>{profilePosts.length}</Text>
                             <Text style={styles.gray}>Posts</Text>
                         </View>
+                        <TouchableOpacity onPress={async ()=>{
+                            await dispatch(fetchCommunityById(currentUser.id))
+                            dispatch(changePage('mycommunity'))
+                        }}>
                         <View style={styles.columnA}>
-                            <TouchableOpacity style={styles.community}>
-                                <Text style={styles.username}>{allMyCommunity.length}</Text>
-                            </TouchableOpacity>
+                            <Text style={styles.username}>{allMyCommunity.length}</Text>
                             <Text style={styles.gray}>Community</Text>
                         </View>
+                        </TouchableOpacity>
                         <View style={styles.columnA}>
                             <Text style={styles.username}>{profileUser.points || 0}</Text>
                             <Text style={styles.gray}>Points</Text>
@@ -77,10 +78,6 @@ const Profile = () => {
                     <View style={styles.headerContainer}>
                         <Text style={styles.header}>POSTS</Text>
                     </View>
-                    <TouchableOpacity onPress={()=>{
-                        dispatch(fetchCommunityById(profileUser.id))
-                        dispatch(changePage('mycommunity'))
-                    }}><Text>My Community: {allMyCommunity.length}</Text></TouchableOpacity>
                     <ProfilePosts posts={orderedPosts} />
                 </View>
         } else {
@@ -102,17 +99,18 @@ const Profile = () => {
                             }}><Icon name="deleteusergroup" size={25}/></TouchableOpacity>
                         </View>
                         <View style={styles.columnB}>
-                            <TouchableOpacity style={styles.community}>
-                                <Text style={styles.username}>{profilePosts.length}</Text>
-                            </TouchableOpacity>
+                            <Text style={styles.username}>{profilePosts.length}</Text>
                             <Text style={styles.gray}>Posts</Text>
                         </View>
+                        <TouchableOpacity onPress={async ()=>{
+                            await dispatch(fetchCommunityById(profileUser.id))
+                            dispatch(changePage('mycommunity'))
+                        }}>
                         <View style={styles.columnB}>
-                            <TouchableOpacity style={styles.community}>
-                                <Text style={styles.username}>{allMyCommunity.length}</Text>
-                            </TouchableOpacity>
+                            <Text style={styles.username}>{allMyCommunity.length}</Text>
                             <Text style={styles.gray}>Community</Text>
                         </View>
+                        </TouchableOpacity>
                         <View style={styles.columnB}>
                             <Text style={styles.username}>{profileUser.points || 0}</Text>
                             <Text style={styles.gray}>Points</Text>
@@ -126,10 +124,6 @@ const Profile = () => {
                         await removeMyCommunityDB(profileUser.id,currentUser.id)
                         dispatch(fetchMyCommunity())
                     }}><Icon name="deleteusergroup" size={25}/></TouchableOpacity>
-                    <TouchableOpacity onPress={()=>{
-                        dispatch(fetchCommunityById(profileUser.id))
-                        dispatch(changePage('mycommunity'))
-                    }}><Text>My Community: {allMyCommunity.length}</Text></TouchableOpacity>
                     <ProfilePosts posts={orderedPosts} />
                 </View>
             } else {
@@ -158,17 +152,18 @@ const Profile = () => {
                             }}></TouchableOpacity>
                         </View>
                         <View style={styles.columnB}>
-                            <TouchableOpacity style={styles.community}>
-                                <Text style={styles.username}>{profilePosts.length}</Text>
-                            </TouchableOpacity>
+                            <Text style={styles.username}>{profilePosts.length}</Text>
                             <Text style={styles.gray}>Posts</Text>
                         </View>
-                        <View style={styles.columnB}>
-                            <TouchableOpacity style={styles.community}>
-                                <Text style={styles.username}>{allMyCommunity.length}</Text>
-                            </TouchableOpacity>
-                            <Text style={styles.gray}>Community</Text>
-                        </View>
+                        <TouchableOpacity onPress={async ()=>{
+                            await dispatch(fetchCommunityById(profileUser.id))
+                            dispatch(changePage('mycommunity'))
+                        }}>
+                            <View style={styles.columnB}>
+                                <Text style={styles.username}>{profilePosts.length}</Text>
+                                <Text style={styles.gray}>Community</Text>
+                            </View>
+                        </TouchableOpacity>
                         <View style={styles.columnB}>
                             <Text style={styles.username}>{profileUser.points || 0}</Text>
                             <Text style={styles.gray}>Points</Text>
@@ -187,10 +182,6 @@ const Profile = () => {
                         }))
                         addMyCommunityDB(profileUser.id,currentUser.username,currentUser.id)
                     }}><Icon name="addusergroup" size={25}/></TouchableOpacity>
-                    <TouchableOpacity onPress={async ()=>{
-                        await dispatch(fetchCommunityById(profileUser.id))
-                        dispatch(changePage('mycommunity'))
-                    }}><Text>My Community: {allMyCommunity.length}</Text></TouchableOpacity>
                     <ProfilePosts posts={orderedPosts} />
                 </View>
             }

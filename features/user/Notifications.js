@@ -73,7 +73,7 @@ const Notifications = () =>{
 
         console.log(orderedNotifications)
 
-        let filteredDates = orderedNotifications.filter(notification=>notification.content.created_at > checkedDate ? true : false)
+        let filteredDates = orderedNotifications.filter(notification=>notification.content.created_at < checkedDate ? true : false)
 
         content = filteredDates.map((notification, idx) => {
             if(notification.type === 'comment'){
@@ -130,13 +130,13 @@ const Notifications = () =>{
         content = <Text>Loading...</Text>
     }
     return(
-        <View>
+        <View style={styles.main}>
             {content}
             <TouchableOpacity onPress={()=>{
                 let currentTime = new Date().toUTCString()
                 changeNoteDateDB(currentTime, user.id)
                 dispatch(changeNotificationDate(currentTime))
-            }}><Text>Clear Notifications</Text></TouchableOpacity>
+            }} style={styles.button}><Text style={styles.gray}>CLEAR NOTIFICATIONS</Text></TouchableOpacity>
         </View>
     )
 
@@ -145,6 +145,9 @@ const Notifications = () =>{
 let width = Dimensions.get('window').width; //full width
 
 const styles = StyleSheet.create({
+    main: {
+        marginBottom:75
+    },
     notificationContainer: {
         flex:1,
         flexDirection:'row',
@@ -175,6 +178,18 @@ const styles = StyleSheet.create({
     },
     gray: {
         color:'#aaa'
+    },
+    button: {
+        flex:1,
+        alignItems:'center',
+        padding:14,
+        width:width-50,
+        zIndex:1
+    },
+    green: {
+        color:'rgb(55,182,53)',
+        fontWeight:'bold',
+        zIndex:-1
     }
 })
 

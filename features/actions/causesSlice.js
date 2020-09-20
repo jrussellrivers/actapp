@@ -16,7 +16,11 @@ const initialState = {
 const causesSlice = createSlice({
   name: 'causes',
   initialState,
-  reducers: {},
+  reducers: {
+    changeCausesStatus(state, action) {
+      state.status = action.payload
+    },
+  },
   extraReducers: {
     [fetchCauses.pending]: (state, action) => {
       state.status = 'loading'
@@ -24,7 +28,7 @@ const causesSlice = createSlice({
     [fetchCauses.fulfilled]: (state, action) => {
       state.status = 'succeeded'
       // Add any fetched causes to the array
-      state.causes = state.causes.concat(action.payload)
+      state.causes = action.payload
     },
     [fetchCauses.rejected]: (state, action) => {
       state.status = 'failed'
@@ -33,6 +37,6 @@ const causesSlice = createSlice({
   }
 })
 
-export const { getCauses } = causesSlice.actions
+export const { changeCausesStatus } = causesSlice.actions
 
 export default causesSlice.reducer

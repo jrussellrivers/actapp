@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { Button, Image, View, Platform, TextInput } from 'react-native';
+import { Text, Image, View, Platform, Dimensions, TouchableOpacity, StyleSheet } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import {useState,useEffect} from 'react'
 import {useSelector,useDispatch} from 'react-redux'
 import {changePage} from '../pageSlice'
+import { assets } from '../../images/Assets'
 
 export default function ProfilePic() {
 
@@ -73,15 +74,76 @@ export default function ProfilePic() {
         }
 
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Button title="Pick an image from camera roll" onPress={_pickImage} />
-            {image && <Image source={{ uri: image.uri }} style={{ width: 200, height: 200 }} />}
-            {image && <Button title="Upload" onPress={
+        <View style={styles.container}>
+            <View style={styles.imageBackground}>
+                <Image source={{uri:assets.fist.uri}} style={{height:100,width:100,margin:'auto'}} />
+            </View>
+            <TouchableOpacity onPress={_pickImage} style={styles.button}>
+                <Text style={styles.green}>SELECT A PROFILE PICTURE</Text>
+            </TouchableOpacity>
+            {image && <Image source={{ uri: image.uri }} style={{ width: width, height: width, borderRadius:400 }} />}
+            {image && <TouchableOpacity onPress={
                 async ()=>{
                     await _uploadToDB()
                     dispatch(changePage('login'))
                 }
-            }/>}
+            } style={styles.button}>
+                <Text style={styles.green}>UPLOAD</Text>
+            </TouchableOpacity>}
         </View>
     )
 }
+
+
+let width = Dimensions.get('window').width
+
+const styles = StyleSheet.create({
+    container: {
+        borderRadius:10,
+        padding:10,
+        width:width-40,
+        marginLeft:20,
+        marginRight:20,
+        flex:1,
+        alignItems:'center'
+    },
+    headerContainer: {
+        paddingBottom:20,
+        borderBottomColor:'#ddd',
+        borderBottomWidth:1,
+        marginTop:-3,
+        marginBottom:10
+    },
+    imageBackground: {
+        backgroundColor:'rgb(55,182,53)',
+        borderRadius:100,
+        padding:10,
+        marginTop:-3,
+        marginBottom:20
+    },
+    header: {
+        color:'#555',
+        fontWeight:'bold',
+        fontSize:16
+    },
+    checkbox: {
+        marginTop:5,
+        marginBottom:5
+    },
+    button: {
+        flex:1,
+        alignItems:'center',
+        padding:14,
+        width:width-50,
+        marginTop:0
+    },
+    green: {
+        color:'rgb(55,182,53)',
+        fontWeight:'bold'
+    },
+    message: {
+        fontStyle:'italic',
+        color:'#999',
+        marginTop:10
+    }
+})
