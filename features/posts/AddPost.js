@@ -229,6 +229,7 @@ export default function AddImage() {
 const styles = StyleSheet.create({
     main:{
         marginTop:105, 
+        marginBottom:50,
         flex: 1, 
         alignItems: 'center', 
         justifyContent: 'center' 

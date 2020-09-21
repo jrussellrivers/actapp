@@ -28,6 +28,7 @@ import MyCommunity from './features/user/MyCommunity'
 import Menu from './features/Menu'
 
 let width = Dimensions.get('window').width; //full width
+let height = Dimensions.get('window').height; //full width
 
 export default function App() {
 
@@ -141,7 +142,7 @@ const styles = StyleSheet.create({
   },
   nav: {
     position:"fixed",
-    bottom:0,
+    top:height-48,
     width:width,
     flex:1,
     flexDirection:'row',
