@@ -49,27 +49,25 @@ const ActionResources = () => {
     
         let newUrl
     
-        if(url.includes('${state}') && url.includes('${state}')) {
+        if(url.includes('${city}') && url.includes('${state}')) {
             newUrl = url.replace('${city}',user.city).replace('${state}',user.state)
             return newUrl
-        }
-        if(url.includes('${city}')) {
+        } else if(url.includes('${city}')) {
             newUrl = url.replace('${city}',user.city)
+            console.log(newUrl)
             return newUrl
-        }
-        if(url.includes('${state}')) {
+        } else if(url.includes('${state}')) {
             newUrl = url.replace('${state}',user.state)
             return newUrl
-        }
-        if(url.includes('${zipcode}')) {
+        } else if(url.includes('${zipcode}')) {
             newUrl = url.replace('${zipcode}',user.zipcode)
             return newUrl
-        }
-        if(url.includes('${streetaddress}')) {
+        } else if(url.includes('${streetaddress}')) {
             newUrl = url.replace('${streetaddress}',user.streetaddress)
             return newUrl
         } else {
             newUrl = url
+            console.log(newUrl)
             return newUrl
         }
     }

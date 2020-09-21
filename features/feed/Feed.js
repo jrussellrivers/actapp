@@ -13,6 +13,7 @@ import {fetchProfileById} from '../user/profileByIdSlice'
 import {fetchUserPics} from '../user/userPicsSlice'
 import {fetchMyCommunity} from '../user/myCommunitySlice'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import { assets } from "../../images/Assets"
 
 export const Feed = () => {
 
@@ -193,7 +194,7 @@ export const Feed = () => {
                             dispatch(changePage('post'))
                             dispatch(fetchPostById(post.id))
                         }}>Link to Post</Text> */}
-                        <Text>{readableDate}</Text>
+                        <Text style={styles.date}>{readableDate}</Text>
                     </View>
                     <View>
                         <Image 
@@ -203,6 +204,15 @@ export const Feed = () => {
                     </View>
                     {post.action_title ? 
                     <View style={styles.actionContainer}>
+                        {post.cause === 'blm' ? 
+                            <Image source={assets.fist.uri} style={styles.icon} />
+                        : null}
+                        {post.cause === 'climate' ? 
+                            <Image source={assets.icons[1].uri} style={styles.icon} />
+                        : null}
+                        {post.cause === 'politics' ? 
+                            <Image source={assets.icons[2].uri} style={styles.icon} />
+                        : null}
                         <Text>{post.action_title} <Text style={styles.green}> +{post.points} </Text></Text>
                     </View>
                     : null}
@@ -295,6 +305,11 @@ const styles = StyleSheet.create({
         margin:7,
         alignItems:'center'
     },
+    date: {
+        position:'absolute',
+        color:'gray',
+        right:10
+    },
     marginTop: {
         marginTop:3
     },
@@ -315,11 +330,18 @@ const styles = StyleSheet.create({
     actionContainer: {
         flex:1,
         alignItems:'center',
+        flexDirection:'row',
+        justifyContent:'center',
         backgroundColor:'#fff',
         borderTopWidth:1,
         borderBottomWidth:1,
         borderColor:'#ccc',
         padding:7
+    },
+    icon: {
+        width:20,
+        height:20,
+        marginRight:7
     },
     pointsNotAwarded: {
         height: width, 

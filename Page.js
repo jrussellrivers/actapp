@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
   },
   nav: {
     position:"fixed",
-    top:height-48,
+    bottom:0,
     width:width,
     flex:1,
     flexDirection:'row',

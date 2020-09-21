@@ -64,7 +64,7 @@ const Post = () => {
                         dispatch(fetchProfileById(postById.user_id))
                         dispatch(changePage('profile'))
                     }}>{postById.username}</Text>
-                    <Text>{readableDate}</Text>
+                    <Text style={styles.date}>{readableDate}</Text>
                 </View>
 
                 <Image 
@@ -139,6 +139,11 @@ const styles = StyleSheet.create({
         flexDirection:'row',
         justifyContent:'flex-start',
         marginLeft:7
+    },
+    date: {
+        position:'absolute',
+        color:'gray',
+        right:10
     },
     postText: {
         flex:1,
