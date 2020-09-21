@@ -11,7 +11,7 @@ import { changePage } from '../pageSlice'
 import { TouchableOpacity } from "react-native-gesture-handler"
 import { assets } from "../../images/Assets"
 import { changeCausesStatus, fetchCauses } from '../actions/causesSlice'
-import { updateAddress } from '../user/userSlice'
+import { changeUserStatus, updateAddress, updateCity, updateState, updateZipcode } from '../user/userSlice'
 import { fetchPosts } from '../posts/postsSlice'
 import url from '../../url'
 
@@ -98,7 +98,7 @@ export default function TakeAction() {
         changeCoordinatedActionResourcesStatus('idle')
         dispatch(changeCoordinatedActionId(action.id))
         dispatch(changePage('coordActionId'))
-    }}><View style={styles.bullet}><Text style={styles.bold}>action</Text></View><Image source={{uri:action.icon}} style={{width:25,height:25,margin:7}} /><Text>{action.title.toUpperCase()}</Text></TouchableOpacity>)
+    }}><View style={styles.bullet}><Text style={styles.bold}>action</Text><Text style={styles.points}>+{action.points}</Text></View><Image source={{uri:action.icon}} style={{width:25,height:25,margin:7}} /><Text>{action.title.toUpperCase()}</Text></TouchableOpacity>)
     
     let menu 
     if(causesStatus === 'succeeded' && userStatus === 'succeeded') {
@@ -122,13 +122,13 @@ export default function TakeAction() {
         content = actions.filter((action,idx) => action.cause === causeId).map(action=><TouchableOpacity key={action.id} style={styles.button} actionId={action.id} onPress={() => {
         dispatch(changeActionId(action.id))
         dispatch(changePage('actionId'))
-    }}><View style={styles.bullet}><Text style={styles.bold}>action</Text></View><Text>{action.title.toUpperCase()}</Text></TouchableOpacity>)
+    }}><View style={styles.bullet}><Text style={styles.bold}>action</Text><Text style={styles.points}>+{action.points}</Text></View><Text>{action.title.toUpperCase()}</Text></TouchableOpacity>)
     }
     else if(causeId === 'all') {
         content = actions.map((action,idx)=><TouchableOpacity key={action.id} style={styles.button} actionId={action.id} onPress={() => {
             dispatch(changeActionId(action.id))
             dispatch(changePage('actionId'))
-        }}><View style={styles.bullet}><Text style={styles.bold}>action</Text></View><Image source={{uri:action.icon}} style={{width:25,height:25,margin:7}} /><Text>{action.title.toUpperCase()}</Text></TouchableOpacity>).slice(1,actions.length)
+        }}><View style={styles.bullet}><Text style={styles.bold}>action</Text><Text style={styles.points}>+{action.points}</Text></View><Image source={{uri:action.icon}} style={{width:25,height:25,margin:7}} /><Text>{action.title.toUpperCase()}</Text></TouchableOpacity>).slice(1,actions.length)
     } else {
         content = null
     }
@@ -157,6 +157,10 @@ export default function TakeAction() {
                                 handleSubmit()
                                 console.log(formData.streetaddress)
                                 dispatch(updateAddress(formData.streetaddress))
+                                dispatch(updateCity(formData.city))
+                                dispatch(updateState(formData.state))
+                                dispatch(updateZipcode(formData.zipcode))
+                                dispatch(changeUserStatus('idle'))
                             }} style={styles.popupButton}><Text style={styles.popupGreen}>SUBMIT</Text></TouchableOpacity>
                         </View>
                     </View>
@@ -330,7 +334,13 @@ const styles = StyleSheet.create({
         backgroundColor:'rgba(55,182,53,0.8)',
         borderRadius:10,
         marginRight:3,
-        padding:3
+        padding:3,
+        alignItems:'center'
+    },
+    points: {
+        fontWeight:'bold',
+        color:'white',
+        marginTop:3
     },
     bold: {
         fontWeight:'bold'

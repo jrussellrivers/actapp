@@ -30,6 +30,15 @@ reducers: {
   },
   updateAddress(state, action) {
     state.user.streetaddress = action.payload
+  },
+  updateCity(state, action) {
+    state.user.city = action.payload
+  },
+  updateState(state, action) {
+    state.user.state = action.payload
+  },
+  updateZipcode(state, action) {
+    state.user.zipcode = action.payload
   }
 },
 extraReducers: {
@@ -47,6 +56,6 @@ extraReducers: {
 }
 })
 
-export const { changeUserStatus, changeNotificationDate, updateAddress } = userSlice.actions
+export const { changeUserStatus, changeNotificationDate, updateAddress, updateCity, updateState, updateZipcode } = userSlice.actions
 
 export default userSlice.reducer
