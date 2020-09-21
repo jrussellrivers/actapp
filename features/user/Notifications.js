@@ -147,7 +147,7 @@ let width = Dimensions.get('window').width; //full width
 
 const styles = StyleSheet.create({
     main: {
-        marginBottom:75
+        marginBottom:50
     },
     notificationContainer: {
         flex:1,

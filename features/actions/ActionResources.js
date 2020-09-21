@@ -49,29 +49,34 @@ const ActionResources = () => {
     
         let newUrl
     
+        if(url.includes('${state}') && url.includes('${state}')) {
+            newUrl = url.replace('${city}',user.city).replace('${state}',user.state)
+            return newUrl
+        }
         if(url.includes('${city}')) {
             newUrl = url.replace('${city}',user.city)
+            return newUrl
         }
         if(url.includes('${state}')) {
             newUrl = url.replace('${state}',user.state)
-        }
-        if(url.includes('${state}') && url.includes('${state}')) {
-            newUrl = url.replace('${city}',user.city).replace('${state}',user.state)
+            return newUrl
         }
         if(url.includes('${zipcode}')) {
             newUrl = url.replace('${zipcode}',user.zipcode)
+            return newUrl
         }
         if(url.includes('${streetaddress}')) {
             newUrl = url.replace('${streetaddress}',user.streetaddress)
+            return newUrl
         } else {
             newUrl = url
+            return newUrl
         }
-    
-        return newUrl
     }
 
     const openLink = async id => {
         let url = convertUrl(actionResources[id].url)
+        console.log(url)
         await WebBrowser.openBrowserAsync(url)
     }
 
@@ -118,7 +123,8 @@ const styles = StyleSheet.create({
         borderTopColor:'#aaa',
         borderBottomWidth:1,
         borderBottomColor:'#aaa',
-        padding:10
+        paddingTop:10,
+        paddingBottom:10
     },
     header: {
         textAlign:'center',
@@ -128,7 +134,8 @@ const styles = StyleSheet.create({
     img: { 
         width: width, 
         height: 200, 
-        margin:'10 auto',
+        marginTop: 10,
+        marginBottom:10
     },
     textCenter: {
         textAlign:'center'
