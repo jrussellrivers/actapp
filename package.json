@@ -67,6 +67,5 @@
   "jest": {
     "preset": "react-native"
   },
-  "private": true,
-  "proxy": "http://localhost:3333"
+  "private": true
 }
