@@ -1,14 +1,15 @@
-import React, {useState, useEffect} from "react"
-import { StyleSheet, View, Text, Dimensions, Image, TouchableOpacity } from "react-native"
-import {changePage} from '../pageSlice'
-import {useSelector,useDispatch} from 'react-redux'
-import {ProfilePosts} from './ProfilePosts'
-import {fetchUser} from './userSlice'
+import React, { useState, useEffect } from "react"
+import { View, Text, Image, TouchableOpacity, Dimensions, StyleSheet } from "react-native"
+import { changePage } from '../pageSlice'
+import { useSelector, useDispatch } from 'react-redux'
+import { fetchProfileById } from '../user/profileByIdSlice'
 import {addMyCommunityDB, addMyCommunity, fetchMyCommunity, removeMyCommunityDB} from './myCommunitySlice'
 import Icon from 'react-native-vector-icons/AntDesign'
 import url from '../../url'
 
 const MyCommunity = ()=>{
+
+    const dispatch = useDispatch()
 
     const communityById = useSelector(state=>state.communityById.communityById)
 
@@ -27,26 +28,55 @@ const MyCommunity = ()=>{
             let user = users.find(person => person.id === com.user_id ? true : false)
     
             return(
-                <View key={idx}>
+                <TouchableOpacity 
+                    key={idx} 
+                    style={styles.notificationContainer}
+                    onPress={() => {dispatch(fetchProfileById(user.id));dispatch(changePage('profile'));}}
+                >
                     <Image 
                         source={{uri: user.profilepic}} 
-                        style={{
-                            width:50,
-                            height:50,
-                            borderRadius:50
-                        }}
+                        style={styles.img}
                     />
-                    <Text>{user.username}</Text>
-                </View>
+                    <Text style={styles.username}>{user.username}</Text>
+                </TouchableOpacity>
             )
         })
     }
 
     return(
-        <View>
+        <View style={styles.main}>
             {content}
         </View>
     )
 }
+
+let width = Dimensions.get('window').width; //full width
+
+const styles = StyleSheet.create({
+    main: {
+        marginBottom:50
+    },
+    notificationContainer: {
+        flex:1,
+        flexDirection:'row',
+        alignItems:'center',
+        justifyContent:'flex-start',
+        width:width,
+        padding:10,
+        borderTopWidth:1,
+        borderTopColor:'#ddd',
+        borderBottomWidth:1,
+        borderBottomColor:'#ddd'
+    },
+    img: {
+        width:50,
+        height:50,
+        borderRadius:50,
+        marginRight:10
+    },
+    username: {
+        fontWeight:'bold'
+    }
+})
 
 export default MyCommunity

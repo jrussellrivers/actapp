@@ -173,14 +173,13 @@ export default function TakeAction() {
                 </View> 
                 <View style={styles.actionsContainer}>
                     <View style={styles.center}>
-                        <Text style={styles.header}>ACTIONS BY CATEGORY (?)</Text>
+                        <Text style={styles.header} onPress={() => setMenuItemShowing(null)}>ACTIONS BY CATEGORY (?)</Text>
                     </View>
                     {menu}
                     <View style={styles.marginTop}>
                         {content}
                     </View>
                 </View>
-                <Button title="Back" onPress={() => dispatch(changePage('feed'))} /> 
             </View>
     }
     return (

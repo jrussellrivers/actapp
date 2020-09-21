@@ -86,7 +86,7 @@ const Profile = () => {
                 <View>
                     <View style={styles.userInfo}>
                         <View style={styles.column}>
-                            <TouchableOpacity onPress={()=>dispatch(changePage('changeprofilepic'))}>
+                            <TouchableOpacity>
                                 <Image 
                                     source={{uri: profileUser.profilepic}} 
                                     style={styles.profilePic}
@@ -120,10 +120,6 @@ const Profile = () => {
                     <View style={styles.headerContainer}>
                         <Text style={styles.header}>POSTS</Text>
                     </View>
-                    <TouchableOpacity onPress={async()=>{
-                        await removeMyCommunityDB(profileUser.id,currentUser.id)
-                        dispatch(fetchMyCommunity())
-                    }}><Icon name="deleteusergroup" size={25}/></TouchableOpacity>
                     <ProfilePosts posts={orderedPosts} />
                 </View>
             } else {
@@ -131,7 +127,7 @@ const Profile = () => {
                 <View>
                     <View style={styles.userInfo}>
                         <View style={styles.column}>
-                            <TouchableOpacity onPress={()=>dispatch(changePage('changeprofilepic'))}>
+                            <TouchableOpacity>
                                 <Image 
                                     source={{uri: profileUser.profilepic}} 
                                     style={styles.profilePic}
@@ -173,15 +169,6 @@ const Profile = () => {
                     <View style={styles.headerContainer}>
                         <Text style={styles.header}>POSTS</Text>
                     </View>
-                    <TouchableOpacity onPress={()=>{
-                        dispatch(addMyCommunity({
-                            user_id: profileUser.id,
-                            created_at: new Date().toUTCString(),
-                            username: currentUser.username,
-                            adder_id: currentUser.id
-                        }))
-                        addMyCommunityDB(profileUser.id,currentUser.username,currentUser.id)
-                    }}><Icon name="addusergroup" size={25}/></TouchableOpacity>
                     <ProfilePosts posts={orderedPosts} />
                 </View>
             }
