@@ -2,7 +2,7 @@
 ![rmbanner](https://github.com/dstonem/actapp_capstone_react_native/blob/master/images/actcoin_logo.png)
 ## Link to live site: http://3.128.140.207:19006/
 
-## Link to backend code: https://github.com/dstonem/actapp_capstone
+## Link to back-end code: https://github.com/dstonem/actapp_capstone
 
 ## Overview: 
 Insert summary here dylan 
