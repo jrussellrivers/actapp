@@ -95,13 +95,19 @@ const Post = () => {
                 <SinglePostComments orderedComments={orderedComments} comments={comments}/>                    
                 {/* {addCommentShowing ?  */}
                     <TextInput style={styles.addComment} onSubmitEditing={(evt)=>{
+                        const searchRegExp = /'/g;
+                        const replaceWith = "''";
+                        const result = evt.target.value.replace(searchRegExp, replaceWith)
+
                         dispatch(addComment({
                             comment: evt.target.value, 
                             created_at: new Date().toUTCString(), 
                             post_id: postById.id, 
-                            username: user.username
+                            username: user.username,
+                            post_username: postById.username,
+                            user_id: user.id
                         }))
-                        addCommentDB(evt.target.value, postById.id, user.id, user.username)
+                        addCommentDB(result, postById.id, user.id, user.username, postById.username)
                         evt.target.value = ''
                     }} placeholder='Add a Comment' />
                 {/* : null } */}
