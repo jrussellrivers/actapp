@@ -102,6 +102,7 @@ const styles = StyleSheet.create({
     input: {
         height:36,
         width:width-50,
+	maxWidth:400,
         textAlign:'center'
     },
     button: {

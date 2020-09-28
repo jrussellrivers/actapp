@@ -55,7 +55,7 @@ const Notifications = () =>{
 
         let myCommunity = community.filter(com=>com.user_id === user.id ? true : false)
         let newCommunity = myCommunity.map(com=>{
-            let adderPic = userpics.find(person => person.id === com.user_id ? true : false)
+            let adderPic = userpics.find(person => person.id === com.adder_id ? true : false)
             let {profilepic} = adderPic
             let newCom = {
                 type: 'community',
@@ -74,7 +74,7 @@ const Notifications = () =>{
 
         console.log(orderedNotifications)
 
-        let filteredDates = orderedNotifications.filter(notification=>notification.content.created_at < checkedDate ? true : false)
+        let filteredDates = orderedNotifications.filter(notification=>notification.content.created_at > checkedDate ? true : false)
 
         content = filteredDates.map((notification, idx) => {
             if(notification.type === 'comment'){
@@ -97,12 +97,12 @@ const Notifications = () =>{
                 return(
                     <View key={idx} style={styles.notificationContainer}>
                         <TouchableOpacity onPress={() => {
-                            dispatch(fetchProfileById(notification.content.user_id))
+                            dispatch(fetchProfileById(notification.content.adder_id))
                             dispatch(changePage('profile'))
                         }}><Image source={{uri:notification.pic}} style={styles.img} /></TouchableOpacity>
                         <View style={styles.column}>
                             <Text style={styles.marginLeft}><Text style={styles.bold}>{notification.content.username}</Text> <Text onPress={() => {
-                                dispatch(fetchProfileById(notification.content.post_id))
+                                dispatch(fetchProfileById(notification.content.adder_id))
                                 dispatch(changePage('profile'))
                             }}>added you to their community</Text></Text>
                             <Text style={styles.gray}>{notification.content.created_at.slice(0,16)}</Text>

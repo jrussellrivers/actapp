@@ -199,7 +199,9 @@ let height = Dimensions.get('window').height
 const styles = StyleSheet.create({
     main: {
         marginTop:-50,
-        marginBottom:50
+        marginBottom:50,
+	flex:1,
+	alignItems:'center'
     },
     popup: {
         width:width,
@@ -279,6 +281,7 @@ const styles = StyleSheet.create({
         borderRadius:10,
         padding:10,
         width:width-40,
+	maxWidth:400,
         marginLeft:20,
         marginRight:20
     },
@@ -288,6 +291,7 @@ const styles = StyleSheet.create({
         borderRadius:10,
         padding:10,
         width:width-40,
+	maxWidth:400,
         marginLeft:20,
         marginRight:20,
         marginBottom:20

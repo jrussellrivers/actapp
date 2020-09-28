@@ -69,7 +69,7 @@ const Post = () => {
 
                 <Image 
                     source={{uri: postById.picurl}} 
-                    style={{height: width, width: width}}
+                    style={{height: width, width: width, maxWidth:400, maxHeight:400}}
                 />
 
                 {postById.action_title ? 
@@ -129,13 +129,15 @@ let width = Dimensions.get('window').width; //full width
 
 const styles = StyleSheet.create({
     main: {
-        marginBottom:50
+        marginBottom:50,
+	maxWidth:400
     },
     bold: {
         fontWeight:'700'
     },
     postContainer: {
-        margin:10
+        margin:10,
+	maxWidth:400
     },
     spaceLeft: {
         marginLeft:5

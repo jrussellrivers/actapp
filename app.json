@@ -1,8 +1,9 @@
 {
-  "name": "actappCapstoneReactNative",
-  "displayName": "actappCapstoneReactNative",
+  "name": "actapp",
+  "displayName": "actapp",
   "expo": {
-    "name": "actappCapstoneReactNative",
+    "name": "actapp",
+    "icon": "./images/actcoin_logo.png",
     "slug": "actappCapstoneReactNative",
     "version": "1.0.0",
     "assetBundlePatterns": [

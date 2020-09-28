@@ -11,14 +11,14 @@ export const Likes = ({postLikes, post, user}) => {
 
     const checkPoints = async (post, likes) => {
         // XXXXXXXXXXX fetch likes, filter to post, use that length
-
+	console.log(likes.length)
         console.log('checkpoints')
         // CHANGE THIS NUMBER TO UPDATE POINT THRESHOLD 
         if (likes.length === 9){
             let author = await fetch(`${url}/user/${post.user_id}`)
             .then(res=>res.json())
             .then(data=>data)
-
+            console.log(author)
             let value = author.points + post.points
             await fetch(`${url}/updatePoints/${value}/${author.id}`, {method:'post'})
             await fetch(`${url}/updatePointsStatus/${post.id}`, {method:'post'})

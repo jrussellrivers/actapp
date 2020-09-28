@@ -271,7 +271,8 @@ let width = Dimensions.get('window').width; //full width
 const styles = StyleSheet.create({
     main: {
         marginTop:-10,
-        marginBottom:50
+        marginBottom:50,
+	maxWidth:400
     },
     loading: {
         marginTop:20
@@ -329,6 +330,8 @@ const styles = StyleSheet.create({
     },
     actionContainer: {
         flex:1,
+	width:width,
+	maxWidth:400,
         alignItems:'center',
         flexDirection:'row',
         justifyContent:'center',
@@ -345,11 +348,15 @@ const styles = StyleSheet.create({
     },
     pointsNotAwarded: {
         height: width, 
-        width: width
+        width: width,
+	maxWidth: 400,
+	maxHeight:400
     },
     pointsAwarded: {
         height: width, 
-        width: width, 
+        width: width,
+	maxWidth:400,
+	maxHeight:400, 
         borderWidth: 10, 
         borderColor:'rgb(55,182,53)'
     }

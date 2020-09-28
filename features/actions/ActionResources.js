@@ -113,10 +113,13 @@ let width = Dimensions.get('window').width
 const styles = StyleSheet.create({
     main: {
         marginTop:-48,
-        marginBottom: 50
+        marginBottom: 50,
+	flex:1,
+	alignItems:'center'
     },
     resourceContainer: {
         width:width,
+	maxWidth:400,
         borderTopWidth:1,
         borderTopColor:'#aaa',
         borderBottomWidth:1,
@@ -131,6 +134,7 @@ const styles = StyleSheet.create({
     },
     img: { 
         width: width, 
+	maxWidth:400,
         height: 200, 
         marginTop: 10,
         marginBottom:10
