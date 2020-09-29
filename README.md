@@ -2,7 +2,7 @@
 ![rmbanner](https://github.com/dstonem/actapp_capstone_react_native/blob/master/images/actcoin_logo.png)
 ## Link to live site: https://actapp.us/
 
-## Link to back-end code: https://github.com/dstonem/actapp_capstone
+## Link to back-end code: https://github.com/jrussellrivers/actapp-back-end
 
 ## Overview: 
 Actapp is a social media experience with tailored resources to help people take action, communities of people who care about the same issues, and an online culture of hope and real, measurable action.
