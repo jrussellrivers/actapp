@@ -1,6 +1,6 @@
 # Welcome To actapp
 ![rmbanner](https://github.com/dstonem/actapp_capstone_react_native/blob/master/images/actcoin_logo.png)
-## Link to live site: http://3.128.140.207:19006/
+## Link to live site: https://actapp.us/
 
 ## Link to back-end code: https://github.com/dstonem/actapp_capstone
 
